@@ -10,20 +10,19 @@ import { entryFor, type RepoManifest } from './manifest.ts';
 import { bumpMinor, type Meta } from './repo.ts';
 import type { SubmissionResult } from './submission.ts';
 
-/** Render outputs and the names they are published under, the main one first. */
-export const IMAGE_SLOTS = [
-	{ suffix: '', name: 'preview.png' },
-	{ suffix: '-landscape', name: 'preview-landscape.png' },
-	{ suffix: '-dark', name: 'preview-dark.png' },
-	// A theme on the tool panels it also paints. One word after the dash, so
-	// the stale-preview sweep in writeAddonFolder still recognises them.
-	{ suffix: '-tools', name: 'preview-tools.png' },
-	{ suffix: '-clipboard', name: 'preview-clipboard.png' },
-	{ suffix: '-editing', name: 'preview-editing.png' },
-] as const;
+/**
+ * The order render outputs are published in, by the word after the id: the
+ * keyboard itself first, then a theme's tool panels, then a layout's layers.
+ * Any other `<id>-<word>.png` the renderer writes (a layout's own pages,
+ * `page1`…, and its panel layers) follows, sorted.
+ */
+export const KNOWN_SUFFIXES = ['', 'landscape', 'dark', 'tools', 'clipboard', 'editing', 'shift', 'symbols', 'symbols2', 'fn', 'number', 'phone', 'date', 'time', 'datetime'] as const;
 
-/** The slots that show a tool panel rather than the keyboard itself. */
-export const PANEL_PREVIEWS: readonly string[] = ['preview-tools.png', 'preview-clipboard.png', 'preview-editing.png'];
+/** The previews that show the whole keyboard; the rest are drawn smaller in the comment. */
+export const MAIN_PREVIEWS: readonly string[] = ['preview.png', 'preview-landscape.png', 'preview-dark.png'];
+
+/** More than any layout has layers for; a renderer gone wrong cannot flood the folder. */
+const MAX_IMAGES = 24;
 
 const PNG = [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a];
 const MAX_IMAGE = 6 * 1024 * 1024;
@@ -32,15 +31,31 @@ export function isPng(bytes: Uint8Array): boolean {
 	return PNG.every((b, i) => bytes[i] === b);
 }
 
-/** The renderer's `<id>.png` and its suffixed siblings (IMAGE_SLOTS) in [dir], checked and renamed. */
+/**
+ * The renderer's `<id>.png` and every `<id>-<word>.png` beside it in [dir],
+ * checked and renamed to `preview.png` / `preview-<word>.png`, in
+ * KNOWN_SUFFIXES order and then by name. A word is lowercase letters and
+ * digits, which is what keeps the stale-preview sweep able to find them.
+ */
 export function collectImages(dir: string, id: string): { from: string; name: string }[] {
+	if (!existsSync(dir)) return [];
+	const pattern = new RegExp(`^${id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?:-([a-z0-9]+))?\\.png$`);
+	const words: string[] = [];
+	for (const file of readdirSync(dir)) {
+		const m = pattern.exec(file);
+		if (m) words.push(m[1] ?? '');
+	}
+	const rank = (w: string) => {
+		const i = (KNOWN_SUFFIXES as readonly string[]).indexOf(w);
+		return i < 0 ? KNOWN_SUFFIXES.length : i;
+	};
+	words.sort((a, b) => rank(a) - rank(b) || a.localeCompare(b));
 	const out: { from: string; name: string }[] = [];
-	for (const slot of IMAGE_SLOTS) {
-		const from = join(dir, `${id}${slot.suffix}.png`);
-		if (!existsSync(from)) continue;
+	for (const word of words.slice(0, MAX_IMAGES)) {
+		const from = join(dir, word ? `${id}-${word}.png` : `${id}.png`);
 		const size = statSync(from).size;
 		if (size > MAX_IMAGE || !isPng(readFileSync(from).subarray(0, 8))) throw new Error(`${from}: not a PNG under ${MAX_IMAGE} bytes`);
-		out.push({ from, name: slot.name });
+		out.push({ from, name: word ? `preview-${word}.png` : 'preview.png' });
 	}
 	return out;
 }
@@ -91,7 +106,7 @@ export function pendingManifest(meta: Meta, payload: Uint8Array, issue: number):
 export function writeAddonFolder(target: string, meta: Meta, payload: Uint8Array, images: { from: string; name: string }[]): void {
 	mkdirSync(target, { recursive: true });
 	for (const name of readdirSync(target)) {
-		if (/^preview(-[a-z]+)?\.png$/.test(name) && !images.some((i) => i.name === name)) rmSync(join(target, name));
+		if (/^preview(-[a-z0-9]+)?\.png$/.test(name) && !images.some((i) => i.name === name)) rmSync(join(target, name));
 	}
 	writeFileSync(join(target, TYPES[meta.type].file), payload);
 	for (const image of images) copyFileSync(image.from, join(target, image.name));

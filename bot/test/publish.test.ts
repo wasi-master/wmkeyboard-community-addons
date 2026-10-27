@@ -119,8 +119,19 @@ describe('pending and approve', () => {
 		writeFileSync(join(out, 'neon-landscape.png'), PNG);
 		writeFileSync(join(out, 'neon-clipboard.png'), PNG);
 		writeFileSync(join(out, 'neon-tools.png'), PNG);
+		// A layout's layers, its own pages after the known ones, and names that are not ours.
+		writeFileSync(join(out, 'neon-page2.png'), PNG);
+		writeFileSync(join(out, 'neon-page1.png'), PNG);
+		writeFileSync(join(out, 'neon-symbols2.png'), PNG);
+		writeFileSync(join(out, 'neon-shift.png'), PNG);
+		writeFileSync(join(out, 'neon-Bad.png'), PNG);
+		writeFileSync(join(out, 'neon-two-words.png'), PNG);
+		writeFileSync(join(out, 'neonish.png'), PNG);
 		const images = collectImages(out, 'neon');
-		assert.deepEqual(images.map((i) => i.name), ['preview.png', 'preview-landscape.png', 'preview-dark.png', 'preview-tools.png', 'preview-clipboard.png']);
+		assert.deepEqual(images.map((i) => i.name), [
+			'preview.png', 'preview-landscape.png', 'preview-dark.png', 'preview-tools.png', 'preview-clipboard.png',
+			'preview-shift.png', 'preview-symbols2.png', 'preview-page1.png', 'preview-page2.png',
+		]);
 
 		const target = mkdtempSync(join(tmpdir(), 'addon-'));
 		writeFileSync(join(target, 'preview-old.png'), PNG);
