@@ -68,7 +68,7 @@ Never edit `wmkeyboard-repo.json` or `README.md` by hand: run `npm run generate`
 ### Setting up a copy of this repository
 
 1. Run the **Create labels** workflow once. The issue forms can only apply the `submission` label if it exists.
-2. Set the repository variable `WMKEYBOARD_REF` to the WM Keyboard release tag both renderers should read. Move it when a release changes the theme or layout format.
+2. Both renderers read the latest WM Keyboard release, looked up on every run. To hold them on one release instead, set the repository variable `WMKEYBOARD_REF` to its tag; clear it to follow the latest again.
 3. Until that release contains the `AddonShots` test class, set `FULL_RENDER` to `off`. The quick preview's verdict then stands on its own.
 4. Under Settings → Actions → General, give workflows read and write permission. The bot's write jobs push to `main` and to the `pending` branch.
 

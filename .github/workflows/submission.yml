@@ -31,9 +31,9 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  # The WMKeyboard release both renderers read. Move it with the
-  # WMKEYBOARD_REF repository variable rather than by editing this file.
-  WMKEYBOARD_REF: ${{ vars.WMKEYBOARD_REF || 'v0.6.3' }}
+  # The WMKeyboard release both renderers read is picked once, in `parse`:
+  # the WMKEYBOARD_REF repository variable when it is set, otherwise the
+  # latest release, so a new app release is followed without editing this.
   # `off` skips the JVM pass and lets the quick verdict stand, for a tag that
   # predates AddonShots.
   FULL_RENDER: ${{ vars.FULL_RENDER || 'on' }}
@@ -51,7 +51,28 @@ jobs:
       ok: ${{ steps.parse.outputs.ok }}
       id: ${{ steps.parse.outputs.id }}
       type: ${{ steps.parse.outputs.type }}
+      ref: ${{ steps.ref.outputs.ref }}
     steps:
+      # Resolved here and handed to both render jobs, so a release published
+      # mid-run cannot leave the quick and full passes on different versions.
+      - name: Pick the WM Keyboard release
+        id: ref
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PINNED: ${{ vars.WMKEYBOARD_REF }}
+        run: |
+          if [ -n "$PINNED" ]; then
+            ref="$PINNED"
+          else
+            ref=$(gh release view --repo wasi-master/wmkeyboard --json tagName --jq .tagName)
+          fi
+          if [ -z "$ref" ]; then
+            echo "::error::No WM Keyboard release to check against"
+            exit 1
+          fi
+          echo "Checking against WM Keyboard $ref"
+          echo "ref=$ref" >> "$GITHUB_OUTPUT"
+
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
@@ -102,11 +123,11 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Check out the web store at the pinned release
+      - name: Check out the web store at the chosen release
         uses: actions/checkout@v4
         with:
           repository: wasi-master/wmkeyboard
-          ref: ${{ env.WMKEYBOARD_REF }}
+          ref: ${{ needs.parse.outputs.ref }}
           path: wmkeyboard
           sparse-checkout: docs/src/store
           persist-credentials: false
@@ -216,11 +237,11 @@ jobs:
       WMKB_ENABLE_GMS: "false"
       GRADLE_OPTS: -Dorg.gradle.jvmargs=-Xmx4g -Dorg.gradle.daemon=false
     steps:
-      - name: Check out WM Keyboard at the pinned release
+      - name: Check out WM Keyboard at the chosen release
         uses: actions/checkout@v4
         with:
           repository: wasi-master/wmkeyboard
-          ref: ${{ env.WMKEYBOARD_REF }}
+          ref: ${{ needs.parse.outputs.ref }}
           persist-credentials: false
 
       - uses: actions/setup-java@v4
@@ -237,13 +258,13 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: gradle-${{ runner.os }}-${{ env.WMKEYBOARD_REF }}
+          key: gradle-${{ runner.os }}-${{ needs.parse.outputs.ref }}
 
       - name: Cache the Rust engine's host build
         uses: Swatinem/rust-cache@v2
         with:
           workspaces: native/wm-engine-jni
-          key: ${{ env.WMKEYBOARD_REF }}
+          key: ${{ needs.parse.outputs.ref }}
 
       - uses: actions/download-artifact@v4
         with:
