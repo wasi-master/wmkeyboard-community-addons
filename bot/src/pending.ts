@@ -15,7 +15,15 @@ export const IMAGE_SLOTS = [
 	{ suffix: '', name: 'preview.png' },
 	{ suffix: '-landscape', name: 'preview-landscape.png' },
 	{ suffix: '-dark', name: 'preview-dark.png' },
+	// A theme on the tool panels it also paints. One word after the dash, so
+	// the stale-preview sweep in writeAddonFolder still recognises them.
+	{ suffix: '-tools', name: 'preview-tools.png' },
+	{ suffix: '-clipboard', name: 'preview-clipboard.png' },
+	{ suffix: '-editing', name: 'preview-editing.png' },
 ] as const;
+
+/** The slots that show a tool panel rather than the keyboard itself. */
+export const PANEL_PREVIEWS: readonly string[] = ['preview-tools.png', 'preview-clipboard.png', 'preview-editing.png'];
 
 const PNG = [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a];
 const MAX_IMAGE = 6 * 1024 * 1024;
@@ -24,7 +32,7 @@ export function isPng(bytes: Uint8Array): boolean {
 	return PNG.every((b, i) => bytes[i] === b);
 }
 
-/** The renderer's `<id>.png`, `<id>-landscape.png`, `<id>-dark.png` in [dir], checked and renamed. */
+/** The renderer's `<id>.png` and its suffixed siblings (IMAGE_SLOTS) in [dir], checked and renamed. */
 export function collectImages(dir: string, id: string): { from: string; name: string }[] {
 	const out: { from: string; name: string }[] = [];
 	for (const slot of IMAGE_SLOTS) {

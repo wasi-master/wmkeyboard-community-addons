@@ -117,8 +117,10 @@ describe('pending and approve', () => {
 		writeFileSync(join(out, 'neon-landscape.png'), Buffer.from('not a png'));
 		assert.throws(() => collectImages(out, 'neon'), /not a PNG/);
 		writeFileSync(join(out, 'neon-landscape.png'), PNG);
+		writeFileSync(join(out, 'neon-clipboard.png'), PNG);
+		writeFileSync(join(out, 'neon-tools.png'), PNG);
 		const images = collectImages(out, 'neon');
-		assert.deepEqual(images.map((i) => i.name), ['preview.png', 'preview-landscape.png', 'preview-dark.png']);
+		assert.deepEqual(images.map((i) => i.name), ['preview.png', 'preview-landscape.png', 'preview-dark.png', 'preview-tools.png', 'preview-clipboard.png']);
 
 		const target = mkdtempSync(join(tmpdir(), 'addon-'));
 		writeFileSync(join(target, 'preview-old.png'), PNG);

@@ -5,6 +5,7 @@
  */
 import { ID_PATTERN, PENDING_BRANCH, RENAME_MARKER, REPO_NAME, STICKY_MARKER, STORE_SITE, type AddonType } from './constants.ts';
 import { BOT_LOGIN, type IssueComment } from './github.ts';
+import { PANEL_PREVIEWS } from './pending.ts';
 import type { Check, SubmissionResult } from './submission.ts';
 import { md } from './text.ts';
 
@@ -108,10 +109,11 @@ export function renderSticky(input: StickyInput): string {
 		const images = input.full?.ok ? input.full.images : (input.quick?.images ?? []);
 		if (images.length) {
 			const urls = pendingUrls(input.repo, s.issue);
-			out.push(
-				'### Preview',
-				images.map((img) => `<img src="${urls.base}/${img}?v=${encodeURIComponent(input.runId)}" width="360" alt="" />`).join(' '),
-			);
+			const tag = (img: string, width: number) => `<img src="${urls.base}/${img}?v=${encodeURIComponent(input.runId)}" width="${width}" alt="" />`;
+			const keyboard = images.filter((img) => !PANEL_PREVIEWS.includes(img));
+			const panels = images.filter((img) => PANEL_PREVIEWS.includes(img));
+			out.push('### Preview', keyboard.map((img) => tag(img, 360)).join(' '));
+			if (panels.length) out.push('On the tool panels:', panels.map((img) => tag(img, 240)).join(' '));
 		}
 		const links = tryLinks(pendingUrls(input.repo, s.issue).manifest, s.id);
 		out.push(
