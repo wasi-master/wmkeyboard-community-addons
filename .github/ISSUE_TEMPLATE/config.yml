@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Bug in WM Keyboard itself
+    url: https://github.com/wasi-master/wmkeyboard/issues/new/choose
+    about: This repository only takes theme and layout submissions.

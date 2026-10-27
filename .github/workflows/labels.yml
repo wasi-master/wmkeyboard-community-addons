@@ -1,0 +1,27 @@
+# Run once after creating the repository: the issue forms can only apply
+# labels that already exist. The bot creates the rest as it adds them, but
+# making them here gives them colours and descriptions.
+name: Create labels
+
+on:
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  labels:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - run: |
+          gh label create submission  --force --color 0E8A16 --description "Opened from a submission form"
+          gh label create type:theme  --force --color 7E57C2 --description "A theme"
+          gh label create type:layout --force --color 3B82F6 --description "A layout"
+          gh label create rendering   --force --color FBCA04 --description "The keyboard render is running"
+          gh label create ready       --force --color 0E8A16 --description "Checks pass; waiting for /approve"
+          gh label create needs-fix   --force --color D93F0B --description "The submitter has something to fix"
+          gh label create published   --force --color 5319E7 --description "Live in the repository"
+          gh label create rejected    --force --color 6A737D --description "Closed by a maintainer"

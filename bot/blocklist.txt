@@ -1,0 +1,15 @@
+# Words and phrases refused in a submission's name, description and tags,
+# matched as whole words, case and accents ignored. One per line; # starts a
+# comment. A match is reported to the submitter as "a word the repository
+# does not accept", without quoting it back.
+#
+# Names that claim to come from the project itself:
+official
+wm keyboard official
+# Spam that turns up in public issue trackers:
+casino
+betting
+viagra
+crypto giveaway
+free followers
+onlyfans

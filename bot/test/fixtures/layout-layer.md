@@ -1,0 +1,31 @@
+### Name
+
+Edit Row QWERTY
+
+### Description
+
+QWERTY with a row of editing keys.
+
+### Tags
+
+_No response_
+
+### License
+
+CC-BY-4.0
+
+### Updates
+
+_No response_
+
+### Based on
+
+_No response_
+
+### Layout
+
+wmkb:1:eNqdVm1v0lAU_it6Nb52ZGXAZv0wsWNukQwymIuZCyntZXRraW3LEAmJH0yWGKNfTfwwNb7Pl_gSE-e-oX9kv8Cf4D2wSc8ZstkQnpQ-z3Pu6dPbU1qs4ni2FjCFNew13iw7mmeMWFqTe0xi69zzTafGFFlimute2_-ZkuPhE3OazUWB0VgqNiZcPbfCLB4EQiDO-C7XmdJintPwmbK01BKaMreERhZswzSCKlNEyYpl6msgtHgFWooLtu6KAyjrmStVOJkQx4bTEG2wJGu3pX4x1XGbgjR16JHpvV_96poedLtvsaDpQsPcMAOhcGAFNZe_ztp7LaS7Sr_fSWu4eTE3P1XKZqaLUGG_Gzje6_ko9vnZKzMH_HDxh5gLmWxGLZbS2Sw190I6xJ5PF4oZ7ESZFrjF9eDoOfbaiZxk9BCj5reQj5TbVG5xbkhsaj0I7cT6fwSoLkRP73JavVrIp9VMtAinc_OLabEVp8Q9LGai70XYz5FC3fNnZ-eGbcnU0Jkxvj8zJkIz40J_ZoyKastSaATdhJHl1FbyHvdhOomZtBxerkH5OOY55WFYdV4DvAF4C7CFPR71JDAfUD6J-SblU5ivUx5S6XwH2Ab4AbCDPSb1QICddwDvAT4AfMQeh3og6M5ngC8AXwG-YY9LPaOCR3dEo4pLUOYJwFOAZwDPAV7g0j41ngDRpoBfj7HSoMqTmK9QvoT5FcqfwnyV8iOYX6X8ecyvUf4M5i3Kn6Uh7m68YgNGjV81xWPS_vsEybFkuO5tWvcchLcDsI07uEWVNxgW6FRwGm4GNPVzAyvXqVLBfJnyFzFfo_xxWOkTNH0XK22qnMT87v2tQaEZ4iUYcJIaSntSjo8NjLtplx3L_3fgvzcf3eu_KbjtrJqD6vQINAYlmG-Oxbt_fGxbOxiS1FVB7PTeHBvYq6vp4YtMhB2x_mp57pmOcTBJqZv7iPju3nlJcn34YOBV1cQfRBrrMizUmOEwuqGyHJOTktz7CC6ocpvPGt3Xqh84dkkeF9knkqnxCZHPH8guYiE
+
+### Rights
+
+- [X] I made this, or I have the right to share every key label and name in it.

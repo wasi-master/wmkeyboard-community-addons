@@ -1,0 +1,14 @@
+{
+  "$schema": "https://raw.githubusercontent.com/wasi-master/wmkeyboard-addon-repository/main/docs/addons/wmkeyboard-repo.schema.json",
+  "format": "wmkeyboard-repo",
+  "version": 1,
+  "repo": {
+    "id": "com.wasimaster.wmkeyboard.community",
+    "name": "WM Keyboard Community",
+    "description": "Themes and layouts made by WM Keyboard users, submitted through GitHub issues and checked by a bot before a maintainer publishes them.",
+    "author": "WM Keyboard community",
+    "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons",
+    "icon": "icon.png"
+  },
+  "addons": []
+}

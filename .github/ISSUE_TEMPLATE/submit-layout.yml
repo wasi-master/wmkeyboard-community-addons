@@ -1,0 +1,82 @@
+# Field ids are a contract with the app, which pre-fills this form by query
+# string (/issues/new?template=submit-layout.yml&name=…&payload=…), and with the
+# bot, which maps the headings back to these ids. Rename a label freely; never
+# rename an id.
+name: Submit a layout
+description: Share a key layout you made in WM Keyboard.
+title: "Layout: "
+labels: [submission, "type:layout"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The easiest way to fill this in is **Share to community** in WM Keyboard's layout editor: it opens this form with everything filled. A copied single layer (`wmkeyboard-layer`) works too; the bot turns it into a layout. See [CONTRIBUTING.md](https://github.com/wasi-master/wmkeyboard-community-addons/blob/main/CONTRIBUTING.md).
+
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      description: Shown on the layout's card. Up to 60 characters.
+      placeholder: Thumb-friendly QWERTY
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Who it is for and what is different about it. Up to 500 characters.
+    validations:
+      required: true
+
+  - type: input
+    id: tags
+    attributes:
+      label: Tags
+      description: Comma-separated, up to 8. For example `english, glide, one-handed`.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: license
+    attributes:
+      label: License
+      description: What others may do with it. CC0 gives it away; CC BY asks for credit; CC BY-SA asks remixes to share alike.
+      options:
+        - CC0-1.0
+        - CC-BY-4.0
+        - CC-BY-SA-4.0
+    validations:
+      required: true
+
+  - type: input
+    id: updates
+    attributes:
+      label: Updates
+      description: To publish a new version of a layout you shared before, its id (the folder name under addons/layouts). Leave empty for a new layout.
+    validations:
+      required: false
+
+  - type: input
+    id: based_on
+    attributes:
+      label: Based on
+      description: Filled in by the app when your layout started from someone else's, as `repo-id/addon-id`. Leave it as it is.
+    validations:
+      required: false
+
+  - type: textarea
+    id: payload
+    attributes:
+      label: Layout
+      description: The `wmkb:1:…` text the app gave you, a copied layer, or drag the `.zip` it saved into this box.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: rights
+    attributes:
+      label: Rights
+      options:
+        - label: I made this, or I have the right to share every key label and name in it.
+          required: true

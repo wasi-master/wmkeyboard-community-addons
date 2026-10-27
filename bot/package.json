@@ -1,0 +1,27 @@
+{
+  "name": "wmkeyboard-community-bot",
+  "private": true,
+  "type": "module",
+  "description": "Validates, previews and publishes community theme and layout submissions.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --import tsx --test test/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "generate": "tsx src/cli/generate.ts",
+    "check": "tsx src/cli/generate.ts --check"
+  },
+  "dependencies": {
+    "fflate": "^0.8.3",
+    "yaml": "^2.9.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "esbuild": "^0.28.2",
+    "playwright": "^1.64.1",
+    "preact": "^10.29.8",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

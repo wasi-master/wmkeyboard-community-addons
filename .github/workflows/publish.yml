@@ -1,0 +1,150 @@
+# Maintainer commands on submission issues:
+#
+#   /approve          publish pending/<issue> to addons/, regenerate the manifest
+#                     and README, close the issue (refused while `rendering`,
+#                     and until the issue is `ready`)
+#   /reject <reason>  close it as not planned, with the reason quoted
+#   /rename <id>      check it again under a different id
+#
+# Permission comes from the collaborators API (write, maintain or admin),
+# never from a list of names. The comment is read from the event file; no
+# `run:` line interpolates anything a commenter wrote.
+name: Publish
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions: {}
+
+jobs:
+  command:
+    if: ${{ !github.event.issue.pull_request && contains(github.event.issue.labels.*.name, 'submission') && startsWith(github.event.comment.body, '/') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+      actions: write
+    outputs:
+      command: ${{ steps.command.outputs.command }}
+      issue: ${{ steps.command.outputs.issue }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: bot/package-lock.json
+
+      - name: Install the bot
+        working-directory: bot
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Read the command
+        id: command
+        working-directory: bot
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: npx tsx src/cli/command.ts
+
+  approve:
+    needs: command
+    if: needs.command.outputs.command == 'approve'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Every write to main goes through here, one at a time.
+    concurrency:
+      group: publish-main
+      cancel-in-progress: false
+    permissions:
+      contents: write
+      issues: write
+    env:
+      ISSUE_NUMBER: ${{ needs.command.outputs.issue }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: bot/package-lock.json
+
+      - name: Install the bot
+        working-directory: bot
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Check out the pending branch
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PENDING_CHECKOUT: ${{ runner.temp }}/pending
+        run: bash bot/scripts/branch.sh checkout "$PENDING_CHECKOUT" pending
+
+      - name: Publish to addons/
+        id: publish
+        working-directory: bot
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PENDING_DIR: ${{ runner.temp }}/pending/pending/${{ needs.command.outputs.issue }}
+        run: npx tsx src/cli/approve.ts publish
+
+      - name: Commit to main
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          ADDON_DIR: ${{ steps.publish.outputs.dir }}
+          ADDON_ID: ${{ steps.publish.outputs.id }}
+          ADDON_VERSION: ${{ steps.publish.outputs.version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "$ADDON_DIR" wmkeyboard-repo.json README.md
+          git commit --quiet -m "Publish $ADDON_ID $ADDON_VERSION" -m "Closes #$ISSUE_NUMBER"
+          git push --quiet "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:refs/heads/${GITHUB_REF_NAME}"
+
+      - name: Empty pending/<issue>
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PENDING_CHECKOUT: ${{ runner.temp }}/pending
+        run: |
+          rm -rf "$PENDING_CHECKOUT/pending/$ISSUE_NUMBER"
+          bash bot/scripts/branch.sh commit "$PENDING_CHECKOUT" pending "pending/$ISSUE_NUMBER" "Published #$ISSUE_NUMBER"
+
+      - name: Announce
+        working-directory: bot
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          ADDON_ID: ${{ steps.publish.outputs.id }}
+          ADDON_TYPE: ${{ steps.publish.outputs.type }}
+          ADDON_VERSION: ${{ steps.publish.outputs.version }}
+        run: npx tsx src/cli/approve.ts announce
+
+  clean:
+    needs: command
+    if: needs.command.outputs.command == 'reject'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    env:
+      ISSUE_NUMBER: ${{ needs.command.outputs.issue }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: bot/scripts
+
+      - name: Empty pending/<issue>
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PENDING_CHECKOUT: ${{ runner.temp }}/pending
+        run: |
+          bash bot/scripts/branch.sh checkout "$PENDING_CHECKOUT" pending
+          rm -rf "$PENDING_CHECKOUT/pending/$ISSUE_NUMBER"
+          bash bot/scripts/branch.sh commit "$PENDING_CHECKOUT" pending "pending/$ISSUE_NUMBER" "Rejected #$ISSUE_NUMBER"
