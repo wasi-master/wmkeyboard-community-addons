@@ -1,0 +1,25 @@
+{
+  "id": "ios-ash",
+  "type": "theme",
+  "name": "IoS Ash",
+  "description": "Mod of 3d iOS Dark from RoBoard.\n\nAdded Some liquid glass effects.",
+  "tags": [],
+  "license": "CC0-1.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "AshUchiha3",
+    "id": 250811725
+  },
+  "issues": [
+    1
+  ],
+  "createdAt": "2026-10-28T19:21:09.312Z",
+  "updatedAt": "2026-10-28T19:21:09.312Z",
+  "previews": [
+    "preview.png",
+    "preview-tools.png",
+    "preview-clipboard.png",
+    "preview-editing.png"
+  ]
+}

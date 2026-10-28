@@ -11,7 +11,11 @@ WM Keyboard lists this repository under **Settings → Addons** on its own. To a
 
 ## Themes
 
-None yet. Be the first: [submit one](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-theme.yml).
+<table>
+<tr>
+<td valign="top" width="33%"><a href="addons/themes/ios-ash"><img src="addons/themes/ios-ash/preview.png" width="240" alt="" /></a><br><b>IoS Ash</b><br><sub>by AshUchiha3 · CC0-1.0 · v1.0.0</sub></td>
+</tr>
+</table>
 
 ## Layouts
 
@@ -19,4 +23,4 @@ None yet. Be the first: [submit one](https://github.com/wasi-master/wmkeyboard-c
 
 ---
 
-0 addons, indexed by [`wmkeyboard-repo.json`](wmkeyboard-repo.json) (raw: `https://raw.githubusercontent.com/wasi-master/wmkeyboard-community-addons/main/wmkeyboard-repo.json`). Each addon is published under the licence on its card; the bot and tooling under `bot/` are MIT. Names and descriptions are limited to 60 and 500 characters.
+1 addon, indexed by [`wmkeyboard-repo.json`](wmkeyboard-repo.json) (raw: `https://raw.githubusercontent.com/wasi-master/wmkeyboard-community-addons/main/wmkeyboard-repo.json`). Each addon is published under the licence on its card; the bot and tooling under `bot/` are MIT. Names and descriptions are limited to 60 and 500 characters.
