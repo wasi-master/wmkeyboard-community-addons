@@ -1,0 +1,56 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "title": "Submission form",
+      "ok": true
+    },
+    {
+      "title": "Rights confirmed",
+      "ok": true
+    },
+    {
+      "title": "Name",
+      "ok": true
+    },
+    {
+      "title": "Description",
+      "ok": true
+    },
+    {
+      "title": "Tags",
+      "ok": true
+    },
+    {
+      "title": "License",
+      "ok": true,
+      "detail": "CC-BY-4.0"
+    },
+    {
+      "title": "Payload",
+      "ok": true
+    },
+    {
+      "title": "Addon id",
+      "ok": true,
+      "detail": "`frostkey`"
+    }
+  ],
+  "warnings": [],
+  "type": "theme",
+  "id": "frostkey",
+  "isUpdate": false,
+  "name": "FROSTKEY",
+  "description": "Frost",
+  "tags": [
+    "frost",
+    "dark"
+  ],
+  "license": "CC-BY-4.0",
+  "basedOn": null,
+  "submitter": {
+    "login": "PrncDENZ254KE",
+    "id": 246913979
+  },
+  "issue": 3
+}

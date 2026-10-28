@@ -1,0 +1,33 @@
+{
+  "$schema": "https://raw.githubusercontent.com/wasi-master/wmkeyboard-addon-repository/main/docs/addons/wmkeyboard-repo.schema.json",
+  "format": "wmkeyboard-repo",
+  "version": 1,
+  "repo": {
+    "id": "com.wasimaster.wmkeyboard.community.pending",
+    "name": "WM Keyboard Community: pending #3",
+    "description": "One submission waiting for review. Installs from here are trial copies; the published version comes from the community repository.",
+    "author": "WM Keyboard community",
+    "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons/issues/3"
+  },
+  "addons": [
+    {
+      "id": "frostkey",
+      "type": "theme",
+      "name": "FROSTKEY",
+      "version": "1.0.0",
+      "author": "PrncDENZ254KE",
+      "description": "Frost",
+      "tags": [
+        "frost",
+        "dark"
+      ],
+      "path": "theme.wmtheme.json",
+      "sha256": "3ad25f1d0931a80ef06d30e5fbcccc11879ce6dff293927abb14a113c83d3d4b",
+      "sizeBytes": 4092,
+      "previews": [
+        "preview.png"
+      ],
+      "license": "CC-BY-4.0"
+    }
+  ]
+}
