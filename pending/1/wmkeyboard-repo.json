@@ -1,0 +1,30 @@
+{
+  "$schema": "https://raw.githubusercontent.com/wasi-master/wmkeyboard-addon-repository/main/docs/addons/wmkeyboard-repo.schema.json",
+  "format": "wmkeyboard-repo",
+  "version": 1,
+  "repo": {
+    "id": "com.wasimaster.wmkeyboard.community.pending",
+    "name": "WM Keyboard Community: pending #1",
+    "description": "One submission waiting for review. Installs from here are trial copies; the published version comes from the community repository.",
+    "author": "WM Keyboard community",
+    "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons/issues/1"
+  },
+  "addons": [
+    {
+      "id": "ios-ash",
+      "type": "theme",
+      "name": "IoS Ash",
+      "version": "1.0.0",
+      "author": "AshUchiha3",
+      "description": "Mod of 3d iOS Dark from RoBoard.\n\nAdded Some liquid glass effects.",
+      "tags": [],
+      "path": "theme.wmtheme.json",
+      "sha256": "91b7176dd5f124937209d096d61d5d4799e6f76c633c83243c13dfccdcd1926e",
+      "sizeBytes": 4267,
+      "previews": [
+        "preview.png"
+      ],
+      "license": "CC0-1.0"
+    }
+  ]
+}
