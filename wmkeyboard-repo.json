@@ -9,9 +9,31 @@
     "author": "WM Keyboard community",
     "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons",
     "icon": "icon.png",
-    "updatedAt": "2026-10-28"
+    "updatedAt": "2026-10-29"
   },
   "addons": [
+    {
+      "id": "frostkey",
+      "type": "theme",
+      "name": "FROSTKEY",
+      "version": "1.0.0",
+      "author": "PrncDENZ254KE",
+      "description": "Frost",
+      "tags": [
+        "frost",
+        "dark"
+      ],
+      "path": "addons/themes/frostkey/theme.wmtheme.json",
+      "sha256": "3ad25f1d0931a80ef06d30e5fbcccc11879ce6dff293927abb14a113c83d3d4b",
+      "sizeBytes": 4092,
+      "previews": [
+        "addons/themes/frostkey/preview.png",
+        "addons/themes/frostkey/preview-tools.png",
+        "addons/themes/frostkey/preview-clipboard.png",
+        "addons/themes/frostkey/preview-editing.png"
+      ],
+      "license": "CC-BY-4.0"
+    },
     {
       "id": "ios-ash",
       "type": "theme",

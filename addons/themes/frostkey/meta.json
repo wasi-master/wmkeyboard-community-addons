@@ -1,0 +1,28 @@
+{
+  "id": "frostkey",
+  "type": "theme",
+  "name": "FROSTKEY",
+  "description": "Frost",
+  "tags": [
+    "frost",
+    "dark"
+  ],
+  "license": "CC-BY-4.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "PrncDENZ254KE",
+    "id": 246913979
+  },
+  "issues": [
+    3
+  ],
+  "createdAt": "2026-10-29T07:52:34.308Z",
+  "updatedAt": "2026-10-29T07:52:34.308Z",
+  "previews": [
+    "preview.png",
+    "preview-tools.png",
+    "preview-clipboard.png",
+    "preview-editing.png"
+  ]
+}
