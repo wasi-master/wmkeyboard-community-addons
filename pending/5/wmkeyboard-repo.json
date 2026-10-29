@@ -1,0 +1,30 @@
+{
+  "$schema": "https://raw.githubusercontent.com/wasi-master/wmkeyboard-addon-repository/main/docs/addons/wmkeyboard-repo.schema.json",
+  "format": "wmkeyboard-repo",
+  "version": 1,
+  "repo": {
+    "id": "com.wasimaster.wmkeyboard.community.pending",
+    "name": "WM Keyboard Community: pending #5",
+    "description": "One submission waiting for review. Installs from here are trial copies; the published version comes from the community repository.",
+    "author": "WM Keyboard community",
+    "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons/issues/5"
+  },
+  "addons": [
+    {
+      "id": "ios-dark-glass-ash",
+      "type": "theme",
+      "name": "iOS Dark Glass Ash",
+      "version": "1.0.0",
+      "author": "AshUchiha3",
+      "description": "Custom Theme made by me.",
+      "tags": [],
+      "path": "theme.wmtheme.json",
+      "sha256": "8a0d2f04609a8884e47cdc5a760dec1aa02e55366f956f847eb29058366e5e10",
+      "sizeBytes": 26047,
+      "previews": [
+        "preview.png"
+      ],
+      "license": "CC0-1.0"
+    }
+  ]
+}

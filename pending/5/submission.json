@@ -1,0 +1,49 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "title": "Submission form",
+      "ok": true
+    },
+    {
+      "title": "Rights confirmed",
+      "ok": true
+    },
+    {
+      "title": "Name",
+      "ok": true
+    },
+    {
+      "title": "Description",
+      "ok": true
+    },
+    {
+      "title": "License",
+      "ok": true,
+      "detail": "CC0-1.0"
+    },
+    {
+      "title": "Payload",
+      "ok": true
+    },
+    {
+      "title": "Addon id",
+      "ok": true,
+      "detail": "`ios-dark-glass-ash`"
+    }
+  ],
+  "warnings": [],
+  "type": "theme",
+  "id": "ios-dark-glass-ash",
+  "isUpdate": false,
+  "name": "iOS Dark Glass Ash",
+  "description": "Custom Theme made by me.",
+  "tags": [],
+  "license": "CC0-1.0",
+  "basedOn": null,
+  "submitter": {
+    "login": "AshUchiha3",
+    "id": 250811725
+  },
+  "issue": 5
+}

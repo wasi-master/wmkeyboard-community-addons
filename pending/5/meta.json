@@ -1,0 +1,22 @@
+{
+  "id": "ios-dark-glass-ash",
+  "type": "theme",
+  "name": "iOS Dark Glass Ash",
+  "description": "Custom Theme made by me.",
+  "tags": [],
+  "license": "CC0-1.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "AshUchiha3",
+    "id": 250811725
+  },
+  "issues": [
+    5
+  ],
+  "createdAt": "2026-10-29T13:18:04.129Z",
+  "updatedAt": "2026-10-29T13:18:04.129Z",
+  "previews": [
+    "preview.png"
+  ]
+}
