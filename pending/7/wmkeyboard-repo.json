@@ -1,0 +1,35 @@
+{
+  "$schema": "https://raw.githubusercontent.com/wasi-master/wmkeyboard-addon-repository/main/docs/addons/wmkeyboard-repo.schema.json",
+  "format": "wmkeyboard-repo",
+  "version": 1,
+  "repo": {
+    "id": "com.wasimaster.wmkeyboard.community.pending",
+    "name": "WM Keyboard Community: pending #7",
+    "description": "One submission waiting for review. Installs from here are trial copies; the published version comes from the community repository.",
+    "author": "WM Keyboard community",
+    "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons/issues/7"
+  },
+  "addons": [
+    {
+      "id": "lo-fi-anime-girl",
+      "type": "theme",
+      "name": "Lo-fi Anime girl",
+      "version": "1.0.0",
+      "author": "mishrapriyanshu7191-blip",
+      "description": "A studying anime girl, glass effect, transparent keys for lo-fi lovers. You will love it, or else just change as your desire.",
+      "tags": [
+        "dark",
+        "study partner",
+        "anime",
+        "girl"
+      ],
+      "path": "theme.wmtheme.json",
+      "sha256": "aa1be276a86b079ebb629ee9c557d3b6cd9a419b44a403505193aaece2ee0690",
+      "sizeBytes": 393011,
+      "previews": [
+        "preview.png"
+      ],
+      "license": "CC0-1.0"
+    }
+  ]
+}

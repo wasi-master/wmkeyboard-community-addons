@@ -1,0 +1,59 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "title": "Submission form",
+      "ok": true
+    },
+    {
+      "title": "Rights confirmed",
+      "ok": true
+    },
+    {
+      "title": "Name",
+      "ok": true
+    },
+    {
+      "title": "Description",
+      "ok": true
+    },
+    {
+      "title": "Tags",
+      "ok": true
+    },
+    {
+      "title": "License",
+      "ok": true,
+      "detail": "CC0-1.0"
+    },
+    {
+      "title": "Payload",
+      "ok": true,
+      "detail": "Read from the attached zip."
+    },
+    {
+      "title": "Addon id",
+      "ok": true,
+      "detail": "`lo-fi-anime-girl`"
+    }
+  ],
+  "warnings": [],
+  "type": "theme",
+  "id": "lo-fi-anime-girl",
+  "isUpdate": false,
+  "name": "Lo-fi Anime girl",
+  "description": "A studying anime girl, glass effect, transparent keys for lo-fi lovers. You will love it, or else just change as your desire.",
+  "tags": [
+    "dark",
+    "study partner",
+    "anime",
+    "girl"
+  ],
+  "license": "CC0-1.0",
+  "basedOn": null,
+  "submitter": {
+    "login": "mishrapriyanshu7191-blip",
+    "id": 266475199
+  },
+  "issue": 7
+}

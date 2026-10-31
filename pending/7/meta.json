@@ -1,0 +1,27 @@
+{
+  "id": "lo-fi-anime-girl",
+  "type": "theme",
+  "name": "Lo-fi Anime girl",
+  "description": "A studying anime girl, glass effect, transparent keys for lo-fi lovers. You will love it, or else just change as your desire.",
+  "tags": [
+    "dark",
+    "study partner",
+    "anime",
+    "girl"
+  ],
+  "license": "CC0-1.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "mishrapriyanshu7191-blip",
+    "id": 266475199
+  },
+  "issues": [
+    7
+  ],
+  "createdAt": "2026-10-31T14:50:12.328Z",
+  "updatedAt": "2026-10-31T14:50:12.328Z",
+  "previews": [
+    "preview.png"
+  ]
+}
