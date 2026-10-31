@@ -1,0 +1,34 @@
+{
+  "$schema": "https://raw.githubusercontent.com/wasi-master/wmkeyboard-addon-repository/main/docs/addons/wmkeyboard-repo.schema.json",
+  "format": "wmkeyboard-repo",
+  "version": 1,
+  "repo": {
+    "id": "com.wasimaster.wmkeyboard.community.pending",
+    "name": "WM Keyboard Community: pending #8",
+    "description": "One submission waiting for review. Installs from here are trial copies; the published version comes from the community repository.",
+    "author": "WM Keyboard community",
+    "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons/issues/8"
+  },
+  "addons": [
+    {
+      "id": "nothing-keyboard-v1",
+      "type": "theme",
+      "name": "NOTHING Keyboard V1",
+      "version": "1.0.0",
+      "author": "MystiKitsu",
+      "description": "A NOTHINGOS inspired Keyboard!",
+      "tags": [
+        "nothing",
+        "red",
+        "dark"
+      ],
+      "path": "theme.wmtheme.json",
+      "sha256": "346f8ea5df4a5d9112566a49b4b57938114134aa7b69a18097e34ef6bcc7545e",
+      "sizeBytes": 7432,
+      "previews": [
+        "preview.png"
+      ],
+      "license": "CC-BY-4.0"
+    }
+  ]
+}

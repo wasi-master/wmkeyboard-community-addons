@@ -1,0 +1,57 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "title": "Submission form",
+      "ok": true
+    },
+    {
+      "title": "Rights confirmed",
+      "ok": true
+    },
+    {
+      "title": "Name",
+      "ok": true
+    },
+    {
+      "title": "Description",
+      "ok": true
+    },
+    {
+      "title": "Tags",
+      "ok": true
+    },
+    {
+      "title": "License",
+      "ok": true,
+      "detail": "CC-BY-4.0"
+    },
+    {
+      "title": "Payload",
+      "ok": true
+    },
+    {
+      "title": "Addon id",
+      "ok": true,
+      "detail": "`nothing-keyboard-v1`"
+    }
+  ],
+  "warnings": [],
+  "type": "theme",
+  "id": "nothing-keyboard-v1",
+  "isUpdate": false,
+  "name": "NOTHING Keyboard V1",
+  "description": "A NOTHINGOS inspired Keyboard!",
+  "tags": [
+    "nothing",
+    "red",
+    "dark"
+  ],
+  "license": "CC-BY-4.0",
+  "basedOn": null,
+  "submitter": {
+    "login": "MystiKitsu",
+    "id": 213123789
+  },
+  "issue": 8
+}

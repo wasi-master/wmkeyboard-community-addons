@@ -1,0 +1,26 @@
+{
+  "id": "nothing-keyboard-v1",
+  "type": "theme",
+  "name": "NOTHING Keyboard V1",
+  "description": "A NOTHINGOS inspired Keyboard!",
+  "tags": [
+    "nothing",
+    "red",
+    "dark"
+  ],
+  "license": "CC-BY-4.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "MystiKitsu",
+    "id": 213123789
+  },
+  "issues": [
+    8
+  ],
+  "createdAt": "2026-10-31T15:31:19.929Z",
+  "updatedAt": "2026-10-31T15:31:19.929Z",
+  "previews": [
+    "preview.png"
+  ]
+}
