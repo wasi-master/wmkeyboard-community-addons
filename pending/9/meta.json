@@ -14,10 +14,11 @@
   "issues": [
     9
   ],
-  "createdAt": "2026-11-01T11:10:21.081Z",
-  "updatedAt": "2026-11-01T11:10:21.081Z",
+  "createdAt": "2026-11-01T11:25:33.177Z",
+  "updatedAt": "2026-11-01T11:25:33.177Z",
   "previews": [
     "preview.png",
-    "preview-dark.png"
+    "preview-dark.png",
+    "preview-shift.png"
   ]
 }
