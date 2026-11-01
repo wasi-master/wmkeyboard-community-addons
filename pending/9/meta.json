@@ -1,0 +1,23 @@
+{
+  "id": "hindi-marathi-devanagari",
+  "type": "layout",
+  "name": "Hindi / Marathi (Devanagari)",
+  "description": "No Shift key. Every hidden letter is in alternatives (long press). Made for myself and sharing here in case pepole needed something similar.",
+  "tags": [],
+  "license": "CC0-1.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "RamPawar7",
+    "id": 96973076
+  },
+  "issues": [
+    9
+  ],
+  "createdAt": "2026-11-01T11:10:21.081Z",
+  "updatedAt": "2026-11-01T11:10:21.081Z",
+  "previews": [
+    "preview.png",
+    "preview-dark.png"
+  ]
+}

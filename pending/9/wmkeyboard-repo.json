@@ -1,0 +1,31 @@
+{
+  "$schema": "https://raw.githubusercontent.com/wasi-master/wmkeyboard-addon-repository/main/docs/addons/wmkeyboard-repo.schema.json",
+  "format": "wmkeyboard-repo",
+  "version": 1,
+  "repo": {
+    "id": "com.wasimaster.wmkeyboard.community.pending",
+    "name": "WM Keyboard Community: pending #9",
+    "description": "One submission waiting for review. Installs from here are trial copies; the published version comes from the community repository.",
+    "author": "WM Keyboard community",
+    "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons/issues/9"
+  },
+  "addons": [
+    {
+      "id": "hindi-marathi-devanagari",
+      "type": "layout",
+      "name": "Hindi / Marathi (Devanagari)",
+      "version": "1.0.0",
+      "author": "RamPawar7",
+      "description": "No Shift key. Every hidden letter is in alternatives (long press). Made for myself and sharing here in case pepole needed something similar.",
+      "tags": [],
+      "path": "layout.wmlayout.json",
+      "sha256": "530a20d84aee95e49c0ff20cde0395d9b9178eb60800d51f5fcf86af8586c5e2",
+      "sizeBytes": 6612,
+      "previews": [
+        "preview.png",
+        "preview-dark.png"
+      ],
+      "license": "CC0-1.0"
+    }
+  ]
+}
