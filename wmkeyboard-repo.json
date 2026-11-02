@@ -54,6 +54,30 @@
       "license": "CC0-1.0"
     },
     {
+      "id": "lo-fi-anime-girl",
+      "type": "theme",
+      "name": "Lo-fi Anime girl",
+      "version": "1.0.0",
+      "author": "mishrapriyanshu7191-blip",
+      "description": "A studying anime girl, glass effect, transparent keys for lo-fi lovers. You will love it, or else just change as your desire.",
+      "tags": [
+        "dark",
+        "study partner",
+        "anime",
+        "girl"
+      ],
+      "path": "addons/themes/lo-fi-anime-girl/theme.wmtheme.json",
+      "sha256": "aa1be276a86b079ebb629ee9c557d3b6cd9a419b44a403505193aaece2ee0690",
+      "sizeBytes": 393011,
+      "previews": [
+        "addons/themes/lo-fi-anime-girl/preview.png",
+        "addons/themes/lo-fi-anime-girl/preview-tools.png",
+        "addons/themes/lo-fi-anime-girl/preview-clipboard.png",
+        "addons/themes/lo-fi-anime-girl/preview-editing.png"
+      ],
+      "license": "CC0-1.0"
+    },
+    {
       "id": "nothing-keyboard-v1",
       "type": "theme",
       "name": "NOTHING Keyboard V1",
