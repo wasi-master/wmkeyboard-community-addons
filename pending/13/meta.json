@@ -1,0 +1,31 @@
+{
+  "id": "mono-frosted-glass",
+  "type": "theme",
+  "name": "Mono Frosted Glass",
+  "description": "A simple theme for those who like the general minimalistic dark aesthetic but also want 3D keys.\n\n[Mono Frosted Glass.wmtheme.json](https://github.com/user-attachments/files/34254893/Mono.Frosted.Glass.wmtheme.json)",
+  "tags": [
+    "dark",
+    "mono",
+    "white",
+    "black",
+    "frost",
+    "theme",
+    "3d",
+    "minimal"
+  ],
+  "license": "CC0-1.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "Veratian",
+    "id": 57146134
+  },
+  "issues": [
+    13
+  ],
+  "createdAt": "2026-11-02T04:02:44.439Z",
+  "updatedAt": "2026-11-02T04:02:44.439Z",
+  "previews": [
+    "preview.png"
+  ]
+}

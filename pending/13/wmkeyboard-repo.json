@@ -1,0 +1,39 @@
+{
+  "$schema": "https://raw.githubusercontent.com/wasi-master/wmkeyboard-addon-repository/main/docs/addons/wmkeyboard-repo.schema.json",
+  "format": "wmkeyboard-repo",
+  "version": 1,
+  "repo": {
+    "id": "com.wasimaster.wmkeyboard.community.pending",
+    "name": "WM Keyboard Community: pending #13",
+    "description": "One submission waiting for review. Installs from here are trial copies; the published version comes from the community repository.",
+    "author": "WM Keyboard community",
+    "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons/issues/13"
+  },
+  "addons": [
+    {
+      "id": "mono-frosted-glass",
+      "type": "theme",
+      "name": "Mono Frosted Glass",
+      "version": "1.0.0",
+      "author": "Veratian",
+      "description": "A simple theme for those who like the general minimalistic dark aesthetic but also want 3D keys.\n\n[Mono Frosted Glass.wmtheme.json](https://github.com/user-attachments/files/34254893/Mono.Frosted.Glass.wmtheme.json)",
+      "tags": [
+        "dark",
+        "mono",
+        "white",
+        "black",
+        "frost",
+        "theme",
+        "3d",
+        "minimal"
+      ],
+      "path": "theme.wmtheme.json",
+      "sha256": "0a93371f87b6b94cf63094c62909a90203a0890a931f4e00ca7c5e363f8fcbca",
+      "sizeBytes": 4388,
+      "previews": [
+        "preview.png"
+      ],
+      "license": "CC0-1.0"
+    }
+  ]
+}
