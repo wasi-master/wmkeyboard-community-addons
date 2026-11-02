@@ -26,8 +26,12 @@ WM Keyboard lists this repository under **Settings → Addons** on its own. To a
 
 ## Layouts
 
-None yet. Be the first: [submit one](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-layout.yml).
+<table>
+<tr>
+<td valign="top" width="33%"><a href="addons/layouts/hindi-marathi-devanagari"><img src="addons/layouts/hindi-marathi-devanagari/preview.png" width="240" alt="" /></a><br><b>Hindi / Marathi \(Devanagari\)</b><br><sub>by RamPawar7 · CC0-1.0 · v1.0.0</sub></td>
+</tr>
+</table>
 
 ---
 
-6 addons, indexed by [`wmkeyboard-repo.json`](wmkeyboard-repo.json) (raw: `https://raw.githubusercontent.com/wasi-master/wmkeyboard-community-addons/main/wmkeyboard-repo.json`). Each addon is published under the licence on its card; the bot and tooling under `bot/` are MIT. Names and descriptions are limited to 60 and 500 characters.
+7 addons, indexed by [`wmkeyboard-repo.json`](wmkeyboard-repo.json) (raw: `https://raw.githubusercontent.com/wasi-master/wmkeyboard-community-addons/main/wmkeyboard-repo.json`). Each addon is published under the licence on its card; the bot and tooling under `bot/` are MIT. Names and descriptions are limited to 60 and 500 characters.

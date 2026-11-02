@@ -148,6 +148,24 @@
         "addons/themes/nothing-keyboard-v1/preview-editing.png"
       ],
       "license": "CC-BY-4.0"
+    },
+    {
+      "id": "hindi-marathi-devanagari",
+      "type": "layout",
+      "name": "Hindi / Marathi (Devanagari)",
+      "version": "1.0.0",
+      "author": "RamPawar7",
+      "description": "No Shift key. Every hidden letter is in alternatives (long press). Made for myself and sharing here in case pepole needed something similar.",
+      "tags": [],
+      "path": "addons/layouts/hindi-marathi-devanagari/layout.wmlayout.json",
+      "sha256": "530a20d84aee95e49c0ff20cde0395d9b9178eb60800d51f5fcf86af8586c5e2",
+      "sizeBytes": 6612,
+      "previews": [
+        "addons/layouts/hindi-marathi-devanagari/preview.png",
+        "addons/layouts/hindi-marathi-devanagari/preview-dark.png",
+        "addons/layouts/hindi-marathi-devanagari/preview-shift.png"
+      ],
+      "license": "CC0-1.0"
     }
   ]
 }
