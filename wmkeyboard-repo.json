@@ -13,6 +13,27 @@
   },
   "addons": [
     {
+      "id": "degradado-escarcha",
+      "type": "theme",
+      "name": "Degradado escarcha",
+      "version": "1.0.0",
+      "author": "titomdp06-cmyk",
+      "description": "Created by titomdq",
+      "tags": [
+        "_keyboard style_"
+      ],
+      "path": "addons/themes/degradado-escarcha/theme.wmtheme.json",
+      "sha256": "831dd4424ce3644277757f020c92a832e39c3dc7a7994b020f5d48d9239c4cab",
+      "sizeBytes": 4159,
+      "previews": [
+        "addons/themes/degradado-escarcha/preview.png",
+        "addons/themes/degradado-escarcha/preview-tools.png",
+        "addons/themes/degradado-escarcha/preview-clipboard.png",
+        "addons/themes/degradado-escarcha/preview-editing.png"
+      ],
+      "license": "CC-BY-4.0"
+    },
+    {
       "id": "frostkey",
       "type": "theme",
       "name": "FROSTKEY",
