@@ -1,0 +1,32 @@
+{
+  "$schema": "https://raw.githubusercontent.com/wasi-master/wmkeyboard-addon-repository/main/docs/addons/wmkeyboard-repo.schema.json",
+  "format": "wmkeyboard-repo",
+  "version": 1,
+  "repo": {
+    "id": "com.wasimaster.wmkeyboard.community.pending",
+    "name": "WM Keyboard Community: pending #11",
+    "description": "One submission waiting for review. Installs from here are trial copies; the published version comes from the community repository.",
+    "author": "WM Keyboard community",
+    "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons/issues/11"
+  },
+  "addons": [
+    {
+      "id": "degradado-escarcha",
+      "type": "theme",
+      "name": "Degradado escarcha",
+      "version": "1.0.0",
+      "author": "titomdp06-cmyk",
+      "description": "Created by titomdq",
+      "tags": [
+        "_keyboard style_"
+      ],
+      "path": "theme.wmtheme.json",
+      "sha256": "831dd4424ce3644277757f020c92a832e39c3dc7a7994b020f5d48d9239c4cab",
+      "sizeBytes": 4159,
+      "previews": [
+        "preview.png"
+      ],
+      "license": "CC-BY-4.0"
+    }
+  ]
+}

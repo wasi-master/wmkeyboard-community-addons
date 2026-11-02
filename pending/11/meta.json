@@ -1,0 +1,24 @@
+{
+  "id": "degradado-escarcha",
+  "type": "theme",
+  "name": "Degradado escarcha",
+  "description": "Created by titomdq",
+  "tags": [
+    "_keyboard style_"
+  ],
+  "license": "CC-BY-4.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "titomdp06-cmyk",
+    "id": 255863983
+  },
+  "issues": [
+    11
+  ],
+  "createdAt": "2026-11-02T01:16:27.094Z",
+  "updatedAt": "2026-11-02T01:16:27.094Z",
+  "previews": [
+    "preview.png"
+  ]
+}
