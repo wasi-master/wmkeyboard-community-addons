@@ -9,7 +9,7 @@
     "author": "WM Keyboard community",
     "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons",
     "icon": "icon.png",
-    "updatedAt": "2026-10-29"
+    "updatedAt": "2026-11-02"
   },
   "addons": [
     {
@@ -52,6 +52,29 @@
         "addons/themes/ios-ash/preview-editing.png"
       ],
       "license": "CC0-1.0"
+    },
+    {
+      "id": "nothing-keyboard-v1",
+      "type": "theme",
+      "name": "NOTHING Keyboard V1",
+      "version": "1.0.0",
+      "author": "MystiKitsu",
+      "description": "A NOTHINGOS inspired Keyboard!",
+      "tags": [
+        "nothing",
+        "red",
+        "dark"
+      ],
+      "path": "addons/themes/nothing-keyboard-v1/theme.wmtheme.json",
+      "sha256": "346f8ea5df4a5d9112566a49b4b57938114134aa7b69a18097e34ef6bcc7545e",
+      "sizeBytes": 7432,
+      "previews": [
+        "addons/themes/nothing-keyboard-v1/preview.png",
+        "addons/themes/nothing-keyboard-v1/preview-tools.png",
+        "addons/themes/nothing-keyboard-v1/preview-clipboard.png",
+        "addons/themes/nothing-keyboard-v1/preview-editing.png"
+      ],
+      "license": "CC-BY-4.0"
     }
   ]
 }
