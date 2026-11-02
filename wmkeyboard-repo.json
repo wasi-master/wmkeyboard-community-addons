@@ -99,6 +99,34 @@
       "license": "CC0-1.0"
     },
     {
+      "id": "mono-frosted-glass",
+      "type": "theme",
+      "name": "Mono Frosted Glass",
+      "version": "1.0.0",
+      "author": "Veratian",
+      "description": "A simple theme for those who like the general minimalistic dark aesthetic but also want 3D keys.\n\n[Mono Frosted Glass.wmtheme.json](https://github.com/user-attachments/files/34254893/Mono.Frosted.Glass.wmtheme.json)",
+      "tags": [
+        "dark",
+        "mono",
+        "white",
+        "black",
+        "frost",
+        "theme",
+        "3d",
+        "minimal"
+      ],
+      "path": "addons/themes/mono-frosted-glass/theme.wmtheme.json",
+      "sha256": "0a93371f87b6b94cf63094c62909a90203a0890a931f4e00ca7c5e363f8fcbca",
+      "sizeBytes": 4388,
+      "previews": [
+        "addons/themes/mono-frosted-glass/preview.png",
+        "addons/themes/mono-frosted-glass/preview-tools.png",
+        "addons/themes/mono-frosted-glass/preview-clipboard.png",
+        "addons/themes/mono-frosted-glass/preview-editing.png"
+      ],
+      "license": "CC0-1.0"
+    },
+    {
       "id": "nothing-keyboard-v1",
       "type": "theme",
       "name": "NOTHING Keyboard V1",
