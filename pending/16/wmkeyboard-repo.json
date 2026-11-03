@@ -1,0 +1,35 @@
+{
+  "$schema": "https://raw.githubusercontent.com/wasi-master/wmkeyboard-addon-repository/main/docs/addons/wmkeyboard-repo.schema.json",
+  "format": "wmkeyboard-repo",
+  "version": 1,
+  "repo": {
+    "id": "com.wasimaster.wmkeyboard.community.pending",
+    "name": "WM Keyboard Community: pending #16",
+    "description": "One submission waiting for review. Installs from here are trial copies; the published version comes from the community repository.",
+    "author": "WM Keyboard community",
+    "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons/issues/16"
+  },
+  "addons": [
+    {
+      "id": "starry-trails",
+      "type": "theme",
+      "name": "Starry Trails",
+      "version": "1.0.0",
+      "author": "HeUcBeCTHo1",
+      "description": "Тема для клавиатуры, белая, феолетовая в стиле Anime\nKeyboard theme, white, purple in Anime style",
+      "tags": [
+        "write",
+        "purple",
+        "glass"
+      ],
+      "path": "theme.wmtheme.json",
+      "sha256": "20f5f003591b0b800a33bbfccd706c30ea08d7a8b6ed8dce4738ddf33a171eee",
+      "sizeBytes": 3704668,
+      "previews": [
+        "preview.png"
+      ],
+      "license": "CC0-1.0",
+      "basedOn": "com.wasimaster.wmkeyboard.community.pending/toyota"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "title": "Submission form",
+      "ok": true
+    },
+    {
+      "title": "Rights confirmed",
+      "ok": true
+    },
+    {
+      "title": "Name",
+      "ok": true
+    },
+    {
+      "title": "Description",
+      "ok": true
+    },
+    {
+      "title": "Tags",
+      "ok": true
+    },
+    {
+      "title": "License",
+      "ok": true,
+      "detail": "CC0-1.0"
+    },
+    {
+      "title": "Remix credit",
+      "ok": true,
+      "detail": "Based on `com.wasimaster.wmkeyboard.community.pending/toyota`."
+    },
+    {
+      "title": "Payload",
+      "ok": true,
+      "detail": "Read from the attached zip."
+    },
+    {
+      "title": "Addon id",
+      "ok": true,
+      "detail": "`starry-trails`"
+    }
+  ],
+  "warnings": [],
+  "type": "theme",
+  "id": "starry-trails",
+  "isUpdate": false,
+  "name": "Starry Trails",
+  "description": "Тема для клавиатуры, белая, феолетовая в стиле Anime\nKeyboard theme, white, purple in Anime style",
+  "tags": [
+    "write",
+    "purple",
+    "glass"
+  ],
+  "license": "CC0-1.0",
+  "basedOn": "com.wasimaster.wmkeyboard.community.pending/toyota",
+  "submitter": {
+    "login": "HeUcBeCTHo1",
+    "id": 311448501
+  },
+  "issue": 16
+}
