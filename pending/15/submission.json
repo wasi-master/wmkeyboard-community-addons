@@ -1,0 +1,50 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "title": "Submission form",
+      "ok": true
+    },
+    {
+      "title": "Rights confirmed",
+      "ok": true
+    },
+    {
+      "title": "Name",
+      "ok": true
+    },
+    {
+      "title": "Description",
+      "ok": true
+    },
+    {
+      "title": "License",
+      "ok": true,
+      "detail": "CC0-1.0"
+    },
+    {
+      "title": "Payload",
+      "ok": true,
+      "detail": "Read from the attached zip."
+    },
+    {
+      "title": "Addon id",
+      "ok": true,
+      "detail": "`toyota`"
+    }
+  ],
+  "warnings": [],
+  "type": "theme",
+  "id": "toyota",
+  "isUpdate": false,
+  "name": "Toyota",
+  "description": "<img width=\"1007\" height=\"912\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/0ef97f9d-435e-422c-ae45-57d8803ea89b\" />",
+  "tags": [],
+  "license": "CC0-1.0",
+  "basedOn": null,
+  "submitter": {
+    "login": "HeUcBeCTHo1",
+    "id": 311448501
+  },
+  "issue": 15
+}

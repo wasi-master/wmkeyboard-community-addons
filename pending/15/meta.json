@@ -1,0 +1,22 @@
+{
+  "id": "toyota",
+  "type": "theme",
+  "name": "Toyota",
+  "description": "<img width=\"1007\" height=\"912\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/0ef97f9d-435e-422c-ae45-57d8803ea89b\" />",
+  "tags": [],
+  "license": "CC0-1.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "HeUcBeCTHo1",
+    "id": 311448501
+  },
+  "issues": [
+    15
+  ],
+  "createdAt": "2026-11-03T14:18:15.163Z",
+  "updatedAt": "2026-11-03T14:18:15.163Z",
+  "previews": [
+    "preview.png"
+  ]
+}
