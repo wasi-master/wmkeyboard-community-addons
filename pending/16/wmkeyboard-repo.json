@@ -26,7 +26,10 @@
       "sha256": "20f5f003591b0b800a33bbfccd706c30ea08d7a8b6ed8dce4738ddf33a171eee",
       "sizeBytes": 3704668,
       "previews": [
-        "preview.png"
+        "preview.png",
+        "preview-tools.png",
+        "preview-clipboard.png",
+        "preview-editing.png"
       ],
       "license": "CC0-1.0",
       "basedOn": "com.wasimaster.wmkeyboard.community.pending/toyota"
