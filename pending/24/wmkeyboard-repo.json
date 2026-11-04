@@ -27,7 +27,8 @@
       "sizeBytes": 8255,
       "previews": [
         "preview.png",
-        "preview-dark.png"
+        "preview-dark.png",
+        "preview-shift.png"
       ],
       "license": "CC-BY-4.0"
     }

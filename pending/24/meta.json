@@ -18,10 +18,11 @@
   "issues": [
     24
   ],
-  "createdAt": "2026-11-04T12:13:50.014Z",
-  "updatedAt": "2026-11-04T12:13:50.014Z",
+  "createdAt": "2026-11-04T12:28:52.459Z",
+  "updatedAt": "2026-11-04T12:28:52.459Z",
   "previews": [
     "preview.png",
-    "preview-dark.png"
+    "preview-dark.png",
+    "preview-shift.png"
   ]
 }
