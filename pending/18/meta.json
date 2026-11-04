@@ -1,0 +1,25 @@
+{
+  "id": "amoled",
+  "type": "theme",
+  "name": "AMOLED",
+  "description": "oled",
+  "tags": [
+    "dark",
+    "oled"
+  ],
+  "license": "CC0-1.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "xyz12344",
+    "id": 234922099
+  },
+  "issues": [
+    18
+  ],
+  "createdAt": "2026-11-04T08:36:31.507Z",
+  "updatedAt": "2026-11-04T08:36:31.507Z",
+  "previews": [
+    "preview.png"
+  ]
+}
