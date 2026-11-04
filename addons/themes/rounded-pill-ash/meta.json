@@ -1,0 +1,25 @@
+{
+  "id": "rounded-pill-ash",
+  "type": "theme",
+  "name": "Rounded Pill Ash",
+  "description": "A theme with good Contrast.",
+  "tags": [],
+  "license": "CC-BY-4.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "AshUchiha3",
+    "id": 250811725
+  },
+  "issues": [
+    14
+  ],
+  "createdAt": "2026-11-04T18:59:11.462Z",
+  "updatedAt": "2026-11-04T18:59:11.462Z",
+  "previews": [
+    "preview.png",
+    "preview-tools.png",
+    "preview-clipboard.png",
+    "preview-editing.png"
+  ]
+}

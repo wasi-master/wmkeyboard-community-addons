@@ -237,6 +237,25 @@
       "license": "CC-BY-4.0"
     },
     {
+      "id": "rounded-pill-ash",
+      "type": "theme",
+      "name": "Rounded Pill Ash",
+      "version": "1.0.0",
+      "author": "AshUchiha3",
+      "description": "A theme with good Contrast.",
+      "tags": [],
+      "path": "addons/themes/rounded-pill-ash/theme.wmtheme.json",
+      "sha256": "51af9e317926a1e8540ca20f3cf78245f4b251390415fd663d24d054fff9b9d0",
+      "sizeBytes": 11666,
+      "previews": [
+        "addons/themes/rounded-pill-ash/preview.png",
+        "addons/themes/rounded-pill-ash/preview-tools.png",
+        "addons/themes/rounded-pill-ash/preview-clipboard.png",
+        "addons/themes/rounded-pill-ash/preview-editing.png"
+      ],
+      "license": "CC-BY-4.0"
+    },
+    {
       "id": "hindi-marathi-devanagari",
       "type": "layout",
       "name": "Hindi / Marathi (Devanagari)",
