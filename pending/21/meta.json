@@ -1,0 +1,26 @@
+{
+  "id": "rainbow-background",
+  "type": "theme",
+  "name": "Rainbow background",
+  "description": "light, rainbow, animation",
+  "tags": [
+    "light",
+    "rainbow",
+    "animation"
+  ],
+  "license": "CC-BY-4.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "xyz12344",
+    "id": 234922099
+  },
+  "issues": [
+    21
+  ],
+  "createdAt": "2026-11-04T08:43:48.345Z",
+  "updatedAt": "2026-11-04T08:43:48.345Z",
+  "previews": [
+    "preview.png"
+  ]
+}

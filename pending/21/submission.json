@@ -1,0 +1,57 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "title": "Submission form",
+      "ok": true
+    },
+    {
+      "title": "Rights confirmed",
+      "ok": true
+    },
+    {
+      "title": "Name",
+      "ok": true
+    },
+    {
+      "title": "Description",
+      "ok": true
+    },
+    {
+      "title": "Tags",
+      "ok": true
+    },
+    {
+      "title": "License",
+      "ok": true,
+      "detail": "CC-BY-4.0"
+    },
+    {
+      "title": "Payload",
+      "ok": true
+    },
+    {
+      "title": "Addon id",
+      "ok": true,
+      "detail": "`rainbow-background`"
+    }
+  ],
+  "warnings": [],
+  "type": "theme",
+  "id": "rainbow-background",
+  "isUpdate": false,
+  "name": "Rainbow background",
+  "description": "light, rainbow, animation",
+  "tags": [
+    "light",
+    "rainbow",
+    "animation"
+  ],
+  "license": "CC-BY-4.0",
+  "basedOn": null,
+  "submitter": {
+    "login": "xyz12344",
+    "id": 234922099
+  },
+  "issue": 21
+}
