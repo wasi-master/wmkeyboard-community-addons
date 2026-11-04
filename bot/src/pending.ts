@@ -12,7 +12,8 @@ import type { SubmissionResult } from './submission.ts';
 
 /**
  * The order render outputs are published in, by the word after the id: the
- * keyboard itself first, then a theme's tool panels, then a layout's layers.
+ * keyboard itself first, then the tool panels a theme or icon pack is shown
+ * on, then a layout's layers.
  * Any other `<id>-<word>.png` the renderer writes (a layout's own pages,
  * `page1`…, and its panel layers) follows, sorted.
  */

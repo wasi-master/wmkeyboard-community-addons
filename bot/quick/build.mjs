@@ -3,8 +3,9 @@
  * <checkout>/docs/src/store) so the quick pass reads and draws an addon with
  * exactly what the store ships:
  *
- *   dist/store-readers.mjs   readTheme, readLayout, decodeManifestObject (node)
- *   dist/page.js             KeyboardMock mounted on window.renderMock (browser)
+ *   dist/store-readers.mjs   the payload readers and decodeManifestObject (node)
+ *   dist/page.js             KeyboardMock on window.renderMock, the icon and
+ *                            sticker pack previews on window.renderPack (browser)
  *
  * The store's imports resolve against this package's node_modules, so a
  * sparse checkout with no node_modules of its own is enough.
@@ -25,7 +26,7 @@ const common = {
 	bundle: true,
 	// One preact for the page and the mock, even where the checkout has its own
 	// node_modules: two copies break hooks.
-	alias: { '@store': store, preact: join(here, '..', 'node_modules', 'preact'), fflate: join(here, '..', 'node_modules', 'fflate') },
+	alias: { '@store': store, preact: join(here, '..', 'node_modules', 'preact'), fflate: join(here, '..', 'node_modules', 'fflate'), dompurify: join(here, '..', 'node_modules', 'dompurify') },
 	nodePaths: [join(here, '..', 'node_modules')],
 	jsx: 'automatic',
 	jsxImportSource: 'preact',
@@ -33,12 +34,12 @@ const common = {
 	legalComments: 'none',
 };
 
-// The mock's only UI dependency outside itself is the problems box, which a
-// screenshot never shows.
+// The mock's and the pack previews' only UI dependency outside themselves is
+// the problems box, which a screenshot never shows.
 const stubPreview = {
 	name: 'stub-preview',
 	setup(b) {
-		b.onResolve({ filter: /^\.\/Preview$/ }, (args) => (/KeyboardMock\.tsx$/.test(args.importer) ? { path: join(here, 'preview-stub.ts') } : undefined));
+		b.onResolve({ filter: /^\.\/Preview$/ }, (args) => (/(KeyboardMock|Media)\.tsx$/.test(args.importer) ? { path: join(here, 'preview-stub.ts') } : undefined));
 	},
 };
 

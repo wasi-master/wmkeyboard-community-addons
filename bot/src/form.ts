@@ -10,12 +10,13 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { parse as parseYaml } from 'yaml';
+import { TYPES } from './constants.ts';
 
 /** The ids the app pre-fills. A contract: the app writes them into URLs. */
 export const FIELD_IDS = ['name', 'description', 'tags', 'license', 'updates', 'based_on', 'payload', 'rights'] as const;
 export type FieldId = (typeof FIELD_IDS)[number];
 
-export const TEMPLATE_FILES = ['submit-theme.yml', 'submit-layout.yml'];
+export const TEMPLATE_FILES = Object.values(TYPES).map((t) => t.template);
 
 export interface TemplateField {
 	id: string;
@@ -97,7 +98,7 @@ export function parseIssueForm(body: string, labels: Map<string, FieldId>): Pars
 		if (current) buffer.push(line);
 	}
 	flush();
-	if (!seen.size) problems.push('This issue was not opened from the submission form. Open a new one from "Submit a theme" or "Submit a layout".');
+	if (!seen.size) problems.push('This issue was not opened from a submission form. Open a new one from "Submit a theme", "Submit a layout" or another of the repository\'s forms.');
 	return { fields, problems };
 }
 

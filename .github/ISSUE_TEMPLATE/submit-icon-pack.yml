@@ -1,0 +1,82 @@
+# Field ids are a contract with the app, which pre-fills this form by query
+# string (/issues/new?template=submit-icon-pack.yml&name=…&payload=…), and with the
+# bot, which maps the headings back to these ids. Rename a label freely; never
+# rename an id.
+name: Submit an icon pack
+description: Share a set of tool and key icons you made for WM Keyboard.
+title: "Icon pack: "
+labels: [submission, "type:icon_pack"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The easiest way to fill this in is **Share with everyone** on your pack under Icons in WM Keyboard, or **Submit to community** in the web store's icon pack builder. A bot checks the pack, draws its icons and posts a link to try it before it is published. See [CONTRIBUTING.md](https://github.com/wasi-master/wmkeyboard-community-addons/blob/main/CONTRIBUTING.md).
+
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      description: Shown on the icon pack's card. Up to 60 characters.
+      placeholder: Rounded Outline
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: The style, and which icons it covers. Up to 500 characters.
+    validations:
+      required: true
+
+  - type: input
+    id: tags
+    attributes:
+      label: Tags
+      description: Comma-separated, up to 8. For example `outline, rounded, minimal`.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: license
+    attributes:
+      label: License
+      description: What others may do with it. CC0 gives it away; CC BY asks for credit; CC BY-SA asks remixes to share alike.
+      options:
+        - CC0-1.0
+        - CC-BY-4.0
+        - CC-BY-SA-4.0
+    validations:
+      required: true
+
+  - type: input
+    id: updates
+    attributes:
+      label: Updates
+      description: To publish a new version of an icon pack you shared before, its id (the folder name under addons/icon-packs). Leave empty for a new one.
+    validations:
+      required: false
+
+  - type: input
+    id: based_on
+    attributes:
+      label: Based on
+      description: Filled in by the app when your icon pack started from someone else's, as `repo-id/addon-id`. Leave it as it is.
+    validations:
+      required: false
+
+  - type: textarea
+    id: payload
+    attributes:
+      label: Icon pack
+      description: Drag the `.zip` the app saved into this box (a `.wmicons` file renamed to `.zip` works too), or paste the `wmkb:1:…` text for a small pack.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: rights
+    attributes:
+      label: Rights
+      options:
+        - label: I drew every icon in it, or I have the right to share each one under the licence above.
+          required: true

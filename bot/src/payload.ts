@@ -1,11 +1,12 @@
 /**
- * Getting the addon's JSON out of the `payload` box.
+ * Getting the addon out of the `payload` box.
  *
  * Three shapes reach it: the app's encoded string (`wmkb:1:` + base64url, no
- * padding, of zlib-wrapped DEFLATE of the UTF-8 JSON), a link to a `.zip` the
- * submitter dragged in, or JSON pasted as it is. Encoders may produce
- * different bytes for the same JSON, so everything downstream compares decoded
- * JSON, never encoded strings.
+ * padding, of zlib-wrapped DEFLATE of the file's bytes), a link to a `.zip` the
+ * submitter dragged in, or JSON pasted as it is. A theme's, layout's or
+ * snippet pack's file is its UTF-8 JSON; an icon, sticker or sound pack's file
+ * is a zip of its own. Encoders may produce different bytes for the same file,
+ * so everything downstream compares decoded content, never encoded strings.
  */
 import { deflateSync, inflateSync } from 'node:zlib';
 import { unzipSync } from 'fflate';
@@ -21,15 +22,16 @@ export type PayloadSource =
 	| { kind: 'none' };
 
 /** Reference encoder, for tests and the shared vectors. The app has its own. */
-export function encodePayload(json: string): string {
-	return PAYLOAD_PREFIX + deflateSync(Buffer.from(json, 'utf8'), { level: 9 }).toString('base64url');
+export function encodePayload(file: string | Uint8Array): string {
+	const bytes = typeof file === 'string' ? Buffer.from(file, 'utf8') : file;
+	return PAYLOAD_PREFIX + deflateSync(bytes, { level: 9 }).toString('base64url');
 }
 
 /**
  * Inflates one `wmkb:1:` string, refusing anything that would decode to more
  * than [maxBytes] rather than finding out after it has.
  */
-export function decodeEncoded(token: string, maxBytes: number): string {
+export function decodeEncoded(token: string, maxBytes: number): Uint8Array {
 	if (!token.startsWith(PAYLOAD_PREFIX)) {
 		const version = /^wmkb:(\d+):/.exec(token)?.[1];
 		throw new PayloadError(
@@ -51,10 +53,10 @@ export function decodeEncoded(token: string, maxBytes: number): string {
 		}
 		throw new PayloadError('The payload does not unpack. It may be cut short: copy the whole text again, or attach the .zip.');
 	}
-	return utf8(inflated);
+	return inflated;
 }
 
-function utf8(bytes: Uint8Array): string {
+export function utf8(bytes: Uint8Array): string {
 	try {
 		return new TextDecoder('utf-8', { fatal: true }).decode(bytes);
 	} catch {
@@ -100,44 +102,80 @@ export async function downloadZip(url: string, fetchImpl: typeof fetch = fetch):
 	return Buffer.concat(chunks);
 }
 
-const PAYLOAD_NAME = /(^|\/)[^/]*\.(wmtheme|wmlayout)\.json$/i;
+/** Addon files a wrapping zip may hold, by extension, with the type each one is. */
+const ADDON_FILES: { pattern: RegExp; type: AddonType }[] = [
+	{ pattern: /(^|\/)[^/]*\.wmtheme\.json$/i, type: 'theme' },
+	{ pattern: /(^|\/)[^/]*\.wmlayout\.json$/i, type: 'layout' },
+	{ pattern: /(^|\/)[^/]*\.wmsnippets\.json$/i, type: 'snippets' },
+	{ pattern: /(^|\/)[^/]*\.wmicons$/i, type: 'icon_pack' },
+	{ pattern: /(^|\/)[^/]*\.wmstickers$/i, type: 'stickers' },
+	{ pattern: /(^|\/)[^/]*\.wmsoundpack$/i, type: 'sound_pack' },
+];
+
+const PACK_TYPES = (Object.keys(TYPES) as AddonType[]).filter((t) => TYPES[t].binary);
+
+/** The manifest at the top of an icon, sticker or sound pack. */
+const PACK_MANIFEST = 'pack.json';
+
+const ZIP_MAGIC = [0x50, 0x4b, 0x03, 0x04];
+
+export function isZip(bytes: Uint8Array): boolean {
+	return ZIP_MAGIC.every((b, i) => bytes[i] === b);
+}
 
 /**
- * The one theme or layout file in a submitted zip. Only that entry is
- * inflated, and only when its declared size is within the type's cap.
+ * The addon in a submitted zip, as its file's bytes. The zip either wraps one
+ * addon file (a theme's JSON, or a pack under its own extension) or is an
+ * icon, sticker or sound pack itself, saved as `.zip` so GitHub takes it. A
+ * wrapped file is inflated only when its declared size is within its type's cap.
  */
-export function extractFromZip(bytes: Uint8Array): { name: string; text: string } {
+export function extractFromZip(bytes: Uint8Array): { name: string; bytes: Uint8Array } {
 	let entries = 0;
+	let isPack = false;
 	const candidates: { name: string; size: number }[] = [];
 	let files: Record<string, Uint8Array>;
 	try {
 		files = unzipSync(bytes, {
 			filter: (file) => {
 				entries++;
-				if (entries > LIMITS.zipEntries) throw new PayloadError(`The zip has more than ${LIMITS.zipEntries} files; it should hold one.`);
-				if (file.name.startsWith('__MACOSX/') || !PAYLOAD_NAME.test(file.name)) return false;
+				if (entries > LIMITS.archiveEntries) throw new PayloadError(`The zip has more than ${LIMITS.archiveEntries} files, more than WM Keyboard reads.`);
+				if (file.name === PACK_MANIFEST) isPack = true;
+				const known = ADDON_FILES.find((f) => f.pattern.test(file.name));
+				if (file.name.startsWith('__MACOSX/') || !known) return false;
 				candidates.push({ name: file.name, size: file.originalSize });
-				const max = /wmtheme/i.test(file.name) ? TYPES.theme.maxBytes : TYPES.layout.maxBytes;
-				return file.originalSize <= max;
+				return file.originalSize <= TYPES[known.type].maxBytes;
 			},
 		});
 	} catch (e) {
 		if (e instanceof PayloadError) throw e;
 		throw new PayloadError(`The attachment is not a zip file the bot can read (${(e as Error).message}).`);
 	}
-	if (!candidates.length) throw new PayloadError('The zip holds no theme.wmtheme.json or layout.wmlayout.json.');
+	// A pack's own archive: its files are the pack, not a wrapper around one.
+	if (isPack) return { name: PACK_MANIFEST, bytes };
+	if (entries > LIMITS.zipEntries) throw new PayloadError(`The zip has more than ${LIMITS.zipEntries} files; it should hold one.`);
+	if (!candidates.length) {
+		throw new PayloadError('The zip holds no theme.wmtheme.json, layout.wmlayout.json or .wmsnippets.json, and is not an icon, sticker or sound pack (no pack.json at its top level).');
+	}
 	if (candidates.length > 1) throw new PayloadError(`The zip holds ${candidates.length} addon files; send one per issue.`);
 	const only = candidates[0]!;
 	const data = files[only.name];
 	if (!data) throw new PayloadError(`${only.name} is ${Math.round(only.size / 1024 / 1024)} MB unpacked, more than WM Keyboard installs.`);
-	return { name: only.name, text: utf8(data) };
+	return { name: only.name, bytes: data };
 }
 
-/** What the decoded JSON is, from its content rather than the form it came in. */
+/** What the decoded file is, from its content rather than the form it came in. */
 export type Classified =
 	| { type: 'theme'; json: Record<string, unknown> }
-	| { type: 'layout'; shape: 'envelope' | 'layer' | 'bare'; json: Record<string, unknown> };
+	| { type: 'layout'; shape: 'envelope' | 'layer' | 'bare'; json: Record<string, unknown> }
+	| { type: 'snippets'; json: Record<string, unknown> }
+	| { type: 'icon_pack' | 'stickers' | 'sound_pack'; manifest: Record<string, unknown>; bytes: Uint8Array };
 
+/** Any addon file: a pack when it is a zip, otherwise a JSON document. */
+export function classifyBytes(bytes: Uint8Array): Classified {
+	return isZip(bytes) ? classifyPack(bytes) : classify(utf8(bytes));
+}
+
+/** A JSON document: a theme, a layout (three shapes) or a snippet pack. */
 export function classify(text: string): Classified {
 	let raw: unknown;
 	try {
@@ -151,18 +189,68 @@ export function classify(text: string): Classified {
 	if (format === 'wmkeyboard-layout') return { type: 'layout', shape: 'envelope', json: o };
 	if (format === 'wmkeyboard-layer') return { type: 'layout', shape: 'layer', json: o };
 	if (format === 'wmkeyboard-layouts') throw new PayloadError('This file holds several layouts. Export the one you want to share on its own.');
-	if (typeof format === 'string') throw new PayloadError(`"format": "${format.slice(0, 40)}" is not a theme or a layout.`);
+	if (format === TYPES.snippets.format) return { type: 'snippets', json: o };
+	const pack = PACK_TYPES.find((t) => TYPES[t].format === format);
+	if (pack) throw new PayloadError(`This is only the pack.json of a ${TYPES[pack].noun}. Attach the whole pack file instead, as a .zip.`);
+	if (typeof format === 'string') throw new PayloadError(`"format": "${format.slice(0, 40)}" is not an addon this repository takes.`);
 	if (o.layers && typeof o.layers === 'object' && typeof o.id === 'string') return { type: 'layout', shape: 'bare', json: o };
 	if (typeof o.id === 'string' && typeof o.name === 'string') return { type: 'theme', json: o };
-	throw new PayloadError('The payload is neither a WM Keyboard theme nor a layout.');
+	throw new PayloadError('The payload is neither a WM Keyboard theme, a layout nor a snippet pack.');
+}
+
+/**
+ * An icon, sticker or sound pack, told apart by the `format` in its
+ * pack.json. Only that one entry is inflated; whether the icons, stickers or
+ * sounds in it are usable is what the app's importer decides in the full pass.
+ */
+function classifyPack(bytes: Uint8Array): Classified {
+	let entries = 0;
+	let manifestSize = -1;
+	let files: Record<string, Uint8Array>;
+	try {
+		files = unzipSync(bytes, {
+			filter: (file) => {
+				if (++entries > LIMITS.archiveEntries) throw new PayloadError(`The pack has more than ${LIMITS.archiveEntries} files, more than WM Keyboard reads.`);
+				if (file.name !== PACK_MANIFEST) return false;
+				manifestSize = file.originalSize;
+				return file.originalSize <= LIMITS.packManifestBytes;
+			},
+		});
+	} catch (e) {
+		if (e instanceof PayloadError) throw e;
+		throw new PayloadError(`The pack is not a zip file the bot can read (${(e as Error).message}).`);
+	}
+	if (manifestSize < 0) {
+		throw new PayloadError('The zip has no pack.json at its top level, so it is not an icon, sticker or sound pack.');
+	}
+	const data = files[PACK_MANIFEST];
+	if (!data) throw new PayloadError(`pack.json is ${Math.round(manifestSize / 1024)} KB; WM Keyboard reads at most ${LIMITS.packManifestBytes / 1024} KB of it.`);
+	let manifest: unknown;
+	try {
+		manifest = JSON.parse(utf8(data));
+	} catch (e) {
+		if (e instanceof PayloadError) throw e;
+		throw new PayloadError(`pack.json is not valid JSON: ${(e as Error).message}`);
+	}
+	if (!manifest || typeof manifest !== 'object' || Array.isArray(manifest)) throw new PayloadError('pack.json is not a JSON object.');
+	const format = (manifest as Record<string, unknown>).format;
+	const type = PACK_TYPES.find((t) => TYPES[t].format === format) as 'icon_pack' | 'stickers' | 'sound_pack' | undefined;
+	if (!type) {
+		throw new PayloadError(
+			typeof format === 'string'
+				? `pack.json says "format": "${format.slice(0, 40)}", which is not an icon, sticker or sound pack.`
+				: 'pack.json has no "format", so it is not a WM Keyboard pack.',
+		);
+	}
+	if (entries < 2) throw new PayloadError(`The ${TYPES[type].noun} holds nothing but its pack.json.`);
+	return { type, manifest: manifest as Record<string, unknown>, bytes };
 }
 
 /** Largest decoded size any type accepts; the per-type cap is checked after classifying. */
 export const MAX_DECODED = Math.max(...Object.values(TYPES).map((t) => t.maxBytes));
 
-export function checkSize(type: AddonType, text: string): void {
-	const bytes = Buffer.byteLength(text, 'utf8');
+export function checkSize(type: AddonType, bytes: number): void {
 	if (bytes > TYPES[type].maxBytes) {
-		throw new PayloadError(`The ${type} is ${Math.round(bytes / 1024 / 1024)} MB; WM Keyboard installs at most ${TYPES[type].maxBytes / 1024 / 1024} MB.`);
+		throw new PayloadError(`The ${TYPES[type].noun} is ${Math.round(bytes / 1024 / 1024)} MB; WM Keyboard installs at most ${TYPES[type].maxBytes / 1024 / 1024} MB.`);
 	}
 }

@@ -6,7 +6,7 @@
 import { createHash } from 'node:crypto';
 import { readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
-import { DEFAULT_REPO_SLUG, LIMITS, REPO_DESCRIPTION, REPO_ID, REPO_NAME, SCHEMA_URL, STORE_SITE, TYPES, type AddonType } from './constants.ts';
+import { ADDON_TYPES, DEFAULT_REPO_SLUG, LIMITS, REPO_DESCRIPTION, REPO_ID, REPO_NAME, SCHEMA_URL, STORE_SITE, TYPES, type AddonType } from './constants.ts';
 import type { Meta, Published } from './repo.ts';
 import { md } from './text.ts';
 
@@ -95,12 +95,14 @@ const COLUMNS = 3;
 export function buildReadme(published: Published[], repoSlug = DEFAULT_REPO_SLUG): string {
 	const repoUrl = `https://github.com/${repoSlug}`;
 	const newest = [...published].sort((a, b) => b.meta.createdAt.localeCompare(a.meta.createdAt) || a.meta.id.localeCompare(b.meta.id));
-	const section = (type: AddonType, title: string) => {
+	const section = (type: AddonType) => {
+		const { title, template } = TYPES[type];
 		const items = newest.filter((p) => p.meta.type === type);
-		if (!items.length) return `## ${title}\n\nNone yet. Be the first: [submit one](${repoUrl}/issues/new?template=submit-${type}.yml).\n`;
+		if (!items.length) return `## ${title}\n\nNone yet. Be the first: [submit one](${repoUrl}/issues/new?template=${template}).\n`;
 		const cells = items.map((p) => {
 			const preview = p.meta.previews[0];
-			const img = preview ? `<img src="${p.dir}/${preview}" width="240" alt="" />` : '';
+			// Sound and snippet packs have nothing to draw; their card says what they are instead.
+			const img = preview ? `<img src="${p.dir}/${preview}" width="240" alt="" />` : `<sub>${md(p.meta.description.slice(0, 140))}</sub>`;
 			const credit = p.meta.basedOn ? `<br><sub>remix of ${md(p.meta.basedOn)}</sub>` : '';
 			return `<td valign="top" width="33%"><a href="${p.dir}">${img}</a><br><b>${md(p.meta.name)}</b><br><sub>by ${md(p.meta.submitter.login)} · ${p.meta.license} · v${p.meta.version}</sub>${credit}</td>`;
 		});
@@ -113,15 +115,14 @@ export function buildReadme(published: Published[], repoSlug = DEFAULT_REPO_SLUG
 <div align="center">
   <img src="icon.png" width="96" height="96" alt="" />
   <h1>${REPO_NAME}</h1>
-  <p>Themes and layouts made by people who use WM Keyboard.</p>
+  <p>Themes, layouts, icon packs, sticker packs, sound packs and snippets made by people who use WM Keyboard.</p>
 </div>
 
 WM Keyboard lists this repository under **Settings → Addons** on its own. To add it anywhere else, use \`${repoUrl}\`, or browse it in the [web store](${STORE_SITE}/addons/?repo=${encodeURIComponent(repoUrl)}).
 
-**Share yours:** use **Share to community** on a theme or in the layout editor, or open [Submit a theme](${repoUrl}/issues/new?template=submit-theme.yml) / [Submit a layout](${repoUrl}/issues/new?template=submit-layout.yml) here. A bot checks it and posts a preview; a maintainer publishes it. Details in [CONTRIBUTING.md](CONTRIBUTING.md).
+**Share yours:** use **Share with everyone** in the app (on a theme, a layout, an icon pack, a sticker pack or your snippets) or **Submit to community** in the web store's builders, or open one of the forms here: ${ADDON_TYPES.map((t) => `[${TYPES[t].noun}](${repoUrl}/issues/new?template=${TYPES[t].template})`).join(' · ')}. A bot checks it and posts a preview; a maintainer publishes it. Details in [CONTRIBUTING.md](CONTRIBUTING.md).
 
-${section('theme', 'Themes')}
-${section('layout', 'Layouts')}
+${ADDON_TYPES.map(section).join('\n')}
 ---
 
 ${published.length} addon${published.length === 1 ? '' : 's'}, indexed by [\`wmkeyboard-repo.json\`](wmkeyboard-repo.json) (raw: \`${manifestUrl}\`). Each addon is published under the licence on its card; the bot and tooling under \`bot/\` are MIT. Names and descriptions are limited to ${LIMITS.name} and ${LIMITS.description} characters.

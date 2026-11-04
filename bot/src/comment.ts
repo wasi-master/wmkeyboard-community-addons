@@ -3,7 +3,7 @@
  * what it knows, so the comment never carries state the next pass depends on.
  * Submitted text goes through [md]; ids are validated slugs.
  */
-import { ID_PATTERN, PENDING_BRANCH, RENAME_MARKER, REPO_NAME, STICKY_MARKER, STORE_SITE, type AddonType } from './constants.ts';
+import { ID_PATTERN, PENDING_BRANCH, RENAME_MARKER, REPO_NAME, STICKY_MARKER, STORE_SITE, TYPES, type AddonType } from './constants.ts';
 import { BOT_LOGIN, type IssueComment } from './github.ts';
 import { MAIN_PREVIEWS } from './pending.ts';
 import type { Check, SubmissionResult } from './submission.ts';
@@ -17,6 +17,8 @@ import { md } from './text.ts';
 export interface QuickReport {
 	ok: boolean;
 	problems: string[];
+	/** Remarks that do not block it: a slot this app version lacks, a sample it ignores. */
+	notes?: string[];
 	images: string[];
 }
 
@@ -72,7 +74,7 @@ function line(c: Check): string {
 export function renderSticky(input: StickyInput): string {
 	const s = input.submission;
 	const state = input.stage === 'form' ? 'needs-fix' : verdict(input);
-	const kind = s.type ?? 'submission';
+	const kind = s.type ? TYPES[s.type].noun : 'submission';
 	const out: string[] = [STICKY_MARKER];
 
 	const heading = { ready: `✅ Ready for review`, 'needs-fix': `❌ Needs a fix`, rendering: `⏳ Quick preview` }[state];
@@ -102,18 +104,20 @@ export function renderSticky(input: StickyInput): string {
 	}
 	out.push('### Checks', checks.map(line).join('\n'));
 
-	const warnings = [...s.warnings, ...(input.full?.warnings ?? []).map(md)];
+	const warnings = [...s.warnings, ...(input.quick?.notes ?? []).map(md), ...(input.full?.warnings ?? []).map(md)];
 	if (warnings.length) out.push('### Notes', warnings.map((w) => `- ${w}`).join('\n'));
 
 	if (s.ok && s.id && input.stage !== 'form') {
-		const images = input.full?.ok ? input.full.images : (input.quick?.images ?? []);
+		// The JVM render wins when it drew something; a type it only checks
+		// (sound packs, snippets, stickers) keeps the web pass's pictures.
+		const images = input.full?.ok && input.full.images.length ? input.full.images : (input.quick?.images ?? []);
 		if (images.length) {
 			const urls = pendingUrls(input.repo, s.issue);
 			const tag = (img: string, width: number) => `<img src="${urls.base}/${img}?v=${encodeURIComponent(input.runId)}" width="${width}" alt="" />`;
 			const keyboard = images.filter((img) => MAIN_PREVIEWS.includes(img));
 			const more = images.filter((img) => !MAIN_PREVIEWS.includes(img));
 			out.push('### Preview', keyboard.map((img) => tag(img, 360)).join(' '));
-			if (more.length) out.push(s.type === 'layout' ? 'Every layer:' : 'On the tool panels:', more.map((img) => tag(img, 240)).join(' '));
+			if (more.length) out.push(s.type === 'layout' ? 'Every layer:' : s.type === 'theme' || s.type === 'icon_pack' ? 'On the tool panels:' : 'More:', more.map((img) => tag(img, 240)).join(' '));
 		}
 		const links = tryLinks(pendingUrls(input.repo, s.issue).manifest, s.id);
 		out.push(
@@ -152,7 +156,7 @@ export function renameComment(id: string, by: string): string {
 }
 
 export function liveComment(type: AddonType, id: string, version: string, repo: string): string {
-	const noun = type === 'theme' ? 'theme' : 'layout';
+	const noun = TYPES[type].noun;
 	const manifest = `https://raw.githubusercontent.com/${repo}/main/wmkeyboard-repo.json`;
 	const links = tryLinks(`https://github.com/${repo}`, id);
 	return [

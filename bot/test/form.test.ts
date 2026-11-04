@@ -61,7 +61,7 @@ describe('parseIssueForm', () => {
 	});
 
 	it('refuses a body that is not a form', () => {
-		assert.match(parseIssueForm('hello, please add my theme', LABELS).problems.join(), /not opened from the submission form/);
+		assert.match(parseIssueForm('hello, please add my theme', LABELS).problems.join(), /not opened from a submission form/);
 	});
 
 	it('keeps unknown ### headings inside the answer they sit in', () => {

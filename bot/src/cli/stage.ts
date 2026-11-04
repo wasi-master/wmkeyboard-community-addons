@@ -7,11 +7,12 @@
  *
  * Env: ISSUE_NUMBER, WORK_DIR (parse artifact), QUICK_DIR (quick artifact),
  * FULL_DIR (full artifact, absent until the JVM pass ran), PENDING_CHECKOUT,
- * FULL_RENDER (`off` when the JVM pass is switched off).
+ * FULL_RENDER (`off` when the JVM pass is switched off), FULL_RENDER_TYPES
+ * (the types it runs for; see [fullRenderTypes]).
  */
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { LABELS, TYPES } from '../constants.ts';
+import { fullRenderTypes, LABELS, TYPES } from '../constants.ts';
 import { renderSticky, verdict, type FullReport, type QuickReport, type Stage } from '../comment.ts';
 import { GitHub, labelNames } from '../github.ts';
 import { manifestText } from '../manifest.ts';
@@ -48,6 +49,7 @@ function readQuickReport(dir: string | undefined, id: string): QuickReport | nul
 	return {
 		ok: raw.ok === true,
 		problems: Array.isArray(raw.problems) ? raw.problems.filter((x): x is string => typeof x === 'string').slice(0, 20) : [],
+		notes: Array.isArray(raw.notes) ? raw.notes.filter((x): x is string => typeof x === 'string').map((n) => n.slice(0, 500)).slice(0, 20) : [],
 		images: collectImages(dir, id).map((i) => i.name),
 	};
 }
@@ -74,7 +76,8 @@ function files(issue: number) {
 async function comment(issue: number, stage: Stage) {
 	const gh = GitHub.fromEnv();
 	const s = readSummary(env('WORK_DIR'), issue);
-	const fullDisabled = process.env.FULL_RENDER === 'off';
+	// Off for the repository, or for this type: the quick verdict then stands.
+	const fullDisabled = process.env.FULL_RENDER === 'off' || !fullRenderTypes().has(s.type!);
 	const quick = readQuickReport(process.env.QUICK_DIR, s.id!);
 	const full = stage === 'final' && !fullDisabled ? readFullReport(process.env.FULL_DIR, s.id!) : undefined;
 	const input = { stage, submission: s, quick, full, fullDisabled, repo: gh.repo, runId: env('GITHUB_RUN_ID') };

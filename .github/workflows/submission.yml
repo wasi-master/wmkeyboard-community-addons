@@ -1,5 +1,6 @@
-# Checks a theme or layout submitted through an issue form, previews it, and
-# stages it on the `pending` branch for a maintainer's /approve.
+# Checks an addon submitted through an issue form (a theme, layout, icon pack,
+# sticker pack, sound pack or snippet pack), previews it, and stages it on the
+# `pending` branch for a maintainer's /approve.
 #
 #   parse  (read)          read the form, decode the payload, check the rules
 #   quick  (read)          web store readers + KeyboardMock screenshot, ~1 min
@@ -37,6 +38,10 @@ env:
   # `off` skips the JVM pass and lets the quick verdict stand, for a tag that
   # predates AddonShots.
   FULL_RENDER: ${{ vars.FULL_RENDER || 'on' }}
+  # The types the JVM pass runs for. A release's AddonShots refuses a type it
+  # predates as unknown, so add one here once the release checked against
+  # handles it. Keep in step with DEFAULT_FULL_RENDER_TYPES in the bot.
+  FULL_RENDER_TYPES: ${{ vars.FULL_RENDER_TYPES || 'theme,layout' }}
   ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue }}
 
 jobs:
@@ -227,7 +232,9 @@ jobs:
 
   full:
     needs: [parse, stage]
-    if: needs.parse.outputs.ok == 'true' && needs.stage.result == 'success' && vars.FULL_RENDER != 'off'
+    if: >-
+      needs.parse.outputs.ok == 'true' && needs.stage.result == 'success' && vars.FULL_RENDER != 'off' &&
+      contains(format(',{0},', vars.FULL_RENDER_TYPES || 'theme,layout'), format(',{0},', needs.parse.outputs.type))
     runs-on: ubuntu-latest
     timeout-minutes: 90
     permissions:

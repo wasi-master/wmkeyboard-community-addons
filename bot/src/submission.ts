@@ -5,11 +5,11 @@
  */
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { BASED_ON_PATTERN, ID_PATTERN, LICENSES, LIMITS, TYPES, type AddonType, type License } from './constants.ts';
+import { ADDON_TYPES, BASED_ON_PATTERN, ID_PATTERN, LICENSES, LIMITS, TYPES, type AddonType, type License } from './constants.ts';
 import { isTicked, splitTags, type FieldId } from './form.ts';
 import { normaliseLayout } from './layout.ts';
 import { nearDuplicates } from './palette.ts';
-import { classify, checkSize, decodeEncoded, downloadZip, extractFromZip, findPayload, MAX_DECODED, PayloadError } from './payload.ts';
+import { checkSize, classifyBytes, decodeEncoded, downloadZip, extractFromZip, findPayload, MAX_DECODED, PayloadError, type Classified } from './payload.ts';
 import type { Published } from './repo.ts';
 import { blockedWord, cleanLine, cleanText, md, slugify } from './text.ts';
 
@@ -50,8 +50,11 @@ export interface SubmissionResult {
 	basedOn: string | null;
 	submitter: { login: string; id: number };
 	issue: number;
-	/** The payload as it will be published: pretty JSON, layouts normalised. */
-	payload: string | null;
+	/**
+	 * The payload as it will be published: pretty JSON for a theme, layout or
+	 * snippet pack (layouts normalised), the pack's own bytes for the rest.
+	 */
+	payload: Uint8Array | null;
 }
 
 export async function evaluateSubmission(input: SubmissionInput): Promise<SubmissionResult> {
@@ -120,37 +123,37 @@ export async function evaluateSubmission(input: SubmissionInput): Promise<Submis
 
 	// Payload.
 	let type: AddonType | null = null;
-	let payload: string | null = null;
-	let classified: ReturnType<typeof classify> | null = null;
+	let payload: Uint8Array | null = null;
+	let classified: Classified | null = null;
 	try {
 		const source = findPayload(fields.payload);
-		let text: string;
+		let bytes: Uint8Array;
 		switch (source.kind) {
 			case 'none':
 				throw new PayloadError('The payload box is empty. Paste the `wmkb:1:…` text from the app, or drag the .zip it saved into the box.');
 			case 'encoded':
-				text = decodeEncoded(source.token, MAX_DECODED);
+				bytes = decodeEncoded(source.token, MAX_DECODED);
 				break;
 			case 'zip':
-				text = extractFromZip(await downloadZip(source.url, input.fetchImpl)).text;
+				bytes = extractFromZip(await downloadZip(source.url, input.fetchImpl)).bytes;
 				break;
 			case 'json':
 				if (source.text.length > LIMITS.encodedChars) throw new PayloadError('The pasted JSON is longer than an issue can hold. Attach a .zip instead.');
-				text = source.text;
+				bytes = Buffer.from(source.text, 'utf8');
 				break;
 		}
-		classified = classify(text);
+		classified = classifyBytes(bytes);
 		type = classified.type;
-		checkSize(type, text);
+		checkSize(type, bytes.byteLength);
 		pass('Payload', source.kind === 'zip' ? 'Read from the attached zip.' : undefined);
 	} catch (e) {
 		if (!(e instanceof PayloadError)) throw e;
 		fail('Payload', e.message);
 	}
 
-	const formType = (['theme', 'layout'] as const).find((t) => issue.labels.includes(`type:${t}`)) ?? null;
+	const formType = ADDON_TYPES.find((t) => issue.labels.includes(`type:${t}`)) ?? null;
 	if (type && formType && type !== formType) {
-		fail('Form type', `This is a ${type}, sent with the ${formType} form. Open a new issue with "Submit a ${type}".`);
+		fail('Form type', `This is a ${TYPES[type].noun}, sent with the ${TYPES[formType].noun} form. Open a new issue with "Submit a ${TYPES[type].noun}".`);
 	}
 
 	// Id: free, or an update the submitter owns.
@@ -164,7 +167,7 @@ export async function evaluateSubmission(input: SubmissionInput): Promise<Submis
 		} else if (owned.meta.submitter.id !== issue.user.id) {
 			fail('Addon id', `\`${updates}\` was published by someone else. Only its author can update it; share yours as a new addon instead.`);
 		} else if (type && owned.meta.type !== type) {
-			fail('Addon id', `\`${updates}\` is a ${owned.meta.type}, and this is a ${type}.`);
+			fail('Addon id', `\`${updates}\` is a ${TYPES[owned.meta.type].noun}, and this is a ${TYPES[type].noun}.`);
 		} else {
 			id = updates;
 			isUpdate = true;
@@ -190,24 +193,35 @@ export async function evaluateSubmission(input: SubmissionInput): Promise<Submis
 	}
 
 	if (classified && id) {
-		if (classified.type === 'layout') {
-			try {
-				const normalised = normaliseLayout(classified, id, name || id);
-				warnings.push(...normalised.warnings);
-				payload = JSON.stringify(normalised.envelope, null, 2) + '\n';
-			} catch (e) {
-				fail('Payload', (e as Error).message);
-			}
-		} else {
-			payload = JSON.stringify(classified.json, null, 2) + '\n';
-			if (input.root) {
-				const others = input.published
-					.filter((p) => p.meta.type === 'theme' && p.meta.id !== id)
-					.map((p) => ({ id: p.meta.id, theme: JSON.parse(readFileSync(join(input.root!, p.dir, TYPES.theme.file), 'utf8')) as Record<string, unknown> }));
-				for (const near of nearDuplicates(classified.json, others).slice(0, 3)) {
-					warnings.push(`The colours are very close to \`${near.id}\`. Fine for a remix (the "Based on" line credits it); a maintainer will take a look.`);
+		const text = (json: unknown) => Buffer.from(JSON.stringify(json, null, 2) + '\n', 'utf8');
+		switch (classified.type) {
+			case 'layout':
+				try {
+					const normalised = normaliseLayout(classified, id, name || id);
+					warnings.push(...normalised.warnings);
+					payload = text(normalised.envelope);
+				} catch (e) {
+					fail('Payload', (e as Error).message);
 				}
-			}
+				break;
+			case 'theme':
+				payload = text(classified.json);
+				if (input.root) {
+					const others = input.published
+						.filter((p) => p.meta.type === 'theme' && p.meta.id !== id)
+						.map((p) => ({ id: p.meta.id, theme: JSON.parse(readFileSync(join(input.root!, p.dir, TYPES.theme.file), 'utf8')) as Record<string, unknown> }));
+					for (const near of nearDuplicates(classified.json, others).slice(0, 3)) {
+						warnings.push(`The colours are very close to \`${near.id}\`. Fine for a remix (the "Based on" line credits it); a maintainer will take a look.`);
+					}
+				}
+				break;
+			case 'snippets':
+				payload = text(classified.json);
+				break;
+			default:
+				// A pack goes out byte for byte: re-zipping it would only risk
+				// changing what the app's importer reads.
+				payload = classified.bytes;
 		}
 	}
 

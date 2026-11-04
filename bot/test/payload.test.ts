@@ -3,7 +3,9 @@ import { deflateSync } from 'node:zlib';
 import { describe, it } from 'node:test';
 import { strToU8, zipSync } from 'fflate';
 import { PAYLOAD_PREFIX, TYPES } from '../src/constants.ts';
-import { classify, decodeEncoded, downloadZip, encodePayload, extractFromZip, findPayload, MAX_DECODED, PayloadError } from '../src/payload.ts';
+import { classify, classifyBytes, decodeEncoded, downloadZip, encodePayload, extractFromZip, findPayload, MAX_DECODED, PayloadError } from '../src/payload.ts';
+
+const text = (bytes: Uint8Array) => Buffer.from(bytes).toString('utf8');
 import { vectors } from './helpers.ts';
 
 describe('shared vectors', () => {
@@ -21,13 +23,13 @@ describe('shared vectors', () => {
 		it(`decodes ${v.name} to its JSON`, () => {
 			assert.ok(v.encoded.startsWith(PAYLOAD_PREFIX));
 			assert.ok(!v.encoded.includes('='), 'no base64 padding');
-			const decoded = decodeEncoded(v.encoded, MAX_DECODED);
+			const decoded = text(decodeEncoded(v.encoded, MAX_DECODED));
 			assert.deepEqual(JSON.parse(decoded), JSON.parse(v.json));
 		});
 
 		it(`round-trips ${v.name} through the reference encoder`, () => {
 			// Compared as JSON: another encoder may pick other deflate bytes.
-			assert.deepEqual(JSON.parse(decodeEncoded(encodePayload(v.json), MAX_DECODED)), JSON.parse(v.json));
+			assert.deepEqual(JSON.parse(text(decodeEncoded(encodePayload(v.json), MAX_DECODED))), JSON.parse(v.json));
 		});
 	}
 
@@ -35,7 +37,7 @@ describe('shared vectors', () => {
 		const json = all[0]!.json;
 		const fast = PAYLOAD_PREFIX + deflateSync(Buffer.from(json), { level: 1 }).toString('base64url');
 		assert.notEqual(fast, all[0]!.encoded);
-		assert.deepEqual(JSON.parse(decodeEncoded(fast, MAX_DECODED)), JSON.parse(json));
+		assert.deepEqual(JSON.parse(text(decodeEncoded(fast, MAX_DECODED))), JSON.parse(json));
 	});
 });
 
@@ -52,7 +54,10 @@ describe('decodeEncoded', () => {
 		const raw = PAYLOAD_PREFIX + deflateSync(Buffer.from('{}'), { level: 9 }).subarray(2).toString('base64url');
 		fails(raw, /unpack/);
 	});
-	it('refuses text that is not UTF-8', () => fails(PAYLOAD_PREFIX + deflateSync(Buffer.from([0xff, 0xfe, 0x00])).toString('base64url'), /UTF-8/));
+	it('refuses text that is not UTF-8', () => {
+		const token = PAYLOAD_PREFIX + deflateSync(Buffer.from([0xff, 0xfe, 0x00])).toString('base64url');
+		assert.throws(() => classifyBytes(decodeEncoded(token, MAX_DECODED)), (e: unknown) => e instanceof PayloadError && /UTF-8/.test(e.message));
+	});
 });
 
 describe('findPayload', () => {
@@ -75,7 +80,7 @@ describe('zip attachments', () => {
 
 	it('reads the one theme in a zip', () => {
 		const zip = zipSync({ 'theme.wmtheme.json': strToU8(theme), '__MACOSX/._theme.wmtheme.json': strToU8('junk') });
-		assert.equal(extractFromZip(zip).text, theme);
+		assert.equal(text(extractFromZip(zip).bytes), theme);
 	});
 	it('refuses two addons in one zip', () => {
 		const zip = zipSync({ 'a.wmtheme.json': strToU8(theme), 'b.wmlayout.json': strToU8('{}') });
@@ -112,9 +117,50 @@ describe('classify', () => {
 		assert.equal(classify('{"id":"x","name":"X"}').type, 'theme');
 	});
 	it('refuses a settings backup, a layout bundle and junk', () => {
-		assert.throws(() => classify('{"format":"wmkeyboard-backup"}'), /not a theme or a layout/);
+		assert.throws(() => classify('{"format":"wmkeyboard-backup"}'), /not an addon this repository takes/);
 		assert.throws(() => classify('{"format":"wmkeyboard-layouts"}'), /several layouts/);
 		assert.throws(() => classify('[1,2]'), /not a JSON object/);
 		assert.throws(() => classify('{nope'), /not valid JSON/);
+	});
+});
+
+/** A minimal pack archive: pack.json plus [files]. */
+function pack(format: string, files: Record<string, string> = { 'icons/tool.clipboard.svg': '<svg xmlns="http://www.w3.org/2000/svg"/>' }): Uint8Array {
+	const entries: Record<string, Uint8Array> = { 'pack.json': strToU8(JSON.stringify({ format, version: 1, pack: { id: 'p', name: 'P' } })) };
+	for (const [name, body] of Object.entries(files)) entries[name] = strToU8(body);
+	return zipSync(entries);
+}
+
+describe('packs', () => {
+	it('tells icon, sticker and sound packs apart by their pack.json', () => {
+		assert.equal(classifyBytes(pack('wmkeyboard-icons')).type, 'icon_pack');
+		assert.equal(classifyBytes(pack('wmkeyboard-stickers', { 'stickers/a.webp': 'x' })).type, 'stickers');
+		assert.equal(classifyBytes(pack('wmkeyboard-sound-pack', { 'press.ogg': 'x' })).type, 'sound_pack');
+	});
+	it('takes a snippet file as JSON', () => {
+		assert.equal(classify('{"format":"wmkeyboard-snippets","version":2,"snippets":[]}').type, 'snippets');
+	});
+	it('reads a pack renamed to .zip as the pack itself, even with many files', () => {
+		const files: Record<string, string> = {};
+		for (let i = 0; i < 40; i++) files[`icons/x${i}.svg`] = '<svg/>';
+		const zip = pack('wmkeyboard-icons', files);
+		const out = extractFromZip(zip);
+		assert.equal(out.bytes, zip);
+		assert.equal(classifyBytes(out.bytes).type, 'icon_pack');
+	});
+	it('unwraps a pack saved under its own extension inside a zip', () => {
+		const inner = pack('wmkeyboard-stickers', { 'stickers/a.webp': 'x' });
+		const out = extractFromZip(zipSync({ 'Cats.wmstickers': inner }));
+		assert.equal(classifyBytes(out.bytes).type, 'stickers');
+	});
+	it('refuses a zip that is no pack, and a pack.json alone', () => {
+		assert.throws(() => classifyBytes(zipSync({ 'a.svg': strToU8('<svg/>') })), /no pack.json/);
+		assert.throws(() => classifyBytes(pack('wmkeyboard-plugin')), /not an icon, sticker or sound pack/);
+		assert.throws(() => classifyBytes(zipSync({ 'pack.json': strToU8('{"format":"wmkeyboard-icons"}') })), /nothing but its pack.json/);
+		assert.throws(() => classify('{"format":"wmkeyboard-icons","pack":{}}'), /only the pack.json of a icon pack|only the pack.json of an? icon pack/);
+	});
+	it('round-trips a pack through the encoded form', () => {
+		const zip = pack('wmkeyboard-icons');
+		assert.equal(classifyBytes(decodeEncoded(encodePayload(zip), MAX_DECODED)).type, 'icon_pack');
 	});
 });

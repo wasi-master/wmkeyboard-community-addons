@@ -1,0 +1,82 @@
+# Field ids are a contract with the app, which pre-fills this form by query
+# string (/issues/new?template=submit-snippets.yml&name=…&payload=…), and with the
+# bot, which maps the headings back to these ids. Rename a label freely; never
+# rename an id.
+name: Submit a snippet pack
+description: Share a set of text snippets made in WM Keyboard.
+title: "Snippets: "
+labels: [submission, "type:snippets"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The easiest way to fill this in is **Share with everyone** on the Snippets screen in WM Keyboard, which sends all your snippets (filed into their folders), or **Submit to community** in the web store's snippet builder. A bot checks the pack and posts a link to try it before it is published. Leave out anything personal: addresses, phone numbers, account details. See [CONTRIBUTING.md](https://github.com/wasi-master/wmkeyboard-community-addons/blob/main/CONTRIBUTING.md).
+
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      description: Shown on the snippet pack's card. Up to 60 characters.
+      placeholder: Customer support replies
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What the snippets are for. Up to 500 characters.
+    validations:
+      required: true
+
+  - type: input
+    id: tags
+    attributes:
+      label: Tags
+      description: Comma-separated, up to 8. For example `replies, support, english`.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: license
+    attributes:
+      label: License
+      description: What others may do with it. CC0 gives it away; CC BY asks for credit; CC BY-SA asks remixes to share alike.
+      options:
+        - CC0-1.0
+        - CC-BY-4.0
+        - CC-BY-SA-4.0
+    validations:
+      required: true
+
+  - type: input
+    id: updates
+    attributes:
+      label: Updates
+      description: To publish a new version of a snippet pack you shared before, its id (the folder name under addons/snippets). Leave empty for a new one.
+    validations:
+      required: false
+
+  - type: input
+    id: based_on
+    attributes:
+      label: Based on
+      description: Filled in by the app when your snippet pack started from someone else's, as `repo-id/addon-id`. Leave it as it is.
+    validations:
+      required: false
+
+  - type: textarea
+    id: payload
+    attributes:
+      label: Snippets
+      description: The `wmkb:1:…` text the app gave you, the `.wmsnippets.json` pasted as it is, or drag the `.zip` it saved into this box.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: rights
+    attributes:
+      label: Rights
+      options:
+        - label: I wrote these snippets, or I have the right to share them, and they hold nothing private.
+          required: true

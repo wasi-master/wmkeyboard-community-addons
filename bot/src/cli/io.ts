@@ -36,7 +36,7 @@ export function output(values: Record<string, string | number | boolean>): void 
 	const file = process.env.GITHUB_OUTPUT;
 	const lines = Object.entries(values).map(([k, v]) => {
 		const s = String(v);
-		if (!/^[A-Za-z0-9._:/-]*$/.test(s) || s.includes('..')) throw new Error(`refusing unsafe output ${k}=${JSON.stringify(s)}`);
+		if (!/^[A-Za-z0-9_.:/-]*$/.test(s) || s.includes('..')) throw new Error(`refusing unsafe output ${k}=${JSON.stringify(s)}`);
 		return `${k}=${s}`;
 	});
 	if (file) appendFileSync(file, lines.join('\n') + '\n');

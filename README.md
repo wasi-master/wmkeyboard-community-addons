@@ -2,12 +2,12 @@
 <div align="center">
   <img src="icon.png" width="96" height="96" alt="" />
   <h1>WM Keyboard Community</h1>
-  <p>Themes and layouts made by people who use WM Keyboard.</p>
+  <p>Themes, layouts, icon packs, sticker packs, sound packs and snippets made by people who use WM Keyboard.</p>
 </div>
 
 WM Keyboard lists this repository under **Settings → Addons** on its own. To add it anywhere else, use `https://github.com/wasi-master/wmkeyboard-community-addons`, or browse it in the [web store](https://wmkeyboard.pages.dev/addons/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons).
 
-**Share yours:** use **Share to community** on a theme or in the layout editor, or open [Submit a theme](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-theme.yml) / [Submit a layout](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-layout.yml) here. A bot checks it and posts a preview; a maintainer publishes it. Details in [CONTRIBUTING.md](CONTRIBUTING.md).
+**Share yours:** use **Share with everyone** in the app (on a theme, a layout, an icon pack, a sticker pack or your snippets) or **Submit to community** in the web store's builders, or open one of the forms here: [theme](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-theme.yml) · [layout](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-layout.yml) · [icon pack](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-icon-pack.yml) · [sticker pack](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-stickers.yml) · [sound pack](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-sound-pack.yml) · [snippet pack](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-snippets.yml). A bot checks it and posts a preview; a maintainer publishes it. Details in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Themes
 
@@ -41,6 +41,22 @@ WM Keyboard lists this repository under **Settings → Addons** on its own. To a
 <td valign="top" width="33%"><a href="addons/layouts/hindi-marathi-devanagari"><img src="addons/layouts/hindi-marathi-devanagari/preview.png" width="240" alt="" /></a><br><b>Hindi / Marathi \(Devanagari\)</b><br><sub>by RamPawar7 · CC0-1.0 · v1.0.0</sub></td>
 </tr>
 </table>
+
+## Icon packs
+
+None yet. Be the first: [submit one](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-icon-pack.yml).
+
+## Sticker packs
+
+None yet. Be the first: [submit one](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-stickers.yml).
+
+## Sound packs
+
+None yet. Be the first: [submit one](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-sound-pack.yml).
+
+## Snippets
+
+None yet. Be the first: [submit one](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-snippets.yml).
 
 ---
 

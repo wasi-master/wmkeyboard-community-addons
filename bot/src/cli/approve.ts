@@ -16,7 +16,7 @@ import { liveComment } from '../comment.ts';
 import { GitHub, labelNames } from '../github.ts';
 import { buildManifest, buildReadme, manifestText } from '../manifest.ts';
 import { collectImages, metaFor, writeAddonFolder, type Summary } from '../pending.ts';
-import { classify } from '../payload.ts';
+import { classifyBytes } from '../payload.ts';
 import { addonDir, readPublished } from '../repo.ts';
 import { checkedId, checkedType, env, issueNumber, main, output, readJson, REPO_ROOT } from './io.ts';
 
@@ -34,7 +34,7 @@ async function publish(issueNo: number) {
 	const type = checkedType(s.type);
 	if (s.issue !== issueNo || s.submitter.id !== issue.user.id) throw new Error('pending/submission.json does not belong to this issue');
 	const payload = readFileSync(join(pending, TYPES[type].file));
-	if (classify(payload.toString('utf8')).type !== type) throw new Error(`pending payload is not a ${type}`);
+	if (classifyBytes(payload).type !== type) throw new Error(`pending payload is not a ${type}`);
 
 	const published = readPublished(REPO_ROOT);
 	const existing = published.find((p) => p.meta.id === id);
