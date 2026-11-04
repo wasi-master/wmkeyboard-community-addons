@@ -9,7 +9,7 @@
     "author": "WM Keyboard community",
     "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons",
     "icon": "icon.png",
-    "updatedAt": "2026-11-02"
+    "updatedAt": "2026-11-04"
   },
   "addons": [
     {
@@ -71,6 +71,25 @@
         "addons/themes/ios-ash/preview-tools.png",
         "addons/themes/ios-ash/preview-clipboard.png",
         "addons/themes/ios-ash/preview-editing.png"
+      ],
+      "license": "CC0-1.0"
+    },
+    {
+      "id": "ios-dark-glass-ash",
+      "type": "theme",
+      "name": "iOS Dark Glass Ash",
+      "version": "1.0.0",
+      "author": "AshUchiha3",
+      "description": "Custom Theme made by me.",
+      "tags": [],
+      "path": "addons/themes/ios-dark-glass-ash/theme.wmtheme.json",
+      "sha256": "8a0d2f04609a8884e47cdc5a760dec1aa02e55366f956f847eb29058366e5e10",
+      "sizeBytes": 26047,
+      "previews": [
+        "addons/themes/ios-dark-glass-ash/preview.png",
+        "addons/themes/ios-dark-glass-ash/preview-tools.png",
+        "addons/themes/ios-dark-glass-ash/preview-clipboard.png",
+        "addons/themes/ios-dark-glass-ash/preview-editing.png"
       ],
       "license": "CC0-1.0"
     },
