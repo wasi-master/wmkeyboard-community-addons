@@ -1,0 +1,32 @@
+{
+  "$schema": "https://raw.githubusercontent.com/wasi-master/wmkeyboard-addon-repository/main/docs/addons/wmkeyboard-repo.schema.json",
+  "format": "wmkeyboard-repo",
+  "version": 1,
+  "repo": {
+    "id": "com.wasimaster.wmkeyboard.community.pending",
+    "name": "WM Keyboard Community: pending #23",
+    "description": "One submission waiting for review. Installs from here are trial copies; the published version comes from the community repository.",
+    "author": "WM Keyboard community",
+    "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons/issues/23"
+  },
+  "addons": [
+    {
+      "id": "materail-moment",
+      "type": "theme",
+      "name": "Materail Moment",
+      "version": "1.0.0",
+      "author": "mini-page",
+      "description": "google pastle color keyboard theme",
+      "tags": [
+        "pastle #materail"
+      ],
+      "path": "theme.wmtheme.json",
+      "sha256": "daf78fea4eada1d8871035ad6731fccaa75a730f78b8b17937a7883ff7fface6",
+      "sizeBytes": 7975,
+      "previews": [
+        "preview.png"
+      ],
+      "license": "CC0-1.0"
+    }
+  ]
+}

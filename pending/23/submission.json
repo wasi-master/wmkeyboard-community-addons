@@ -1,0 +1,55 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "title": "Submission form",
+      "ok": true
+    },
+    {
+      "title": "Rights confirmed",
+      "ok": true
+    },
+    {
+      "title": "Name",
+      "ok": true
+    },
+    {
+      "title": "Description",
+      "ok": true
+    },
+    {
+      "title": "Tags",
+      "ok": true
+    },
+    {
+      "title": "License",
+      "ok": true,
+      "detail": "CC0-1.0"
+    },
+    {
+      "title": "Payload",
+      "ok": true
+    },
+    {
+      "title": "Addon id",
+      "ok": true,
+      "detail": "`materail-moment`"
+    }
+  ],
+  "warnings": [],
+  "type": "theme",
+  "id": "materail-moment",
+  "isUpdate": false,
+  "name": "Materail Moment",
+  "description": "google pastle color keyboard theme",
+  "tags": [
+    "pastle #materail"
+  ],
+  "license": "CC0-1.0",
+  "basedOn": null,
+  "submitter": {
+    "login": "mini-page",
+    "id": 146421384
+  },
+  "issue": 23
+}
