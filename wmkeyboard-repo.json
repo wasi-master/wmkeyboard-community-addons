@@ -185,6 +185,28 @@
         "addons/layouts/hindi-marathi-devanagari/preview-shift.png"
       ],
       "license": "CC0-1.0"
+    },
+    {
+      "id": "quickedit-gboard-symbols",
+      "type": "layout",
+      "name": "quickedit+gboard Symbols",
+      "version": "1.0.0",
+      "author": "xyz12344",
+      "description": "gboard qwer, simbol layout + quick edit tools",
+      "tags": [
+        "gboard",
+        "symbol",
+        "quiktools"
+      ],
+      "path": "addons/layouts/quickedit-gboard-symbols/layout.wmlayout.json",
+      "sha256": "28940e417d68903ca8440614e6c67447b39f4750499c4aef0b3841edb934a8d2",
+      "sizeBytes": 8255,
+      "previews": [
+        "addons/layouts/quickedit-gboard-symbols/preview.png",
+        "addons/layouts/quickedit-gboard-symbols/preview-dark.png",
+        "addons/layouts/quickedit-gboard-symbols/preview-shift.png"
+      ],
+      "license": "CC-BY-4.0"
     }
   ]
 }
