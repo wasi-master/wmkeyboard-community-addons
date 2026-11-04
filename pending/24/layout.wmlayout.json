@@ -1,0 +1,378 @@
+{
+  "format": "wmkeyboard-layout",
+  "version": 1,
+  "layout": {
+    "id": "custom_1791532185355",
+    "name": "quickedit+gboard Symbols",
+    "langId": "en",
+    "layers": {
+      "letters": {
+        "rows": [
+          [
+            {
+              "label": "q",
+              "longPress": [
+                "%"
+              ]
+            },
+            {
+              "label": "w",
+              "longPress": [
+                "\\",
+                "/"
+              ]
+            },
+            {
+              "label": "e",
+              "longPress": [
+                "|",
+                "è",
+                "é",
+                "ê",
+                "ë"
+              ]
+            },
+            {
+              "label": "r",
+              "longPress": [
+                "="
+              ]
+            },
+            {
+              "label": "t",
+              "longPress": [
+                "["
+              ]
+            },
+            {
+              "label": "y",
+              "longPress": [
+                "]"
+              ]
+            },
+            {
+              "label": "u",
+              "longPress": [
+                "<",
+                "ù",
+                "ú",
+                "û",
+                "ü"
+              ]
+            },
+            {
+              "label": "i",
+              "longPress": [
+                ">",
+                "ì",
+                "í",
+                "î",
+                "ï"
+              ]
+            },
+            {
+              "label": "o",
+              "longPress": [
+                "{",
+                "ò",
+                "ó",
+                "ô",
+                "ö",
+                "œ"
+              ]
+            },
+            {
+              "label": "p",
+              "longPress": [
+                "}"
+              ]
+            }
+          ],
+          [
+            {
+              "label": "a",
+              "longPress": [
+                "@",
+                "à",
+                "á",
+                "â",
+                "ä",
+                "å"
+              ]
+            },
+            {
+              "label": "s",
+              "longPress": [
+                "#",
+                "ß",
+                "ś"
+              ]
+            },
+            {
+              "label": "d",
+              "longPress": [
+                "$",
+                "€",
+                "£",
+                "¥",
+                "₹"
+              ]
+            },
+            {
+              "label": "f",
+              "longPress": [
+                "_"
+              ]
+            },
+            {
+              "label": "g",
+              "longPress": [
+                "&"
+              ]
+            },
+            {
+              "label": "h",
+              "longPress": [
+                "-"
+              ]
+            },
+            {
+              "label": "j",
+              "longPress": [
+                "+"
+              ]
+            },
+            {
+              "label": "k",
+              "longPress": [
+                "("
+              ]
+            },
+            {
+              "label": "l",
+              "longPress": [
+                ")"
+              ]
+            }
+          ],
+          [
+            {
+              "label": "⇧",
+              "action": {
+                "type": "shift"
+              },
+              "width": 1.5
+            },
+            {
+              "label": "z",
+              "longPress": [
+                "*",
+                "ż",
+                "ź"
+              ]
+            },
+            {
+              "label": "x",
+              "longPress": [
+                "\""
+              ]
+            },
+            {
+              "label": "c",
+              "longPress": [
+                "'",
+                "ç",
+                "ć"
+              ]
+            },
+            {
+              "label": "v",
+              "longPress": [
+                ":"
+              ]
+            },
+            {
+              "label": "b",
+              "longPress": [
+                ";"
+              ]
+            },
+            {
+              "label": "n",
+              "longPress": [
+                "!",
+                "ñ",
+                "ń"
+              ]
+            },
+            {
+              "label": "m",
+              "longPress": [
+                "?"
+              ]
+            },
+            {
+              "label": "⌫",
+              "action": {
+                "type": "delete"
+              },
+              "width": 1.5
+            }
+          ],
+          [
+            {
+              "label": "?123",
+              "action": {
+                "type": "symbols"
+              },
+              "width": 1.5
+            },
+            {
+              "label": ",",
+              "actionAlternates": [
+                {
+                  "action": {
+                    "type": "emoji"
+                  }
+                },
+                {
+                  "action": {
+                    "type": "tool",
+                    "tool": "CLIPBOARD"
+                  }
+                },
+                {
+                  "action": {
+                    "type": "tool",
+                    "tool": "CALCULATOR"
+                  }
+                },
+                {
+                  "action": {
+                    "type": "tool",
+                    "tool": "FLOATING"
+                  }
+                },
+                {
+                  "action": {
+                    "type": "tool",
+                    "tool": "KDE_CONNECT"
+                  }
+                }
+              ],
+              "role": "Comma",
+              "iconHint": "emoji"
+            },
+            {
+              "label": "",
+              "action": {
+                "type": "space"
+              },
+              "width": 5,
+              "icon": "space"
+            },
+            {
+              "label": ".",
+              "longPress": [
+                "/",
+                "…",
+                "?",
+                "!",
+                ":",
+                ";",
+                ","
+              ],
+              "role": "Period",
+              "hideHint": true
+            },
+            {
+              "label": "⏎",
+              "action": {
+                "type": "enter"
+              },
+              "width": 1.5
+            }
+          ]
+        ],
+        "numberRow": [
+          {
+            "label": "0",
+            "longPress": [
+              "forward_"
+            ],
+            "iconHint": "forward_delete",
+            "forceHint": true,
+            "holdAction": {
+              "action": {
+                "type": "forward_delete"
+              }
+            }
+          },
+          {
+            "label": "1",
+            "clipboardAction": "SELECT_ALL",
+            "iconHint": "SelectAll"
+          },
+          {
+            "label": "2",
+            "clipboardAction": "COPY",
+            "iconHint": "copy"
+          },
+          {
+            "label": "3",
+            "clipboardAction": "PASTE",
+            "iconHint": "paste"
+          },
+          {
+            "label": "4",
+            "clipboardAction": "CUT",
+            "iconHint": "cut"
+          },
+          {
+            "label": "5",
+            "iconHint": "left",
+            "holdAction": {
+              "action": {
+                "type": "send_key",
+                "keyCode": 21
+              }
+            }
+          },
+          {
+            "label": "6",
+            "iconHint": "right",
+            "holdAction": {
+              "action": {
+                "type": "send_key",
+                "keyCode": 22
+              }
+            }
+          },
+          {
+            "label": "7",
+            "clipboardAction": "UNDO",
+            "iconHint": "undo"
+          },
+          {
+            "label": "8",
+            "clipboardAction": "REDO",
+            "iconHint": "redo"
+          },
+          {
+            "label": "9",
+            "actionAlternates": [
+              {
+                "action": {
+                  "type": "tool",
+                  "tool": "CLIPBOARD"
+                }
+              }
+            ],
+            "iconHint": "Article"
+          }
+        ],
+        "bottomRowAsLaidOut": true
+      }
+    }
+  }
+}

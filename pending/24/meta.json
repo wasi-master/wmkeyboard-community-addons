@@ -1,0 +1,27 @@
+{
+  "id": "quickedit-gboard-symbols",
+  "type": "layout",
+  "name": "quickedit+gboard Symbols",
+  "description": "gboard qwer, simbol layout + quick edit tools",
+  "tags": [
+    "gboard",
+    "symbol",
+    "quiktools"
+  ],
+  "license": "CC-BY-4.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "xyz12344",
+    "id": 234922099
+  },
+  "issues": [
+    24
+  ],
+  "createdAt": "2026-11-04T12:13:50.014Z",
+  "updatedAt": "2026-11-04T12:13:50.014Z",
+  "previews": [
+    "preview.png",
+    "preview-dark.png"
+  ]
+}
