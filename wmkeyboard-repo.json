@@ -94,6 +94,30 @@
       "license": "CC0-1.0"
     },
     {
+      "id": "light-green-border",
+      "type": "theme",
+      "name": "light green border",
+      "version": "1.0.0",
+      "author": "xyz12344",
+      "description": "light, green",
+      "tags": [
+        "light",
+        "green",
+        "blue",
+        "minimal"
+      ],
+      "path": "addons/themes/light-green-border/theme.wmtheme.json",
+      "sha256": "99a21e5fd20d337c496c19bd2467f6bc686a9e51bb8c09c6df562d74e9d97848",
+      "sizeBytes": 3853,
+      "previews": [
+        "addons/themes/light-green-border/preview.png",
+        "addons/themes/light-green-border/preview-tools.png",
+        "addons/themes/light-green-border/preview-clipboard.png",
+        "addons/themes/light-green-border/preview-editing.png"
+      ],
+      "license": "CC-BY-4.0"
+    },
+    {
       "id": "lo-fi-anime-girl",
       "type": "theme",
       "name": "Lo-fi Anime girl",

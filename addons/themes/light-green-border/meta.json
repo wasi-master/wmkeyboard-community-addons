@@ -1,0 +1,30 @@
+{
+  "id": "light-green-border",
+  "type": "theme",
+  "name": "light green border",
+  "description": "light, green",
+  "tags": [
+    "light",
+    "green",
+    "blue",
+    "minimal"
+  ],
+  "license": "CC-BY-4.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "xyz12344",
+    "id": 234922099
+  },
+  "issues": [
+    22
+  ],
+  "createdAt": "2026-11-04T18:54:35.691Z",
+  "updatedAt": "2026-11-04T18:54:35.691Z",
+  "previews": [
+    "preview.png",
+    "preview-tools.png",
+    "preview-clipboard.png",
+    "preview-editing.png"
+  ]
+}

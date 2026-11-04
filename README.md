@@ -13,16 +13,17 @@ WM Keyboard lists this repository under **Settings → Addons** on its own. To a
 
 <table>
 <tr>
+<td valign="top" width="33%"><a href="addons/themes/light-green-border"><img src="addons/themes/light-green-border/preview.png" width="240" alt="" /></a><br><b>light green border</b><br><sub>by xyz12344 · CC-BY-4.0 · v1.0.0</sub></td>
 <td valign="top" width="33%"><a href="addons/themes/materail-moment"><img src="addons/themes/materail-moment/preview.png" width="240" alt="" /></a><br><b>Materail Moment</b><br><sub>by mini-page · CC0-1.0 · v1.0.0</sub></td>
 <td valign="top" width="33%"><a href="addons/themes/ios-dark-glass-ash"><img src="addons/themes/ios-dark-glass-ash/preview.png" width="240" alt="" /></a><br><b>iOS Dark Glass Ash</b><br><sub>by AshUchiha3 · CC0-1.0 · v1.0.0</sub></td>
-<td valign="top" width="33%"><a href="addons/themes/mono-frosted-glass"><img src="addons/themes/mono-frosted-glass/preview.png" width="240" alt="" /></a><br><b>Mono Frosted Glass</b><br><sub>by Veratian · CC0-1.0 · v1.0.0</sub></td>
 </tr>
 <tr>
+<td valign="top" width="33%"><a href="addons/themes/mono-frosted-glass"><img src="addons/themes/mono-frosted-glass/preview.png" width="240" alt="" /></a><br><b>Mono Frosted Glass</b><br><sub>by Veratian · CC0-1.0 · v1.0.0</sub></td>
 <td valign="top" width="33%"><a href="addons/themes/degradado-escarcha"><img src="addons/themes/degradado-escarcha/preview.png" width="240" alt="" /></a><br><b>Degradado escarcha</b><br><sub>by titomdp06-cmyk · CC-BY-4.0 · v1.0.0</sub></td>
 <td valign="top" width="33%"><a href="addons/themes/lo-fi-anime-girl"><img src="addons/themes/lo-fi-anime-girl/preview.png" width="240" alt="" /></a><br><b>Lo-fi Anime girl</b><br><sub>by mishrapriyanshu7191-blip · CC0-1.0 · v1.0.0</sub></td>
-<td valign="top" width="33%"><a href="addons/themes/nothing-keyboard-v1"><img src="addons/themes/nothing-keyboard-v1/preview.png" width="240" alt="" /></a><br><b>NOTHING Keyboard V1</b><br><sub>by MystiKitsu · CC-BY-4.0 · v1.0.0</sub></td>
 </tr>
 <tr>
+<td valign="top" width="33%"><a href="addons/themes/nothing-keyboard-v1"><img src="addons/themes/nothing-keyboard-v1/preview.png" width="240" alt="" /></a><br><b>NOTHING Keyboard V1</b><br><sub>by MystiKitsu · CC-BY-4.0 · v1.0.0</sub></td>
 <td valign="top" width="33%"><a href="addons/themes/frostkey"><img src="addons/themes/frostkey/preview.png" width="240" alt="" /></a><br><b>FROSTKEY</b><br><sub>by PrncDENZ254KE · CC-BY-4.0 · v1.0.0</sub></td>
 <td valign="top" width="33%"><a href="addons/themes/ios-ash"><img src="addons/themes/ios-ash/preview.png" width="240" alt="" /></a><br><b>IoS Ash</b><br><sub>by AshUchiha3 · CC0-1.0 · v1.0.0</sub></td>
 </tr>
@@ -39,4 +40,4 @@ WM Keyboard lists this repository under **Settings → Addons** on its own. To a
 
 ---
 
-10 addons, indexed by [`wmkeyboard-repo.json`](wmkeyboard-repo.json) (raw: `https://raw.githubusercontent.com/wasi-master/wmkeyboard-community-addons/main/wmkeyboard-repo.json`). Each addon is published under the licence on its card; the bot and tooling under `bot/` are MIT. Names and descriptions are limited to 60 and 500 characters.
+11 addons, indexed by [`wmkeyboard-repo.json`](wmkeyboard-repo.json) (raw: `https://raw.githubusercontent.com/wasi-master/wmkeyboard-community-addons/main/wmkeyboard-repo.json`). Each addon is published under the licence on its card; the bot and tooling under `bot/` are MIT. Names and descriptions are limited to 60 and 500 characters.
