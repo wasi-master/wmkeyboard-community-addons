@@ -1,0 +1,49 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "title": "Submission form",
+      "ok": true
+    },
+    {
+      "title": "Rights confirmed",
+      "ok": true
+    },
+    {
+      "title": "Name",
+      "ok": true
+    },
+    {
+      "title": "Description",
+      "ok": true
+    },
+    {
+      "title": "License",
+      "ok": true,
+      "detail": "CC0-1.0"
+    },
+    {
+      "title": "Payload",
+      "ok": true
+    },
+    {
+      "title": "Addon id",
+      "ok": true,
+      "detail": "`3d-black`"
+    }
+  ],
+  "warnings": [],
+  "type": "theme",
+  "id": "3d-black",
+  "isUpdate": false,
+  "name": "3d black",
+  "description": "NA",
+  "tags": [],
+  "license": "CC0-1.0",
+  "basedOn": null,
+  "submitter": {
+    "login": "xyz12344",
+    "id": 234922099
+  },
+  "issue": 17
+}
