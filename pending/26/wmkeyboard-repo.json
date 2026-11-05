@@ -1,0 +1,34 @@
+{
+  "$schema": "https://raw.githubusercontent.com/wasi-master/wmkeyboard-addon-repository/main/docs/addons/wmkeyboard-repo.schema.json",
+  "format": "wmkeyboard-repo",
+  "version": 1,
+  "repo": {
+    "id": "com.wasimaster.wmkeyboard.community.pending",
+    "name": "WM Keyboard Community: pending #26",
+    "description": "One submission waiting for review. Installs from here are trial copies; the published version comes from the community repository.",
+    "author": "WM Keyboard community",
+    "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons/issues/26"
+  },
+  "addons": [
+    {
+      "id": "pureline-icon-pack",
+      "type": "icon_pack",
+      "name": "Pureline Icon pack",
+      "version": "1.0.0",
+      "author": "Episode12",
+      "description": "Experience a refined keyboard look with Pureline. A minimal icon pack built on pure, clean designs.\nSleek, refined, and distraction-free — crafted to give your Wm keyboard a modern and elegant look.\n\nThis icon pack is brought to you by - BigPurpleNeko.",
+      "tags": [
+        "minimal",
+        "modern",
+        "sleek"
+      ],
+      "path": "pack.wmicons",
+      "sha256": "bdc43c7edd8261f76c212a2c8b327b067367abe6364c7f6319afee36d90d93b8",
+      "sizeBytes": 546290,
+      "previews": [
+        "preview.png"
+      ],
+      "license": "CC-BY-4.0"
+    }
+  ]
+}
