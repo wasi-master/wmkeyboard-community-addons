@@ -1,0 +1,26 @@
+{
+  "id": "pureline-theme-amoled",
+  "type": "theme",
+  "name": "Pureline Theme (Amoled)",
+  "description": "An Amoled theme created by \"BigPurpleNeko\", who also created Pureline icon pack. Made for simplicity enthusiasts. Who likes minimal but usefull designs that doesn't look gaudy or too heavy on the eye.",
+  "tags": [
+    "minimal",
+    "simplicity",
+    "amoled"
+  ],
+  "license": "CC-BY-4.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "Episode12",
+    "id": 88729878
+  },
+  "issues": [
+    27
+  ],
+  "createdAt": "2026-11-05T14:06:08.813Z",
+  "updatedAt": "2026-11-05T14:06:08.813Z",
+  "previews": [
+    "preview.png"
+  ]
+}

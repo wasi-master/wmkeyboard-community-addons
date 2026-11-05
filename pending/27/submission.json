@@ -1,0 +1,57 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "title": "Submission form",
+      "ok": true
+    },
+    {
+      "title": "Rights confirmed",
+      "ok": true
+    },
+    {
+      "title": "Name",
+      "ok": true
+    },
+    {
+      "title": "Description",
+      "ok": true
+    },
+    {
+      "title": "Tags",
+      "ok": true
+    },
+    {
+      "title": "License",
+      "ok": true,
+      "detail": "CC-BY-4.0"
+    },
+    {
+      "title": "Payload",
+      "ok": true
+    },
+    {
+      "title": "Addon id",
+      "ok": true,
+      "detail": "`pureline-theme-amoled`"
+    }
+  ],
+  "warnings": [],
+  "type": "theme",
+  "id": "pureline-theme-amoled",
+  "isUpdate": false,
+  "name": "Pureline Theme (Amoled)",
+  "description": "An Amoled theme created by \"BigPurpleNeko\", who also created Pureline icon pack. Made for simplicity enthusiasts. Who likes minimal but usefull designs that doesn't look gaudy or too heavy on the eye.",
+  "tags": [
+    "minimal",
+    "simplicity",
+    "amoled"
+  ],
+  "license": "CC-BY-4.0",
+  "basedOn": null,
+  "submitter": {
+    "login": "Episode12",
+    "id": 88729878
+  },
+  "issue": 27
+}
