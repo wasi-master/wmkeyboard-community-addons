@@ -1,0 +1,59 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "title": "Submission form",
+      "ok": true
+    },
+    {
+      "title": "Rights confirmed",
+      "ok": true
+    },
+    {
+      "title": "Name",
+      "ok": true
+    },
+    {
+      "title": "Description",
+      "ok": true
+    },
+    {
+      "title": "Tags",
+      "ok": true
+    },
+    {
+      "title": "License",
+      "ok": true,
+      "detail": "CC0-1.0"
+    },
+    {
+      "title": "Payload",
+      "ok": true
+    },
+    {
+      "title": "Addon id",
+      "ok": true,
+      "detail": "`pastle-punk-purple`"
+    }
+  ],
+  "warnings": [],
+  "type": "theme",
+  "id": "pastle-punk-purple",
+  "isUpdate": false,
+  "name": "Pastle Punk Purple",
+  "description": "pastle and calm purple color, both light and dark mode",
+  "tags": [
+    "pastle",
+    "dark",
+    "light",
+    "minimal",
+    "purple"
+  ],
+  "license": "CC0-1.0",
+  "basedOn": null,
+  "submitter": {
+    "login": "mini-page",
+    "id": 146421384
+  },
+  "issue": 25
+}

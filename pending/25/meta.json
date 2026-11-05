@@ -1,0 +1,28 @@
+{
+  "id": "pastle-punk-purple",
+  "type": "theme",
+  "name": "Pastle Punk Purple",
+  "description": "pastle and calm purple color, both light and dark mode",
+  "tags": [
+    "pastle",
+    "dark",
+    "light",
+    "minimal",
+    "purple"
+  ],
+  "license": "CC0-1.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "mini-page",
+    "id": 146421384
+  },
+  "issues": [
+    25
+  ],
+  "createdAt": "2026-11-05T05:54:57.048Z",
+  "updatedAt": "2026-11-05T05:54:57.048Z",
+  "previews": [
+    "preview.png"
+  ]
+}

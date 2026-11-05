@@ -1,0 +1,36 @@
+{
+  "$schema": "https://raw.githubusercontent.com/wasi-master/wmkeyboard-addon-repository/main/docs/addons/wmkeyboard-repo.schema.json",
+  "format": "wmkeyboard-repo",
+  "version": 1,
+  "repo": {
+    "id": "com.wasimaster.wmkeyboard.community.pending",
+    "name": "WM Keyboard Community: pending #25",
+    "description": "One submission waiting for review. Installs from here are trial copies; the published version comes from the community repository.",
+    "author": "WM Keyboard community",
+    "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons/issues/25"
+  },
+  "addons": [
+    {
+      "id": "pastle-punk-purple",
+      "type": "theme",
+      "name": "Pastle Punk Purple",
+      "version": "1.0.0",
+      "author": "mini-page",
+      "description": "pastle and calm purple color, both light and dark mode",
+      "tags": [
+        "pastle",
+        "dark",
+        "light",
+        "minimal",
+        "purple"
+      ],
+      "path": "theme.wmtheme.json",
+      "sha256": "9a5657c4bf1ef1db910ec404ac2f574220d1d9b1a806578c603b07f105b30007",
+      "sizeBytes": 18205,
+      "previews": [
+        "preview.png"
+      ],
+      "license": "CC0-1.0"
+    }
+  ]
+}
