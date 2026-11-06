@@ -1,0 +1,22 @@
+{
+  "id": "icy-cold-ash",
+  "type": "theme",
+  "name": "ICY COLD ASH",
+  "description": "@AshUchiha on Telegram/Discord if any issues",
+  "tags": [],
+  "license": "CC-BY-4.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "AshUchiha3",
+    "id": 250811725
+  },
+  "issues": [
+    32
+  ],
+  "createdAt": "2026-11-06T11:02:54.488Z",
+  "updatedAt": "2026-11-06T11:02:54.488Z",
+  "previews": [
+    "preview.png"
+  ]
+}

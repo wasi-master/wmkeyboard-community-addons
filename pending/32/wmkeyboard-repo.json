@@ -1,0 +1,30 @@
+{
+  "$schema": "https://raw.githubusercontent.com/wasi-master/wmkeyboard-addon-repository/main/docs/addons/wmkeyboard-repo.schema.json",
+  "format": "wmkeyboard-repo",
+  "version": 1,
+  "repo": {
+    "id": "com.wasimaster.wmkeyboard.community.pending",
+    "name": "WM Keyboard Community: pending #32",
+    "description": "One submission waiting for review. Installs from here are trial copies; the published version comes from the community repository.",
+    "author": "WM Keyboard community",
+    "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons/issues/32"
+  },
+  "addons": [
+    {
+      "id": "icy-cold-ash",
+      "type": "theme",
+      "name": "ICY COLD ASH",
+      "version": "1.0.0",
+      "author": "AshUchiha3",
+      "description": "@AshUchiha on Telegram/Discord if any issues",
+      "tags": [],
+      "path": "theme.wmtheme.json",
+      "sha256": "2c2bcce87cd54466120412981685cf5bd6da462d1c03d6071380c4de2fa7a20f",
+      "sizeBytes": 4712,
+      "previews": [
+        "preview.png"
+      ],
+      "license": "CC-BY-4.0"
+    }
+  ]
+}
