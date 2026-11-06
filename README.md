@@ -44,7 +44,11 @@ WM Keyboard lists this repository under **Settings → Addons** on its own. To a
 
 ## Icon packs
 
-None yet. Be the first: [submit one](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-icon-pack.yml).
+<table>
+<tr>
+<td valign="top" width="33%"><a href="addons/icon-packs/pureline-icon-pack"><img src="addons/icon-packs/pureline-icon-pack/preview.png" width="240" alt="" /></a><br><b>Pureline Icon pack</b><br><sub>by Episode12 · CC-BY-4.0 · v1.0.0</sub></td>
+</tr>
+</table>
 
 ## Sticker packs
 
@@ -60,4 +64,4 @@ None yet. Be the first: [submit one](https://github.com/wasi-master/wmkeyboard-c
 
 ---
 
-13 addons, indexed by [`wmkeyboard-repo.json`](wmkeyboard-repo.json) (raw: `https://raw.githubusercontent.com/wasi-master/wmkeyboard-community-addons/main/wmkeyboard-repo.json`). Each addon is published under the licence on its card; the bot and tooling under `bot/` are MIT. Names and descriptions are limited to 60 and 500 characters.
+14 addons, indexed by [`wmkeyboard-repo.json`](wmkeyboard-repo.json) (raw: `https://raw.githubusercontent.com/wasi-master/wmkeyboard-community-addons/main/wmkeyboard-repo.json`). Each addon is published under the licence on its card; the bot and tooling under `bot/` are MIT. Names and descriptions are limited to 60 and 500 characters.
