@@ -1,0 +1,30 @@
+{
+  "$schema": "https://raw.githubusercontent.com/wasi-master/wmkeyboard-addon-repository/main/docs/addons/wmkeyboard-repo.schema.json",
+  "format": "wmkeyboard-repo",
+  "version": 1,
+  "repo": {
+    "id": "com.wasimaster.wmkeyboard.community.pending",
+    "name": "WM Keyboard Community: pending #29",
+    "description": "One submission waiting for review. Installs from here are trial copies; the published version comes from the community repository.",
+    "author": "WM Keyboard community",
+    "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons/issues/29"
+  },
+  "addons": [
+    {
+      "id": "cloth-ash",
+      "type": "theme",
+      "name": "Cloth - Ash",
+      "version": "1.0.0",
+      "author": "AshUchiha3",
+      "description": "Created by Ash.",
+      "tags": [],
+      "path": "theme.wmtheme.json",
+      "sha256": "5f494cb7f728f7d2bfd305367317a5f29f14df9e6622ec8f3db8e09f0b908022",
+      "sizeBytes": 4606,
+      "previews": [
+        "preview.png"
+      ],
+      "license": "CC-BY-4.0"
+    }
+  ]
+}
