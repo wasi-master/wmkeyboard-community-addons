@@ -214,6 +214,29 @@
       "license": "CC-BY-4.0"
     },
     {
+      "id": "pureline-theme-amoled",
+      "type": "theme",
+      "name": "Pureline Theme (Amoled)",
+      "version": "1.0.0",
+      "author": "Episode12",
+      "description": "An Amoled theme created by \"BigPurpleNeko\", who also created Pureline icon pack. Made for simplicity enthusiasts. Who likes minimal but usefull designs that doesn't look gaudy or too heavy on the eye.",
+      "tags": [
+        "minimal",
+        "simplicity",
+        "amoled"
+      ],
+      "path": "addons/themes/pureline-theme-amoled/theme.wmtheme.json",
+      "sha256": "775f77a6738bcdf6da39c77f5dacecb2754a7aa1a244fec8cac97a7266d414d0",
+      "sizeBytes": 3991,
+      "previews": [
+        "addons/themes/pureline-theme-amoled/preview.png",
+        "addons/themes/pureline-theme-amoled/preview-tools.png",
+        "addons/themes/pureline-theme-amoled/preview-clipboard.png",
+        "addons/themes/pureline-theme-amoled/preview-editing.png"
+      ],
+      "license": "CC-BY-4.0"
+    },
+    {
       "id": "rainbow-background",
       "type": "theme",
       "name": "Rainbow background",
