@@ -1,0 +1,22 @@
+{
+  "id": "cloth-ash",
+  "type": "theme",
+  "name": "Cloth - Ash",
+  "description": "Made by Ash.",
+  "tags": [],
+  "license": "CC-BY-4.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "AshUchiha3",
+    "id": 250811725
+  },
+  "issues": [
+    30
+  ],
+  "createdAt": "2026-11-06T05:40:20.152Z",
+  "updatedAt": "2026-11-06T05:40:20.152Z",
+  "previews": [
+    "preview.png"
+  ]
+}

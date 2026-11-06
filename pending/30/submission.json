@@ -1,0 +1,49 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "title": "Submission form",
+      "ok": true
+    },
+    {
+      "title": "Rights confirmed",
+      "ok": true
+    },
+    {
+      "title": "Name",
+      "ok": true
+    },
+    {
+      "title": "Description",
+      "ok": true
+    },
+    {
+      "title": "License",
+      "ok": true,
+      "detail": "CC-BY-4.0"
+    },
+    {
+      "title": "Payload",
+      "ok": true
+    },
+    {
+      "title": "Addon id",
+      "ok": true,
+      "detail": "`cloth-ash`"
+    }
+  ],
+  "warnings": [],
+  "type": "theme",
+  "id": "cloth-ash",
+  "isUpdate": false,
+  "name": "Cloth - Ash",
+  "description": "Made by Ash.",
+  "tags": [],
+  "license": "CC-BY-4.0",
+  "basedOn": null,
+  "submitter": {
+    "login": "AshUchiha3",
+    "id": 250811725
+  },
+  "issue": 30
+}
