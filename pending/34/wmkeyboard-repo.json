@@ -1,0 +1,33 @@
+{
+  "$schema": "https://raw.githubusercontent.com/wasi-master/wmkeyboard-addon-repository/main/docs/addons/wmkeyboard-repo.schema.json",
+  "format": "wmkeyboard-repo",
+  "version": 1,
+  "repo": {
+    "id": "com.wasimaster.wmkeyboard.community.pending",
+    "name": "WM Keyboard Community: pending #34",
+    "description": "One submission waiting for review. Installs from here are trial copies; the published version comes from the community repository.",
+    "author": "WM Keyboard community",
+    "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons/issues/34"
+  },
+  "addons": [
+    {
+      "id": "carbon-glass",
+      "type": "theme",
+      "name": "CARBON GLASS",
+      "version": "1.0.0",
+      "author": "xyz12344",
+      "description": "3D CARBON, GLASS",
+      "tags": [
+        "3d carbon",
+        "glass"
+      ],
+      "path": "theme.wmtheme.json",
+      "sha256": "5dc3e348d14dcefc40113687772c3f96052f9cfdd8f719d6033ce2edc233ac10",
+      "sizeBytes": 4758,
+      "previews": [
+        "preview.png"
+      ],
+      "license": "CC-BY-4.0"
+    }
+  ]
+}
