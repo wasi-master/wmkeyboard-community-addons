@@ -13,6 +13,25 @@
   },
   "addons": [
     {
+      "id": "cloth-ash",
+      "type": "theme",
+      "name": "Cloth - Ash",
+      "version": "1.0.0",
+      "author": "AshUchiha3",
+      "description": "Made by Ash.",
+      "tags": [],
+      "path": "addons/themes/cloth-ash/theme.wmtheme.json",
+      "sha256": "69bd0074f360a3c6f4a0fe3cf3d4270221730c2e7f11f5c7ed5996fd02eb31b0",
+      "sizeBytes": 4621,
+      "previews": [
+        "addons/themes/cloth-ash/preview.png",
+        "addons/themes/cloth-ash/preview-tools.png",
+        "addons/themes/cloth-ash/preview-clipboard.png",
+        "addons/themes/cloth-ash/preview-editing.png"
+      ],
+      "license": "CC-BY-4.0"
+    },
+    {
       "id": "degradado-escarcha",
       "type": "theme",
       "name": "Degradado escarcha",
