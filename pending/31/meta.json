@@ -1,0 +1,22 @@
+{
+  "id": "greyish-ash",
+  "type": "theme",
+  "name": "Greyish Ash",
+  "description": "@AshUchiha on Telegram if any issues.",
+  "tags": [],
+  "license": "CC-BY-4.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "AshUchiha3",
+    "id": 250811725
+  },
+  "issues": [
+    31
+  ],
+  "createdAt": "2026-11-06T11:10:38.981Z",
+  "updatedAt": "2026-11-06T11:10:38.981Z",
+  "previews": [
+    "preview.png"
+  ]
+}
