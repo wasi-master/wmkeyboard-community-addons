@@ -1,0 +1,28 @@
+{
+  "id": "carbon-glass",
+  "type": "theme",
+  "name": "CARBON GLASS",
+  "description": "3D CARBON, GLASS",
+  "tags": [
+    "3d carbon",
+    "glass"
+  ],
+  "license": "CC-BY-4.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "xyz12344",
+    "id": 234922099
+  },
+  "issues": [
+    34
+  ],
+  "createdAt": "2026-11-07T17:01:55.599Z",
+  "updatedAt": "2026-11-07T17:01:55.599Z",
+  "previews": [
+    "preview.png",
+    "preview-tools.png",
+    "preview-clipboard.png",
+    "preview-editing.png"
+  ]
+}

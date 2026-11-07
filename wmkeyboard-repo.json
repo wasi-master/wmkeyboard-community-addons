@@ -13,6 +13,28 @@
   },
   "addons": [
     {
+      "id": "carbon-glass",
+      "type": "theme",
+      "name": "CARBON GLASS",
+      "version": "1.0.0",
+      "author": "xyz12344",
+      "description": "3D CARBON, GLASS",
+      "tags": [
+        "3d carbon",
+        "glass"
+      ],
+      "path": "addons/themes/carbon-glass/theme.wmtheme.json",
+      "sha256": "5dc3e348d14dcefc40113687772c3f96052f9cfdd8f719d6033ce2edc233ac10",
+      "sizeBytes": 4758,
+      "previews": [
+        "addons/themes/carbon-glass/preview.png",
+        "addons/themes/carbon-glass/preview-tools.png",
+        "addons/themes/carbon-glass/preview-clipboard.png",
+        "addons/themes/carbon-glass/preview-editing.png"
+      ],
+      "license": "CC-BY-4.0"
+    },
+    {
       "id": "cloth-ash",
       "type": "theme",
       "name": "Cloth - Ash",

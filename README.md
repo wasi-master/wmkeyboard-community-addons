@@ -13,28 +13,31 @@ WM Keyboard lists this repository under **Settings → Addons** on its own. To a
 
 <table>
 <tr>
+<td valign="top" width="33%"><a href="addons/themes/carbon-glass"><img src="addons/themes/carbon-glass/preview.png" width="240" alt="" /></a><br><b>CARBON GLASS</b><br><sub>by xyz12344 · CC-BY-4.0 · v1.0.0</sub></td>
 <td valign="top" width="33%"><a href="addons/themes/marble"><img src="addons/themes/marble/preview.png" width="240" alt="" /></a><br><b>Marble</b><br><sub>by xyz12344 · CC-BY-SA-4.0 · v1.0.0</sub></td>
 <td valign="top" width="33%"><a href="addons/themes/cloth-ash"><img src="addons/themes/cloth-ash/preview.png" width="240" alt="" /></a><br><b>Cloth - Ash</b><br><sub>by AshUchiha3 · CC-BY-4.0 · v1.0.0</sub></td>
-<td valign="top" width="33%"><a href="addons/themes/somewhat-metal-ash"><img src="addons/themes/somewhat-metal-ash/preview.png" width="240" alt="" /></a><br><b>Somewhat Metal - Ash</b><br><sub>by AshUchiha3 · CC-BY-4.0 · v1.0.0</sub></td>
 </tr>
 <tr>
+<td valign="top" width="33%"><a href="addons/themes/somewhat-metal-ash"><img src="addons/themes/somewhat-metal-ash/preview.png" width="240" alt="" /></a><br><b>Somewhat Metal - Ash</b><br><sub>by AshUchiha3 · CC-BY-4.0 · v1.0.0</sub></td>
 <td valign="top" width="33%"><a href="addons/themes/pureline-theme-amoled"><img src="addons/themes/pureline-theme-amoled/preview.png" width="240" alt="" /></a><br><b>Pureline Theme \(Amoled\)</b><br><sub>by Episode12 · CC-BY-4.0 · v1.0.0</sub></td>
 <td valign="top" width="33%"><a href="addons/themes/rounded-pill-ash"><img src="addons/themes/rounded-pill-ash/preview.png" width="240" alt="" /></a><br><b>Rounded Pill Ash</b><br><sub>by AshUchiha3 · CC-BY-4.0 · v1.0.0</sub></td>
-<td valign="top" width="33%"><a href="addons/themes/rainbow-background"><img src="addons/themes/rainbow-background/preview.png" width="240" alt="" /></a><br><b>Rainbow background</b><br><sub>by xyz12344 · CC-BY-4.0 · v1.0.0</sub></td>
 </tr>
 <tr>
+<td valign="top" width="33%"><a href="addons/themes/rainbow-background"><img src="addons/themes/rainbow-background/preview.png" width="240" alt="" /></a><br><b>Rainbow background</b><br><sub>by xyz12344 · CC-BY-4.0 · v1.0.0</sub></td>
 <td valign="top" width="33%"><a href="addons/themes/light-green-border"><img src="addons/themes/light-green-border/preview.png" width="240" alt="" /></a><br><b>light green border</b><br><sub>by xyz12344 · CC-BY-4.0 · v1.0.0</sub></td>
 <td valign="top" width="33%"><a href="addons/themes/materail-moment"><img src="addons/themes/materail-moment/preview.png" width="240" alt="" /></a><br><b>Materail Moment</b><br><sub>by mini-page · CC0-1.0 · v1.0.0</sub></td>
-<td valign="top" width="33%"><a href="addons/themes/ios-dark-glass-ash"><img src="addons/themes/ios-dark-glass-ash/preview.png" width="240" alt="" /></a><br><b>iOS Dark Glass Ash</b><br><sub>by AshUchiha3 · CC0-1.0 · v1.0.0</sub></td>
 </tr>
 <tr>
+<td valign="top" width="33%"><a href="addons/themes/ios-dark-glass-ash"><img src="addons/themes/ios-dark-glass-ash/preview.png" width="240" alt="" /></a><br><b>iOS Dark Glass Ash</b><br><sub>by AshUchiha3 · CC0-1.0 · v1.0.0</sub></td>
 <td valign="top" width="33%"><a href="addons/themes/mono-frosted-glass"><img src="addons/themes/mono-frosted-glass/preview.png" width="240" alt="" /></a><br><b>Mono Frosted Glass</b><br><sub>by Veratian · CC0-1.0 · v1.0.0</sub></td>
 <td valign="top" width="33%"><a href="addons/themes/degradado-escarcha"><img src="addons/themes/degradado-escarcha/preview.png" width="240" alt="" /></a><br><b>Degradado escarcha</b><br><sub>by titomdp06-cmyk · CC-BY-4.0 · v1.0.0</sub></td>
-<td valign="top" width="33%"><a href="addons/themes/lo-fi-anime-girl"><img src="addons/themes/lo-fi-anime-girl/preview.png" width="240" alt="" /></a><br><b>Lo-fi Anime girl</b><br><sub>by mishrapriyanshu7191-blip · CC0-1.0 · v1.0.0</sub></td>
 </tr>
 <tr>
+<td valign="top" width="33%"><a href="addons/themes/lo-fi-anime-girl"><img src="addons/themes/lo-fi-anime-girl/preview.png" width="240" alt="" /></a><br><b>Lo-fi Anime girl</b><br><sub>by mishrapriyanshu7191-blip · CC0-1.0 · v1.0.0</sub></td>
 <td valign="top" width="33%"><a href="addons/themes/nothing-keyboard-v1"><img src="addons/themes/nothing-keyboard-v1/preview.png" width="240" alt="" /></a><br><b>NOTHING Keyboard V1</b><br><sub>by MystiKitsu · CC-BY-4.0 · v1.0.0</sub></td>
 <td valign="top" width="33%"><a href="addons/themes/frostkey"><img src="addons/themes/frostkey/preview.png" width="240" alt="" /></a><br><b>FROSTKEY</b><br><sub>by PrncDENZ254KE · CC-BY-4.0 · v1.0.0</sub></td>
+</tr>
+<tr>
 <td valign="top" width="33%"><a href="addons/themes/ios-ash"><img src="addons/themes/ios-ash/preview.png" width="240" alt="" /></a><br><b>IoS Ash</b><br><sub>by AshUchiha3 · CC0-1.0 · v1.0.0</sub></td>
 </tr>
 </table>
@@ -70,4 +73,4 @@ None yet. Be the first: [submit one](https://github.com/wasi-master/wmkeyboard-c
 
 ---
 
-18 addons, indexed by [`wmkeyboard-repo.json`](wmkeyboard-repo.json) (raw: `https://raw.githubusercontent.com/wasi-master/wmkeyboard-community-addons/main/wmkeyboard-repo.json`). Each addon is published under the licence on its card; the bot and tooling under `bot/` are MIT. Names and descriptions are limited to 60 and 500 characters.
+19 addons, indexed by [`wmkeyboard-repo.json`](wmkeyboard-repo.json) (raw: `https://raw.githubusercontent.com/wasi-master/wmkeyboard-community-addons/main/wmkeyboard-repo.json`). Each addon is published under the licence on its card; the bot and tooling under `bot/` are MIT. Names and descriptions are limited to 60 and 500 characters.
