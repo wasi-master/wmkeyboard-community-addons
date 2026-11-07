@@ -97,6 +97,25 @@
       "license": "CC-BY-4.0"
     },
     {
+      "id": "greyish-ash",
+      "type": "theme",
+      "name": "Greyish Ash",
+      "version": "1.0.0",
+      "author": "AshUchiha3",
+      "description": "@AshUchiha on Telegram if any issues.",
+      "tags": [],
+      "path": "addons/themes/greyish-ash/theme.wmtheme.json",
+      "sha256": "b0cb3751e05a78399f699e26fdf610d92ae3ebdf25d3f81a5337d95ec325c763",
+      "sizeBytes": 4289,
+      "previews": [
+        "addons/themes/greyish-ash/preview.png",
+        "addons/themes/greyish-ash/preview-tools.png",
+        "addons/themes/greyish-ash/preview-clipboard.png",
+        "addons/themes/greyish-ash/preview-editing.png"
+      ],
+      "license": "CC-BY-4.0"
+    },
+    {
       "id": "icy-cold-ash",
       "type": "theme",
       "name": "ICY COLD ASH",
