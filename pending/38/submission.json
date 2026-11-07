@@ -1,0 +1,61 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "title": "Submission form",
+      "ok": true
+    },
+    {
+      "title": "Rights confirmed",
+      "ok": true
+    },
+    {
+      "title": "Name",
+      "ok": true
+    },
+    {
+      "title": "Description",
+      "ok": true
+    },
+    {
+      "title": "Tags",
+      "ok": true
+    },
+    {
+      "title": "License",
+      "ok": true,
+      "detail": "CC-BY-4.0"
+    },
+    {
+      "title": "Remix credit",
+      "ok": true,
+      "detail": "Based on `clink.anti-ltd.clink-themes-unofficial/novelkeys-light`."
+    },
+    {
+      "title": "Payload",
+      "ok": true
+    },
+    {
+      "title": "Addon id",
+      "ok": true,
+      "detail": "`my-novelkeys-light`"
+    }
+  ],
+  "warnings": [],
+  "type": "theme",
+  "id": "my-novelkeys-light",
+  "isUpdate": false,
+  "name": "My NovelKeys Light",
+  "description": "My NovelKeys Light",
+  "tags": [
+    "novelkeys",
+    "light"
+  ],
+  "license": "CC-BY-4.0",
+  "basedOn": "clink.anti-ltd.clink-themes-unofficial/novelkeys-light",
+  "submitter": {
+    "login": "xyz12344",
+    "id": 234922099
+  },
+  "issue": 38
+}
