@@ -1,0 +1,57 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "title": "Submission form",
+      "ok": true
+    },
+    {
+      "title": "Rights confirmed",
+      "ok": true
+    },
+    {
+      "title": "Name",
+      "ok": true
+    },
+    {
+      "title": "Description",
+      "ok": true
+    },
+    {
+      "title": "Tags",
+      "ok": true
+    },
+    {
+      "title": "License",
+      "ok": true,
+      "detail": "CC0-1.0"
+    },
+    {
+      "title": "Payload",
+      "ok": true
+    },
+    {
+      "title": "Addon id",
+      "ok": true,
+      "detail": "`ripple-key-ug-rigrum`"
+    }
+  ],
+  "warnings": [],
+  "type": "theme",
+  "id": "ripple-key-ug-rigrum",
+  "isUpdate": false,
+  "name": "ripple key - ug_rigrum",
+  "description": "gey ripple effect on key press",
+  "tags": [
+    "ripple",
+    "wobble",
+    "backlight"
+  ],
+  "license": "CC0-1.0",
+  "basedOn": null,
+  "submitter": {
+    "login": "kochurmatha-cpu",
+    "id": 238144562
+  },
+  "issue": 35
+}

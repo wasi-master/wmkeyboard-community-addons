@@ -1,0 +1,26 @@
+{
+  "id": "ripple-key-ug-rigrum",
+  "type": "theme",
+  "name": "ripple key - ug_rigrum",
+  "description": "gey ripple effect on key press",
+  "tags": [
+    "ripple",
+    "wobble",
+    "backlight"
+  ],
+  "license": "CC0-1.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "kochurmatha-cpu",
+    "id": 238144562
+  },
+  "issues": [
+    35
+  ],
+  "createdAt": "2026-11-07T05:37:57.068Z",
+  "updatedAt": "2026-11-07T05:37:57.068Z",
+  "previews": [
+    "preview.png"
+  ]
+}
