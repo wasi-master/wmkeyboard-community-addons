@@ -97,6 +97,25 @@
       "license": "CC-BY-4.0"
     },
     {
+      "id": "icy-cold-ash",
+      "type": "theme",
+      "name": "ICY COLD ASH",
+      "version": "1.0.0",
+      "author": "AshUchiha3",
+      "description": "@AshUchiha on Telegram/Discord if any issues",
+      "tags": [],
+      "path": "addons/themes/icy-cold-ash/theme.wmtheme.json",
+      "sha256": "2c2bcce87cd54466120412981685cf5bd6da462d1c03d6071380c4de2fa7a20f",
+      "sizeBytes": 4712,
+      "previews": [
+        "addons/themes/icy-cold-ash/preview.png",
+        "addons/themes/icy-cold-ash/preview-tools.png",
+        "addons/themes/icy-cold-ash/preview-clipboard.png",
+        "addons/themes/icy-cold-ash/preview-editing.png"
+      ],
+      "license": "CC-BY-4.0"
+    },
+    {
       "id": "ios-ash",
       "type": "theme",
       "name": "IoS Ash",
