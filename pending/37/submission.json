@@ -1,0 +1,57 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "title": "Submission form",
+      "ok": true
+    },
+    {
+      "title": "Rights confirmed",
+      "ok": true
+    },
+    {
+      "title": "Name",
+      "ok": true
+    },
+    {
+      "title": "Description",
+      "ok": true
+    },
+    {
+      "title": "Tags",
+      "ok": true
+    },
+    {
+      "title": "License",
+      "ok": true,
+      "detail": "CC-BY-SA-4.0"
+    },
+    {
+      "title": "Payload",
+      "ok": true
+    },
+    {
+      "title": "Addon id",
+      "ok": true,
+      "detail": "`marble`"
+    }
+  ],
+  "warnings": [],
+  "type": "theme",
+  "id": "marble",
+  "isUpdate": false,
+  "name": "Marble",
+  "description": "3d Marble theme",
+  "tags": [
+    "marble",
+    "3d",
+    "stone"
+  ],
+  "license": "CC-BY-SA-4.0",
+  "basedOn": null,
+  "submitter": {
+    "login": "xyz12344",
+    "id": 234922099
+  },
+  "issue": 37
+}

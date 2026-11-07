@@ -1,0 +1,26 @@
+{
+  "id": "marble",
+  "type": "theme",
+  "name": "Marble",
+  "description": "3d Marble theme",
+  "tags": [
+    "marble",
+    "3d",
+    "stone"
+  ],
+  "license": "CC-BY-SA-4.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "xyz12344",
+    "id": 234922099
+  },
+  "issues": [
+    37
+  ],
+  "createdAt": "2026-11-07T08:46:55.851Z",
+  "updatedAt": "2026-11-07T08:46:55.851Z",
+  "previews": [
+    "preview.png"
+  ]
+}
