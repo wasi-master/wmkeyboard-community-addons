@@ -18,9 +18,12 @@
   "issues": [
     35
   ],
-  "createdAt": "2026-11-07T05:37:57.068Z",
-  "updatedAt": "2026-11-07T05:37:57.068Z",
+  "createdAt": "2026-11-07T05:55:30.488Z",
+  "updatedAt": "2026-11-07T05:55:30.488Z",
   "previews": [
-    "preview.png"
+    "preview.png",
+    "preview-tools.png",
+    "preview-clipboard.png",
+    "preview-editing.png"
   ]
 }
