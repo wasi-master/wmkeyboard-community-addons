@@ -1,0 +1,34 @@
+{
+  "$schema": "https://raw.githubusercontent.com/wasi-master/wmkeyboard-addon-repository/main/docs/addons/wmkeyboard-repo.schema.json",
+  "format": "wmkeyboard-repo",
+  "version": 1,
+  "repo": {
+    "id": "com.wasimaster.wmkeyboard.community.pending",
+    "name": "WM Keyboard Community: pending #40",
+    "description": "One submission waiting for review. Installs from here are trial copies; the published version comes from the community repository.",
+    "author": "WM Keyboard community",
+    "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons/issues/40"
+  },
+  "addons": [
+    {
+      "id": "futo-keyboard-symbol-layout",
+      "type": "layout",
+      "name": "Futo keyboard symbol layout",
+      "version": "1.0.0",
+      "author": "kochurmatha-cpu",
+      "description": "bcs, you are a futo sissy.",
+      "tags": [
+        "futo",
+        "symbol"
+      ],
+      "path": "layout.wmlayout.json",
+      "sha256": "b8f9705980501cf1d4ac58c04511a4cdffd2804c33018746ff32fd0c1b09fcec",
+      "sizeBytes": 19232,
+      "previews": [
+        "preview.png",
+        "preview-dark.png"
+      ],
+      "license": "CC0-1.0"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "futo-keyboard-symbol-layout",
+  "type": "layout",
+  "name": "Futo keyboard symbol layout",
+  "description": "bcs, you are a futo sissy.",
+  "tags": [
+    "futo",
+    "symbol"
+  ],
+  "license": "CC0-1.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "kochurmatha-cpu",
+    "id": 238144562
+  },
+  "issues": [
+    40
+  ],
+  "createdAt": "2026-11-08T04:31:45.200Z",
+  "updatedAt": "2026-11-08T04:31:45.200Z",
+  "previews": [
+    "preview.png",
+    "preview-dark.png"
+  ]
+}
