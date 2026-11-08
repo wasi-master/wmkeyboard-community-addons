@@ -26,7 +26,15 @@
       "sizeBytes": 19232,
       "previews": [
         "preview.png",
-        "preview-dark.png"
+        "preview-dark.png",
+        "preview-shift.png",
+        "preview-symbols.png",
+        "preview-symbols2.png",
+        "preview-number.png",
+        "preview-phone.png",
+        "preview-date.png",
+        "preview-time.png",
+        "preview-datetime.png"
       ],
       "license": "CC0-1.0"
     }
