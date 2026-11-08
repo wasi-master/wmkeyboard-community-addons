@@ -48,6 +48,7 @@ WM Keyboard lists this repository under **Settings → Addons** on its own. To a
 
 <table>
 <tr>
+<td valign="top" width="33%"><a href="addons/layouts/futo-keyboard-symbol-layout"><img src="addons/layouts/futo-keyboard-symbol-layout/preview.png" width="240" alt="" /></a><br><b>Futo keyboard symbol layout</b><br><sub>by kochurmatha-cpu · CC0-1.0 · v1.0.0</sub></td>
 <td valign="top" width="33%"><a href="addons/layouts/quickedit-gboard-symbols"><img src="addons/layouts/quickedit-gboard-symbols/preview.png" width="240" alt="" /></a><br><b>quickedit\+gboard Symbols</b><br><sub>by xyz12344 · CC-BY-4.0 · v1.0.0</sub></td>
 <td valign="top" width="33%"><a href="addons/layouts/hindi-marathi-devanagari"><img src="addons/layouts/hindi-marathi-devanagari/preview.png" width="240" alt="" /></a><br><b>Hindi / Marathi \(Devanagari\)</b><br><sub>by RamPawar7 · CC0-1.0 · v1.0.0</sub></td>
 </tr>
@@ -75,4 +76,4 @@ None yet. Be the first: [submit one](https://github.com/wasi-master/wmkeyboard-c
 
 ---
 
-21 addons, indexed by [`wmkeyboard-repo.json`](wmkeyboard-repo.json) (raw: `https://raw.githubusercontent.com/wasi-master/wmkeyboard-community-addons/main/wmkeyboard-repo.json`). Each addon is published under the licence on its card; the bot and tooling under `bot/` are MIT. Names and descriptions are limited to 60 and 500 characters.
+22 addons, indexed by [`wmkeyboard-repo.json`](wmkeyboard-repo.json) (raw: `https://raw.githubusercontent.com/wasi-master/wmkeyboard-community-addons/main/wmkeyboard-repo.json`). Each addon is published under the licence on its card; the bot and tooling under `bot/` are MIT. Names and descriptions are limited to 60 and 500 characters.

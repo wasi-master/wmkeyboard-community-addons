@@ -9,7 +9,7 @@
     "author": "WM Keyboard community",
     "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons",
     "icon": "icon.png",
-    "updatedAt": "2026-11-07"
+    "updatedAt": "2026-11-08"
   },
   "addons": [
     {
@@ -398,6 +398,34 @@
         "addons/themes/somewhat-metal-ash/preview-editing.png"
       ],
       "license": "CC-BY-4.0"
+    },
+    {
+      "id": "futo-keyboard-symbol-layout",
+      "type": "layout",
+      "name": "Futo keyboard symbol layout",
+      "version": "1.0.0",
+      "author": "kochurmatha-cpu",
+      "description": "bcs, you are a futo sissy.",
+      "tags": [
+        "futo",
+        "symbol"
+      ],
+      "path": "addons/layouts/futo-keyboard-symbol-layout/layout.wmlayout.json",
+      "sha256": "b8f9705980501cf1d4ac58c04511a4cdffd2804c33018746ff32fd0c1b09fcec",
+      "sizeBytes": 19232,
+      "previews": [
+        "addons/layouts/futo-keyboard-symbol-layout/preview.png",
+        "addons/layouts/futo-keyboard-symbol-layout/preview-dark.png",
+        "addons/layouts/futo-keyboard-symbol-layout/preview-shift.png",
+        "addons/layouts/futo-keyboard-symbol-layout/preview-symbols.png",
+        "addons/layouts/futo-keyboard-symbol-layout/preview-symbols2.png",
+        "addons/layouts/futo-keyboard-symbol-layout/preview-number.png",
+        "addons/layouts/futo-keyboard-symbol-layout/preview-phone.png",
+        "addons/layouts/futo-keyboard-symbol-layout/preview-date.png",
+        "addons/layouts/futo-keyboard-symbol-layout/preview-time.png",
+        "addons/layouts/futo-keyboard-symbol-layout/preview-datetime.png"
+      ],
+      "license": "CC0-1.0"
     },
     {
       "id": "hindi-marathi-devanagari",
