@@ -5,8 +5,9 @@
  *
  * Env: STORE_DIR (docs/src/store), RENDER_DIR (request.json + payload from the
  * parse job), OUT_DIR. Writes OUT_DIR/report.json {ok, problems, notes, images}
- * and OUT_DIR/<id>.png (layouts also <id>-dark.png; icon and sticker packs the
- * store's grid of them; sound and snippet packs nothing). Run `node build.mjs` first.
+ * and OUT_DIR/<id>.png (layouts also <id>-dark.png; icon packs a sheet of
+ * their icons on a light and a dark board, sticker packs the store's grid;
+ * sound and snippet packs nothing). Run `node build.mjs` first.
  *
  * For the types that came after themes and layouts, a reader's remark only
  * fails the pass when it says the app would refuse the file; the rest (a slot
@@ -141,6 +142,19 @@ async function main() {
 				:root{--st-radius:0;--st-card-border:transparent;--sl-font:system-ui,sans-serif}
 				body{margin:0;background:#fff}.st-kb{max-width:none;border:0}
 				.st-pack-shot{width:480px;padding:8px;box-sizing:border-box;background:#fff}
+				.ip-sheet{padding:12px;font:13px/1.3 system-ui,sans-serif;color:#202124}
+				.ip-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:0 2px 10px}
+				.ip-head b{font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+				.ip-head span{color:#5f6368;white-space:nowrap}
+				.ip-board{border-radius:12px;padding:8px;margin-top:8px}
+				.ip-light{background:#e8eaed;color:#202124}.ip-light .ip-key{background:#fff}
+				.ip-dark{background:#202124;color:#e8eaed}.ip-dark .ip-key{background:#3c4043}
+				.ip-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:6px}
+				.ip-key{aspect-ratio:1;border-radius:8px;display:flex;align-items:center;justify-content:center}
+				.ip-art{display:block;width:24px;height:24px;object-fit:contain}
+				.ip-mask{background:currentColor}
+				.ip-svg svg{display:block;width:100%;height:100%}
+				.ip-svg svg:not([fill]){fill:currentColor}
 				*,*::before,*::after{animation:none!important;transition:none!important}
 				</style></head><body><div id="root"></div></body></html>`,
 			);
@@ -155,7 +169,8 @@ async function main() {
 					const board = page.locator(shot.kind === 'mock' ? '.st-kb' : '.st-pack-shot').first();
 					await board.waitFor({ timeout: 5000 });
 					// Stickers and raster icons are <img>s on blob: URLs; wait for them to decode.
-					await page.waitForFunction(() => [...document.images].every((img) => img.complete), undefined, { timeout: 10000 });
+					// Raster icons also wait for the stencil test that decides whether they take a tint.
+					await page.waitForFunction(() => [...document.images].every((img) => img.complete) && !document.querySelector('[data-pending]'), undefined, { timeout: 10000 });
 					await page.waitForTimeout(250);
 					await board.screenshot({ path: join(out, shot.file) });
 					images.push(shot.file);
