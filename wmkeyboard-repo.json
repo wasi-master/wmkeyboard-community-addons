@@ -265,6 +265,25 @@
       "license": "CC0-1.0"
     },
     {
+      "id": "metal-light-ash",
+      "type": "theme",
+      "name": "Metal Light - Ash",
+      "version": "1.0.0",
+      "author": "AshUchiha3",
+      "description": "@AshUchiha on Telegram/Discord if any issues",
+      "tags": [],
+      "path": "addons/themes/metal-light-ash/theme.wmtheme.json",
+      "sha256": "627aa29a196983fbd7cf38a0d8830014ec5d48a0349abea77919f7eb5493c6f5",
+      "sizeBytes": 4317,
+      "previews": [
+        "addons/themes/metal-light-ash/preview.png",
+        "addons/themes/metal-light-ash/preview-tools.png",
+        "addons/themes/metal-light-ash/preview-clipboard.png",
+        "addons/themes/metal-light-ash/preview-editing.png"
+      ],
+      "license": "CC-BY-4.0"
+    },
+    {
       "id": "mono-frosted-glass",
       "type": "theme",
       "name": "Mono Frosted Glass",
