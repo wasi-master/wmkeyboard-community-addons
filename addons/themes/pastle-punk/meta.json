@@ -1,0 +1,31 @@
+{
+  "id": "pastle-punk",
+  "type": "theme",
+  "name": "Pastle Punk",
+  "description": "a pastle color material looking calm keyboard theme fir users with calm and calculative theme without any noise on their fingertips",
+  "tags": [
+    "pastle",
+    "dark",
+    "light",
+    "material",
+    "smooth"
+  ],
+  "license": "CC0-1.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "mini-page",
+    "id": 146421384
+  },
+  "issues": [
+    39
+  ],
+  "createdAt": "2026-11-09T10:48:35.670Z",
+  "updatedAt": "2026-11-09T10:48:35.670Z",
+  "previews": [
+    "preview.png",
+    "preview-tools.png",
+    "preview-clipboard.png",
+    "preview-editing.png"
+  ]
+}
