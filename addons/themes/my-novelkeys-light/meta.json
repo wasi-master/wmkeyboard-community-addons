@@ -1,0 +1,28 @@
+{
+  "id": "my-novelkeys-light",
+  "type": "theme",
+  "name": "My NovelKeys Light",
+  "description": "My NovelKeys Light",
+  "tags": [
+    "novelkeys",
+    "light"
+  ],
+  "license": "CC-BY-4.0",
+  "basedOn": "clink.anti-ltd.clink-themes-unofficial/novelkeys-light",
+  "version": "1.0.0",
+  "submitter": {
+    "login": "xyz12344",
+    "id": 234922099
+  },
+  "issues": [
+    38
+  ],
+  "createdAt": "2026-11-09T10:48:59.013Z",
+  "updatedAt": "2026-11-09T10:48:59.013Z",
+  "previews": [
+    "preview.png",
+    "preview-tools.png",
+    "preview-clipboard.png",
+    "preview-editing.png"
+  ]
+}
