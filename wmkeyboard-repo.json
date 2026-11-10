@@ -9,7 +9,7 @@
     "author": "WM Keyboard community",
     "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons",
     "icon": "icon.png",
-    "updatedAt": "2026-11-09"
+    "updatedAt": "2026-11-10"
   },
   "addons": [
     {
@@ -361,19 +361,20 @@
       "id": "pastle-punk",
       "type": "theme",
       "name": "Pastle Punk",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "mini-page",
-      "description": "a pastle color material looking calm keyboard theme fir users with calm and calculative theme without any noise on their fingertips",
+      "description": "pastle color material looking calm keyboard theme fir users with calm and calculative theme without any noise on their fingertips",
       "tags": [
-        "pastle",
+        "material",
+        "calm",
         "dark",
         "light",
-        "material",
-        "smooth"
+        "expressive",
+        "pastle"
       ],
       "path": "addons/themes/pastle-punk/theme.wmtheme.json",
-      "sha256": "aae90458a4b8fe22651e4758ba3d1dbfd47f6865157e072293f5d1e09ef31c9b",
-      "sizeBytes": 18493,
+      "sha256": "6b00666156054d768987728bdc62312a4d1d2d075ce87d506be98548f6144e02",
+      "sizeBytes": 18479,
       "previews": [
         "addons/themes/pastle-punk/preview.png",
         "addons/themes/pastle-punk/preview-tools.png",

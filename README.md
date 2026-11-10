@@ -15,7 +15,7 @@ WM Keyboard lists this repository under **Settings → Addons** on its own. To a
 <tr>
 <td valign="top" width="33%"><a href="addons/themes/metal-light-ash"><img src="addons/themes/metal-light-ash/preview.png" width="240" alt="" /></a><br><b>Metal Light - Ash</b><br><sub>by AshUchiha3 · CC-BY-4.0 · v1.0.0</sub></td>
 <td valign="top" width="33%"><a href="addons/themes/my-novelkeys-light"><img src="addons/themes/my-novelkeys-light/preview.png" width="240" alt="" /></a><br><b>My NovelKeys Light</b><br><sub>by xyz12344 · CC-BY-4.0 · v1.0.0</sub><br><sub>remix of clink.anti-ltd.clink-themes-unofficial/novelkeys-light</sub></td>
-<td valign="top" width="33%"><a href="addons/themes/pastle-punk"><img src="addons/themes/pastle-punk/preview.png" width="240" alt="" /></a><br><b>Pastle Punk</b><br><sub>by mini-page · CC0-1.0 · v1.0.0</sub></td>
+<td valign="top" width="33%"><a href="addons/themes/pastle-punk"><img src="addons/themes/pastle-punk/preview.png" width="240" alt="" /></a><br><b>Pastle Punk</b><br><sub>by mini-page · CC0-1.0 · v1.1.0</sub></td>
 </tr>
 <tr>
 <td valign="top" width="33%"><a href="addons/themes/greyish-ash"><img src="addons/themes/greyish-ash/preview.png" width="240" alt="" /></a><br><b>Greyish Ash</b><br><sub>by AshUchiha3 · CC-BY-4.0 · v1.0.0</sub></td>
