@@ -1,0 +1,22 @@
+{
+  "id": "anemoia-kissolated-ugrigrum",
+  "type": "theme",
+  "name": "Anemoia [kissolated] - ugrigrum",
+  "description": "the style is key isolated. so its kissolated.",
+  "tags": [],
+  "license": "CC0-1.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "kochurmatha-cpu",
+    "id": 238144562
+  },
+  "issues": [
+    44
+  ],
+  "createdAt": "2026-11-10T15:27:38.907Z",
+  "updatedAt": "2026-11-10T15:27:38.907Z",
+  "previews": [
+    "preview.png"
+  ]
+}
