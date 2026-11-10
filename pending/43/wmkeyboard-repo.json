@@ -1,0 +1,32 @@
+{
+  "$schema": "https://raw.githubusercontent.com/wasi-master/wmkeyboard-addon-repository/main/docs/addons/wmkeyboard-repo.schema.json",
+  "format": "wmkeyboard-repo",
+  "version": 1,
+  "repo": {
+    "id": "com.wasimaster.wmkeyboard.community.pending",
+    "name": "WM Keyboard Community: pending #43",
+    "description": "One submission waiting for review. Installs from here are trial copies; the published version comes from the community repository.",
+    "author": "WM Keyboard community",
+    "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons/issues/43"
+  },
+  "addons": [
+    {
+      "id": "retro",
+      "type": "theme",
+      "name": "Retro",
+      "version": "1.0.0",
+      "author": "xyz12344",
+      "description": "retro",
+      "tags": [
+        "retro"
+      ],
+      "path": "theme.wmtheme.json",
+      "sha256": "3d22a0f9e74de900c34528bf9c5924a2fa93295fe1704782d234fa5dde933430",
+      "sizeBytes": 3444,
+      "previews": [
+        "preview.png"
+      ],
+      "license": "CC-BY-4.0"
+    }
+  ]
+}

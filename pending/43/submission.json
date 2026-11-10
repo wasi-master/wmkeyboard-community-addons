@@ -1,0 +1,55 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "title": "Submission form",
+      "ok": true
+    },
+    {
+      "title": "Rights confirmed",
+      "ok": true
+    },
+    {
+      "title": "Name",
+      "ok": true
+    },
+    {
+      "title": "Description",
+      "ok": true
+    },
+    {
+      "title": "Tags",
+      "ok": true
+    },
+    {
+      "title": "License",
+      "ok": true,
+      "detail": "CC-BY-4.0"
+    },
+    {
+      "title": "Payload",
+      "ok": true
+    },
+    {
+      "title": "Addon id",
+      "ok": true,
+      "detail": "`retro`"
+    }
+  ],
+  "warnings": [],
+  "type": "theme",
+  "id": "retro",
+  "isUpdate": false,
+  "name": "Retro",
+  "description": "retro",
+  "tags": [
+    "retro"
+  ],
+  "license": "CC-BY-4.0",
+  "basedOn": null,
+  "submitter": {
+    "login": "xyz12344",
+    "id": 234922099
+  },
+  "issue": 43
+}
