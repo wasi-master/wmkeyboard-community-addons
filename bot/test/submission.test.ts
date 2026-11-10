@@ -133,6 +133,29 @@ describe('form rules', () => {
 		assert.equal(r.id, 'noir-typewriter');
 	});
 
+	it('reads a bare based_on id as an addon published here', async () => {
+		const root = tree([{ meta: meta({ id: 'pastel', type: 'theme' }), payload: THEME }]);
+		const r = await evaluate(body({ name: 'Pastel Dark', based_on: 'pastel', payload: encodePayload(THEME) }), { root });
+		assert.deepEqual(failing(r), []);
+		assert.equal(r.basedOn, 'com.wasimaster.wmkeyboard.community/pastel');
+	});
+
+	it('refuses the same id in Updates and Based on, saying which to clear', async () => {
+		const root = tree([{ meta: meta({ id: 'pastel', type: 'theme', name: 'Pastel' }), payload: THEME }]);
+		const r = await evaluate(body({ name: 'Pastel Dark', updates: 'pastel', based_on: 'pastel', payload: encodePayload(THEME) }), { root });
+		assert.deepEqual(failing(r), ['Addon id']);
+		assert.match(r.checks.find((c) => c.title === 'Addon id')!.detail!, /both "Updates" and "Based on"/);
+	});
+
+	it('warns when an update renames what it replaces', async () => {
+		const root = tree([{ meta: meta({ id: 'pastel', type: 'theme', name: 'Pastel' }), payload: THEME }]);
+		const renamed = await evaluate(body({ name: 'Pastel Dark', updates: 'pastel', payload: encodePayload(THEME) }), { root });
+		assert.equal(renamed.ok, true);
+		assert.match(renamed.warnings.join(), /replaces "Pastel" and renames it "Pastel Dark"/);
+		const same = await evaluate(body({ name: 'pastel', updates: 'pastel', payload: encodePayload(THEME) }), { root });
+		assert.doesNotMatch(same.warnings.join(), /replaces/);
+	});
+
 	it('refuses a malformed based_on', async () => {
 		const r = await evaluate(body({ based_on: 'see my other theme!', payload: encodePayload(THEME) }));
 		assert.deepEqual(failing(r), ['Remix credit']);

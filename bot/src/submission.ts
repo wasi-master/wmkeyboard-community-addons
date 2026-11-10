@@ -5,7 +5,7 @@
  */
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { ADDON_TYPES, BASED_ON_PATTERN, ID_PATTERN, LICENSES, LIMITS, TYPES, type AddonType, type License } from './constants.ts';
+import { ADDON_TYPES, BASED_ON_PATTERN, ID_PATTERN, LICENSES, LIMITS, REPO_ID, TYPES, type AddonType, type License } from './constants.ts';
 import { isTicked, splitTags, type FieldId } from './form.ts';
 import { normaliseLayout } from './layout.ts';
 import { nearDuplicates } from './palette.ts';
@@ -112,12 +112,21 @@ export async function evaluateSubmission(input: SubmissionInput): Promise<Submis
 
 	const basedOnAnswer = cleanLine(fields.based_on);
 	let basedOn: string | null = null;
+	// The id of an addon published here, typed by hand, names it as surely as
+	// the full `repo-id/addon-id` the app fills in.
+	const basedOnHere = input.published.find((p) => p.meta.id === basedOnAnswer);
 	if (basedOnAnswer) {
 		if (BASED_ON_PATTERN.test(basedOnAnswer)) {
 			basedOn = basedOnAnswer;
 			pass('Remix credit', `Based on \`${basedOn}\`.`);
+		} else if (basedOnHere) {
+			basedOn = `${REPO_ID}/${basedOnHere.meta.id}`;
+			pass('Remix credit', `Based on \`${basedOnHere.meta.id}\` from this repository.`);
 		} else {
-			fail('Remix credit', '"Based on" should look like `repo-id/addon-id`, as the app fills it in. Clear it if you are unsure.');
+			fail(
+				'Remix credit',
+				'"Based on" should look like `repo-id/addon-id`, as the app fills it in, or be the id of an addon published here. Clear it if you are unsure.',
+			);
 		}
 	}
 
@@ -168,10 +177,23 @@ export async function evaluateSubmission(input: SubmissionInput): Promise<Submis
 			fail('Addon id', `\`${updates}\` was published by someone else. Only its author can update it; share yours as a new addon instead.`);
 		} else if (type && owned.meta.type !== type) {
 			fail('Addon id', `\`${updates}\` is a ${TYPES[owned.meta.type].noun}, and this is a ${TYPES[type].noun}.`);
+		} else if (basedOnHere?.meta.id === updates || basedOn === `${REPO_ID}/${updates}`) {
+			// An update replaces the addon; one built from it sits beside it.
+			// Naming it in both says the second, and publishing it as the first
+			// would overwrite what it was built from.
+			fail(
+				'Addon id',
+				`\`${updates}\` is in both "Updates" and "Based on". To publish this beside \`${updates}\`, clear "Updates"; to replace \`${updates}\` with it, clear "Based on".`,
+			);
 		} else {
 			id = updates;
 			isUpdate = true;
 			pass('Addon id', `Updates \`${id}\` (now ${owned.meta.version}).`);
+			if (name && owned.meta.name && name.toLowerCase() !== owned.meta.name.toLowerCase()) {
+				warnings.push(
+					`This replaces "${md(owned.meta.name)}" and renames it "${md(name)}". To publish it as a separate addon instead, clear "Updates".`,
+				);
+			}
 			if (input.rename) warnings.push(`A rename to \`${input.rename}\` was ignored: an update keeps the id it was published under.`);
 		}
 	} else {
