@@ -20,8 +20,11 @@
     45
   ],
   "createdAt": "2026-11-06T08:55:23.606Z",
-  "updatedAt": "2026-11-13T15:43:35.614Z",
+  "updatedAt": "2026-11-13T15:56:18.759Z",
   "previews": [
-    "preview.png"
+    "preview.png",
+    "preview-tools.png",
+    "preview-clipboard.png",
+    "preview-editing.png"
   ]
 }
