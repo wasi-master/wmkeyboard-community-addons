@@ -1,0 +1,34 @@
+{
+  "$schema": "https://raw.githubusercontent.com/wasi-master/wmkeyboard-addon-repository/main/docs/addons/wmkeyboard-repo.schema.json",
+  "format": "wmkeyboard-repo",
+  "version": 1,
+  "repo": {
+    "id": "com.wasimaster.wmkeyboard.community.pending",
+    "name": "WM Keyboard Community: pending #45",
+    "description": "One submission waiting for review. Installs from here are trial copies; the published version comes from the community repository.",
+    "author": "WM Keyboard community",
+    "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons/issues/45"
+  },
+  "addons": [
+    {
+      "id": "pureline-theme-amoled",
+      "type": "theme",
+      "name": "Pureline Theme [Amoled]V2",
+      "version": "1.1.0",
+      "author": "Episode12",
+      "description": "An Amoled theme created by \"BigPurpleNeko\", who also created Pureline icon pack. Made for simplicity enthusiasts. Who likes minimal but usefull designs that doesn't look gaudy or too heavy on the eye.",
+      "tags": [
+        "simplicity",
+        "amoled",
+        "minimal"
+      ],
+      "path": "theme.wmtheme.json",
+      "sha256": "aa42f8871319d8f127760b66b4f3d716cbd66b0f296c3b7e34397f7f190ce581",
+      "sizeBytes": 7229,
+      "previews": [
+        "preview.png"
+      ],
+      "license": "CC-BY-4.0"
+    }
+  ]
+}
