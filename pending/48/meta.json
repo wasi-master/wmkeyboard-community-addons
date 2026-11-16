@@ -1,0 +1,24 @@
+{
+  "id": "red-os",
+  "type": "theme",
+  "name": "Red-os",
+  "description": "nothing inspired",
+  "tags": [
+    "theme"
+  ],
+  "license": "CC0-1.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "mamamiajason515-stack",
+    "id": 299152071
+  },
+  "issues": [
+    48
+  ],
+  "createdAt": "2026-11-16T00:03:02.034Z",
+  "updatedAt": "2026-11-16T00:03:02.034Z",
+  "previews": [
+    "preview.png"
+  ]
+}
