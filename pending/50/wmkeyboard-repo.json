@@ -22,7 +22,10 @@
       "sha256": "219e74cf42383e6024b593e511f5cbebd070cd514b1983f2957609db7dc527e6",
       "sizeBytes": 8371,
       "previews": [
-        "preview.png"
+        "preview.png",
+        "preview-tools.png",
+        "preview-clipboard.png",
+        "preview-editing.png"
       ],
       "license": "CC0-1.0"
     }
