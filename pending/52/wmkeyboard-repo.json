@@ -1,0 +1,31 @@
+{
+  "$schema": "https://raw.githubusercontent.com/wasi-master/wmkeyboard-addon-repository/main/docs/addons/wmkeyboard-repo.schema.json",
+  "format": "wmkeyboard-repo",
+  "version": 1,
+  "repo": {
+    "id": "com.wasimaster.wmkeyboard.community.pending",
+    "name": "WM Keyboard Community: pending #52",
+    "description": "One submission waiting for review. Installs from here are trial copies; the published version comes from the community repository.",
+    "author": "WM Keyboard community",
+    "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons/issues/52"
+  },
+  "addons": [
+    {
+      "id": "swiftkey-with-default-press-and-hold",
+      "type": "layout",
+      "name": "swiftkey with default press and hold",
+      "version": "1.0.0",
+      "author": "kochurmatha-cpu",
+      "description": "for swifty sissy",
+      "tags": [],
+      "path": "layout.wmlayout.json",
+      "sha256": "8e3215161b780cd58b1b5501cd003fc5943e68b0373a6264a8e3693f1d1680a6",
+      "sizeBytes": 22927,
+      "previews": [
+        "preview.png",
+        "preview-dark.png"
+      ],
+      "license": "CC0-1.0"
+    }
+  ]
+}

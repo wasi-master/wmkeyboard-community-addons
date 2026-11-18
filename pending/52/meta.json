@@ -1,0 +1,23 @@
+{
+  "id": "swiftkey-with-default-press-and-hold",
+  "type": "layout",
+  "name": "swiftkey with default press and hold",
+  "description": "for swifty sissy",
+  "tags": [],
+  "license": "CC0-1.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "kochurmatha-cpu",
+    "id": 238144562
+  },
+  "issues": [
+    52
+  ],
+  "createdAt": "2026-11-18T12:12:59.102Z",
+  "updatedAt": "2026-11-18T12:12:59.102Z",
+  "previews": [
+    "preview.png",
+    "preview-dark.png"
+  ]
+}
