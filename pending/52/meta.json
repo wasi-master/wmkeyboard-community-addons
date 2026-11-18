@@ -14,10 +14,18 @@
   "issues": [
     52
   ],
-  "createdAt": "2026-11-18T12:12:59.102Z",
-  "updatedAt": "2026-11-18T12:12:59.102Z",
+  "createdAt": "2026-11-18T12:27:21.628Z",
+  "updatedAt": "2026-11-18T12:27:21.628Z",
   "previews": [
     "preview.png",
-    "preview-dark.png"
+    "preview-dark.png",
+    "preview-shift.png",
+    "preview-symbols.png",
+    "preview-symbols2.png",
+    "preview-number.png",
+    "preview-phone.png",
+    "preview-date.png",
+    "preview-time.png",
+    "preview-datetime.png"
   ]
 }
