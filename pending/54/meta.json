@@ -1,0 +1,22 @@
+{
+  "id": "nothing-v1",
+  "type": "theme",
+  "name": "Nothing V1",
+  "description": "theme",
+  "tags": [],
+  "license": "CC-BY-SA-4.0",
+  "basedOn": "com.wasimaster.wmkeyboard.community/nothing-keyboard-v1",
+  "version": "1.0.0",
+  "submitter": {
+    "login": "MgPlug99",
+    "id": 328197955
+  },
+  "issues": [
+    54
+  ],
+  "createdAt": "2026-11-22T15:31:48.033Z",
+  "updatedAt": "2026-11-22T15:31:48.033Z",
+  "previews": [
+    "preview.png"
+  ]
+}
