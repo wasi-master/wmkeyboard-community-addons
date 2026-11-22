@@ -22,7 +22,10 @@
       "sha256": "6a71082f50edbec2859cafee39db7577a83faa82df46cfec7a3b0c552f5f380f",
       "sizeBytes": 3781,
       "previews": [
-        "preview.png"
+        "preview.png",
+        "preview-tools.png",
+        "preview-clipboard.png",
+        "preview-editing.png"
       ],
       "license": "CC-BY-SA-4.0",
       "basedOn": "com.wasimaster.wmkeyboard.community/nothing-keyboard-v1"
