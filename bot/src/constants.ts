@@ -21,6 +21,12 @@ export const DEFAULT_REPO_SLUG = 'wasi-master/wmkeyboard-community-addons';
 export const SCHEMA_URL =
 	'https://raw.githubusercontent.com/wasi-master/wmkeyboard-addon-repository/main/docs/addons/wmkeyboard-repo.schema.json';
 export const STORE_SITE = 'https://wmkeyboard.pages.dev';
+/**
+ * The docs site's /open/ page. The app claims it as an App Link, so on a phone
+ * with WM Keyboard a link to it opens the screen it names; anywhere else the
+ * page loads and offers an "Open in WM Keyboard" button.
+ */
+export const OPEN_PAGE = 'https://wmkeyboard.app/open/';
 export const PENDING_BRANCH = 'pending';
 
 /** The prefix of an encoded payload; the digit is the encoding version. */

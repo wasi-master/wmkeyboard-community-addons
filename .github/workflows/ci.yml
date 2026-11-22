@@ -32,5 +32,8 @@ jobs:
       - run: npm ci --ignore-scripts --no-audit --no-fund
       - run: npm run typecheck
       - run: npm test
+      # On main, readme.yml regenerates them instead, so a push that changes
+      # the generator is not red for the README it is about to rewrite.
       - name: Manifest and README are current
+        if: github.event_name != 'push'
         run: npm run check

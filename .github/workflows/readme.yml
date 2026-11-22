@@ -1,0 +1,58 @@
+# README.md and wmkeyboard-repo.json are generated from addons/*/*/meta.json by
+# bot/src/cli/generate.ts. /approve regenerates them as it publishes; this
+# rebuilds them on any other push that can change them (the generator itself,
+# a hand edit under addons/). A push made with GITHUB_TOKEN starts no
+# workflow, so the commit below cannot loop.
+name: Regenerate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - addons/**
+      - bot/src/**
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    # One regeneration at a time; a newer push supersedes a waiting one.
+    concurrency:
+      group: regenerate
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: bot/package-lock.json
+
+      - name: Install the bot
+        working-directory: bot
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Regenerate
+        working-directory: bot
+        run: npm run generate
+
+      - name: Commit if anything changed
+        run: |
+          if git diff --quiet -- README.md wmkeyboard-repo.json; then
+            echo "README.md and wmkeyboard-repo.json are current"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -q -m "Regenerate README and manifest" -- README.md wmkeyboard-repo.json
+          # An /approve may have pushed meanwhile. It regenerates both files
+          # from the same generator, so on a conflict its version wins.
+          if ! git pull -q --rebase -X theirs; then git rebase --abort; exit 0; fi
+          git push
