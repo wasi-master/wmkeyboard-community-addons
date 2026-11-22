@@ -5,7 +5,7 @@
   <p>Themes, layouts, icon packs, sticker packs, sound packs and snippets made by people who use WM Keyboard.</p>
 </div>
 
-WM Keyboard lists this repository under **Settings → Addons** on its own. To add it anywhere else, use `https://github.com/wasi-master/wmkeyboard-community-addons`, or browse it in the [web store](https://wmkeyboard.pages.dev/addons/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons).
+WM Keyboard lists this repository under **Settings → Addons** on its own. To add it anywhere else, use `https://github.com/wasi-master/wmkeyboard-community-addons`, [open it in the app](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons), or browse it in the [web store](https://wmkeyboard.pages.dev/addons/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons).
 
 **Share yours:** use **Share with everyone** in the app (on a theme, a layout, an icon pack, a sticker pack or your snippets) or **Submit to community** in the web store's builders, or open one of the forms here: [theme](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-theme.yml) · [layout](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-layout.yml) · [icon pack](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-icon-pack.yml) · [sticker pack](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-stickers.yml) · [sound pack](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-sound-pack.yml) · [snippet pack](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-snippets.yml). A bot checks it and posts a preview; a maintainer publishes it. Details in [CONTRIBUTING.md](CONTRIBUTING.md).
 
@@ -83,6 +83,41 @@ None yet. Be the first: [submit one](https://github.com/wasi-master/wmkeyboard-c
 ## Snippets
 
 None yet. Be the first: [submit one](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-snippets.yml).
+
+## Open in WM Keyboard
+
+On a phone with WM Keyboard, these links go straight to the addon's page in the app, where you tap Install. Elsewhere they open a page with an **Open in WM Keyboard** button.
+
+| Addon | Type | By | Open in app |
+|---|---|---|---|
+| [Rounded](addons/themes/rounded) | theme | kawoser | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=rounded) |
+| [Retro](addons/themes/retro) | theme | xyz12344 | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=retro) |
+| [Gboard pink](addons/themes/gboard-pink) | theme | xyz12344 | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=gboard-pink) |
+| [Metal Light - Ash](addons/themes/metal-light-ash) | theme | AshUchiha3 | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=metal-light-ash) |
+| [My NovelKeys Light](addons/themes/my-novelkeys-light) | theme | xyz12344 | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=my-novelkeys-light) |
+| [Pastle Punk](addons/themes/pastle-punk) | theme | mini-page | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=pastle-punk) |
+| [Greyish Ash](addons/themes/greyish-ash) | theme | AshUchiha3 | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=greyish-ash) |
+| [ICY COLD ASH](addons/themes/icy-cold-ash) | theme | AshUchiha3 | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=icy-cold-ash) |
+| [CARBON GLASS](addons/themes/carbon-glass) | theme | xyz12344 | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=carbon-glass) |
+| [Marble](addons/themes/marble) | theme | xyz12344 | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=marble) |
+| [Cloth - Ash](addons/themes/cloth-ash) | theme | AshUchiha3 | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=cloth-ash) |
+| [Somewhat Metal - Ash](addons/themes/somewhat-metal-ash) | theme | AshUchiha3 | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=somewhat-metal-ash) |
+| [Pureline Theme \[Amoled\]V2](addons/themes/pureline-theme-amoled) | theme | Episode12 | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=pureline-theme-amoled) |
+| [Rounded Pill Ash](addons/themes/rounded-pill-ash) | theme | AshUchiha3 | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=rounded-pill-ash) |
+| [Rainbow background](addons/themes/rainbow-background) | theme | xyz12344 | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=rainbow-background) |
+| [light green border](addons/themes/light-green-border) | theme | xyz12344 | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=light-green-border) |
+| [Materail Moment](addons/themes/materail-moment) | theme | mini-page | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=materail-moment) |
+| [iOS Dark Glass Ash](addons/themes/ios-dark-glass-ash) | theme | AshUchiha3 | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=ios-dark-glass-ash) |
+| [Mono Frosted Glass](addons/themes/mono-frosted-glass) | theme | Veratian | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=mono-frosted-glass) |
+| [Degradado escarcha](addons/themes/degradado-escarcha) | theme | titomdp06-cmyk | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=degradado-escarcha) |
+| [Lo-fi Anime girl](addons/themes/lo-fi-anime-girl) | theme | mishrapriyanshu7191-blip | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=lo-fi-anime-girl) |
+| [NOTHING Keyboard V1](addons/themes/nothing-keyboard-v1) | theme | MystiKitsu | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=nothing-keyboard-v1) |
+| [FROSTKEY](addons/themes/frostkey) | theme | PrncDENZ254KE | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=frostkey) |
+| [IoS Ash](addons/themes/ios-ash) | theme | AshUchiha3 | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=ios-ash) |
+| [Futo keyboard symbol layout](addons/layouts/futo-keyboard-symbol-layout) | layout | kochurmatha-cpu | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=futo-keyboard-symbol-layout) |
+| [quickedit\+gboard Symbols](addons/layouts/quickedit-gboard-symbols) | layout | xyz12344 | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=quickedit-gboard-symbols) |
+| [Hindi / Marathi \(Devanagari\)](addons/layouts/hindi-marathi-devanagari) | layout | RamPawar7 | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=hindi-marathi-devanagari) |
+| [Pureline Icon pack](addons/icon-packs/pureline-icon-pack) | icon pack | Episode12 | [Open](https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons&id=pureline-icon-pack) |
 
 ---
 
