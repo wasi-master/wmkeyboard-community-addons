@@ -56,11 +56,12 @@ jobs:
     needs: command
     if: needs.command.outputs.command == 'approve'
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-    # Every write to main goes through here, one at a time.
-    concurrency:
-      group: publish-main
-      cancel-in-progress: false
+    timeout-minutes: 15
+    # No concurrency group: GitHub keeps one run and one pending run per
+    # group and cancels any other pending run, so several /approve comments
+    # at once lost all but two. Approvals run side by side instead, and the
+    # publish step below redoes its work on the new tip when its push loses
+    # a race.
     permissions:
       contents: write
       issues: write
@@ -68,9 +69,6 @@ jobs:
       ISSUE_NUMBER: ${{ needs.command.outputs.issue }}
     steps:
       # The branch tip as it is now, not the commit the comment event carries.
-      # A job that waited in the concurrency group behind another /approve
-      # would otherwise start from main before that publish, and its push
-      # would be rejected.
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.repository.default_branch }}
@@ -92,26 +90,16 @@ jobs:
           PENDING_CHECKOUT: ${{ runner.temp }}/pending
         run: bash bot/scripts/branch.sh checkout "$PENDING_CHECKOUT" pending
 
-      - name: Publish to addons/
+      # Publish, commit and push as one step. When another approval pushed
+      # first, start again from the new tip: approve.ts re-reads main, so the
+      # id check and the regenerated manifest and README include that addon.
+      - name: Publish to addons/ and push to main
         id: publish
-        working-directory: bot
         env:
           GITHUB_TOKEN: ${{ github.token }}
           PENDING_DIR: ${{ runner.temp }}/pending/pending/${{ needs.command.outputs.issue }}
-        run: npx tsx src/cli/approve.ts publish
-
-      - name: Commit to main
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          ADDON_DIR: ${{ steps.publish.outputs.dir }}
-          ADDON_ID: ${{ steps.publish.outputs.id }}
-          ADDON_VERSION: ${{ steps.publish.outputs.version }}
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- "$ADDON_DIR" wmkeyboard-repo.json README.md
-          git commit --quiet -m "Publish $ADDON_ID $ADDON_VERSION" -m "Closes #$ISSUE_NUMBER"
-          git push --quiet "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:refs/heads/${GITHUB_REF_NAME}"
+          BRANCH: ${{ github.event.repository.default_branch }}
+        run: bash bot/scripts/publish-main.sh
 
       - name: Empty pending/<issue>
         env:

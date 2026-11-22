@@ -1,6 +1,7 @@
 /**
- * `/approve`, in the one job that may push to `main` (concurrency
- * `publish-main`, so approvals queue rather than race).
+ * `/approve`, in the one job that may push to `main`. Approvals run side by
+ * side: scripts/publish-main.sh calls `publish` again on the new tip whenever
+ * its push loses a race, so this must stay safe to rerun from a clean main.
  *
  *   approve.ts publish    copy PENDING_DIR into addons/<type>/<id>/, regenerate manifest + README
  *   approve.ts announce   comment "Live", label and close (after the workflow pushed)
