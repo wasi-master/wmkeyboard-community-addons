@@ -30,7 +30,7 @@ WM Keyboard lists this repository under **Settings → Addons** on its own. To a
 <tr>
 <td valign="top" width="33%"><a href="addons/themes/cloth-ash"><img src="addons/themes/cloth-ash/preview.png" width="240" alt="" /></a><br><b>Cloth - Ash</b><br><sub>by AshUchiha3 · CC-BY-4.0 · v1.0.0</sub></td>
 <td valign="top" width="33%"><a href="addons/themes/somewhat-metal-ash"><img src="addons/themes/somewhat-metal-ash/preview.png" width="240" alt="" /></a><br><b>Somewhat Metal - Ash</b><br><sub>by AshUchiha3 · CC-BY-4.0 · v1.0.0</sub></td>
-<td valign="top" width="33%"><a href="addons/themes/pureline-theme-amoled"><img src="addons/themes/pureline-theme-amoled/preview.png" width="240" alt="" /></a><br><b>Pureline Theme \(Amoled\)</b><br><sub>by Episode12 · CC-BY-4.0 · v1.0.0</sub></td>
+<td valign="top" width="33%"><a href="addons/themes/pureline-theme-amoled"><img src="addons/themes/pureline-theme-amoled/preview.png" width="240" alt="" /></a><br><b>Pureline Theme \[Amoled\]V2</b><br><sub>by Episode12 · CC-BY-4.0 · v1.1.0</sub></td>
 </tr>
 <tr>
 <td valign="top" width="33%"><a href="addons/themes/rounded-pill-ash"><img src="addons/themes/rounded-pill-ash/preview.png" width="240" alt="" /></a><br><b>Rounded Pill Ash</b><br><sub>by AshUchiha3 · CC-BY-4.0 · v1.0.0</sub></td>
