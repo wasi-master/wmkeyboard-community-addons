@@ -1,0 +1,27 @@
+{
+  "id": "retro",
+  "type": "theme",
+  "name": "Retro",
+  "description": "retro",
+  "tags": [
+    "retro"
+  ],
+  "license": "CC-BY-4.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "xyz12344",
+    "id": 234922099
+  },
+  "issues": [
+    43
+  ],
+  "createdAt": "2026-11-22T14:45:23.076Z",
+  "updatedAt": "2026-11-22T14:45:23.076Z",
+  "previews": [
+    "preview.png",
+    "preview-tools.png",
+    "preview-clipboard.png",
+    "preview-editing.png"
+  ]
+}

@@ -453,6 +453,27 @@
       "license": "CC-BY-4.0"
     },
     {
+      "id": "retro",
+      "type": "theme",
+      "name": "Retro",
+      "version": "1.0.0",
+      "author": "xyz12344",
+      "description": "retro",
+      "tags": [
+        "retro"
+      ],
+      "path": "addons/themes/retro/theme.wmtheme.json",
+      "sha256": "3d22a0f9e74de900c34528bf9c5924a2fa93295fe1704782d234fa5dde933430",
+      "sizeBytes": 3444,
+      "previews": [
+        "addons/themes/retro/preview.png",
+        "addons/themes/retro/preview-tools.png",
+        "addons/themes/retro/preview-clipboard.png",
+        "addons/themes/retro/preview-editing.png"
+      ],
+      "license": "CC-BY-4.0"
+    },
+    {
       "id": "rounded-pill-ash",
       "type": "theme",
       "name": "Rounded Pill Ash",
