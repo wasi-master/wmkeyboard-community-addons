@@ -474,6 +474,25 @@
       "license": "CC-BY-4.0"
     },
     {
+      "id": "rounded",
+      "type": "theme",
+      "name": "Rounded",
+      "version": "1.0.0",
+      "author": "kawoser",
+      "description": "Looks great",
+      "tags": [],
+      "path": "addons/themes/rounded/theme.wmtheme.json",
+      "sha256": "219e74cf42383e6024b593e511f5cbebd070cd514b1983f2957609db7dc527e6",
+      "sizeBytes": 8371,
+      "previews": [
+        "addons/themes/rounded/preview.png",
+        "addons/themes/rounded/preview-tools.png",
+        "addons/themes/rounded/preview-clipboard.png",
+        "addons/themes/rounded/preview-editing.png"
+      ],
+      "license": "CC0-1.0"
+    },
+    {
       "id": "rounded-pill-ash",
       "type": "theme",
       "name": "Rounded Pill Ash",

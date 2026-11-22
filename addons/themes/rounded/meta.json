@@ -1,0 +1,25 @@
+{
+  "id": "rounded",
+  "type": "theme",
+  "name": "Rounded",
+  "description": "Looks great",
+  "tags": [],
+  "license": "CC0-1.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "kawoser",
+    "id": 109131733
+  },
+  "issues": [
+    50
+  ],
+  "createdAt": "2026-11-22T14:55:59.644Z",
+  "updatedAt": "2026-11-22T14:55:59.644Z",
+  "previews": [
+    "preview.png",
+    "preview-tools.png",
+    "preview-clipboard.png",
+    "preview-editing.png"
+  ]
+}
