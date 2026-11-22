@@ -6,7 +6,7 @@
 import { createHash } from 'node:crypto';
 import { readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
-import { ADDON_TYPES, DEFAULT_REPO_SLUG, LIMITS, REPO_DESCRIPTION, REPO_ID, REPO_NAME, SCHEMA_URL, STORE_SITE, OPEN_PAGE, TYPES, type AddonType } from './constants.ts';
+import { ADDON_TYPES, DEFAULT_REPO_SLUG, LIMITS, REPO_DESCRIPTION, REPO_ID, REPO_NAME, SCHEMA_URL, STORE_SITE, OPEN_PAGE, ADD_REPO_BADGE, TYPES, type AddonType } from './constants.ts';
 import type { Meta, Published } from './repo.ts';
 import { md } from './text.ts';
 
@@ -124,9 +124,11 @@ export function buildReadme(published: Published[], repoSlug = DEFAULT_REPO_SLUG
   <img src="icon.png" width="96" height="96" alt="" />
   <h1>${REPO_NAME}</h1>
   <p>Themes, layouts, icon packs, sticker packs, sound packs and snippets made by people who use WM Keyboard.</p>
+  <a href="${openLink()}"><img src="${ADD_REPO_BADGE}" alt="Add repository to WM Keyboard" height="72"></a>
+  <p><sub>WM Keyboard lists this repository under <b>Settings → Addons</b> on its own. You only need the badge if you removed it.</sub></p>
 </div>
 
-WM Keyboard lists this repository under **Settings → Addons** on its own. To add it anywhere else, use \`${repoUrl}\`, [open it in the app](${openLink()}), or browse it in the [web store](${STORE_SITE}/addons/?repo=${encodeURIComponent(repoUrl)}).
+Its address is \`${repoUrl}\`. You can also browse it in the [web store](${STORE_SITE}/addons/?repo=${encodeURIComponent(repoUrl)}).
 
 **Share yours:** use **Share with everyone** in the app (on a theme, a layout, an icon pack, a sticker pack or your snippets) or **Submit to community** in the web store's builders, or open one of the forms here: ${ADDON_TYPES.map((t) => `[${TYPES[t].noun}](${repoUrl}/issues/new?template=${TYPES[t].template})`).join(' · ')}. A bot checks it and posts a preview; a maintainer publishes it. Details in [CONTRIBUTING.md](CONTRIBUTING.md).
 

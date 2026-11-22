@@ -27,6 +27,8 @@ export const STORE_SITE = 'https://wmkeyboard.pages.dev';
  * page loads and offers an "Open in WM Keyboard" button.
  */
 export const OPEN_PAGE = 'https://wmkeyboard.app/open/';
+/** The "Add repository to WM Keyboard" badge, drawn to the size of the store badges. */
+export const ADD_REPO_BADGE = 'https://wmkeyboard.app/badges/add-repository.png';
 export const PENDING_BRANCH = 'pending';
 
 /** The prefix of an encoded payload; the digit is the encoding version. */
