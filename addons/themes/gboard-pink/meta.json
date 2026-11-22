@@ -1,0 +1,29 @@
+{
+  "id": "gboard-pink",
+  "type": "theme",
+  "name": "Gboard pink",
+  "description": "Gboard pink",
+  "tags": [
+    "gboard",
+    "pink",
+    "light"
+  ],
+  "license": "CC0-1.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "xyz12344",
+    "id": 234922099
+  },
+  "issues": [
+    46
+  ],
+  "createdAt": "2026-11-22T14:44:58.668Z",
+  "updatedAt": "2026-11-22T14:44:58.668Z",
+  "previews": [
+    "preview.png",
+    "preview-tools.png",
+    "preview-clipboard.png",
+    "preview-editing.png"
+  ]
+}

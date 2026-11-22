@@ -9,7 +9,7 @@
     "author": "WM Keyboard community",
     "homepage": "https://github.com/wasi-master/wmkeyboard-community-addons",
     "icon": "icon.png",
-    "updatedAt": "2026-11-10"
+    "updatedAt": "2026-11-22"
   },
   "addons": [
     {
@@ -95,6 +95,29 @@
         "addons/themes/frostkey/preview-editing.png"
       ],
       "license": "CC-BY-4.0"
+    },
+    {
+      "id": "gboard-pink",
+      "type": "theme",
+      "name": "Gboard pink",
+      "version": "1.0.0",
+      "author": "xyz12344",
+      "description": "Gboard pink",
+      "tags": [
+        "gboard",
+        "pink",
+        "light"
+      ],
+      "path": "addons/themes/gboard-pink/theme.wmtheme.json",
+      "sha256": "bfd5b0847a029a569ea86c3a474e576224a3240c2d9e1ec36f6bf228b35b774a",
+      "sizeBytes": 4035,
+      "previews": [
+        "addons/themes/gboard-pink/preview.png",
+        "addons/themes/gboard-pink/preview-tools.png",
+        "addons/themes/gboard-pink/preview-clipboard.png",
+        "addons/themes/gboard-pink/preview-editing.png"
+      ],
+      "license": "CC0-1.0"
     },
     {
       "id": "greyish-ash",
