@@ -2,7 +2,7 @@
   "name": "wmkeyboard-community-bot",
   "private": true,
   "type": "module",
-  "description": "Validates, previews and publishes community theme and layout submissions.",
+  "description": "Validates, previews and publishes community addon submissions: themes, layouts, packs, snippets and plugins.",
   "engines": {
     "node": ">=20"
   },

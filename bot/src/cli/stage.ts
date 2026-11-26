@@ -16,8 +16,10 @@ import { fullRenderTypes, LABELS, TYPES } from '../constants.ts';
 import { renderSticky, verdict, type FullReport, type QuickReport, type Stage } from '../comment.ts';
 import { GitHub, labelNames } from '../github.ts';
 import { manifestText } from '../manifest.ts';
-import { collectImages, metaFor, pendingManifest, writeAddonFolder, type Summary } from '../pending.ts';
-import { readPublished } from '../repo.ts';
+import { collectImages, metaFor, pendingManifest, writeAddonFolder, writePluginSource, type Summary } from '../pending.ts';
+import type { WmpyReport } from '../plugin.ts';
+import { addonDir, readPublished } from '../repo.ts';
+import { buildReview } from '../review.ts';
 import { checkedId, checkedType, env, issueNumber, main, readJson, REPO_ROOT } from './io.ts';
 
 function readSummary(work: string, issue: number): Summary {
@@ -54,6 +56,20 @@ function readQuickReport(dir: string | undefined, id: string): QuickReport | nul
 	};
 }
 
+/** The wmpy job's wmpy.json, or null when it left none. */
+function readWmpyReport(dir: string | undefined): WmpyReport | null {
+	if (!dir || !existsSync(join(dir, 'wmpy.json'))) return null;
+	const raw = readJson<WmpyReport>(join(dir, 'wmpy.json'));
+	return raw && typeof raw === 'object' ? raw : null;
+}
+
+/** The published payload an update replaces, or null. */
+function previousPayload(s: Summary): Buffer | null {
+	if (!s.isUpdate || !s.id || !s.type) return null;
+	const path = join(REPO_ROOT, addonDir(s.type, s.id), TYPES[s.type].file);
+	return existsSync(path) ? readFileSync(path) : null;
+}
+
 function files(issue: number) {
 	const work = env('WORK_DIR');
 	const s = readSummary(work, issue);
@@ -70,6 +86,7 @@ function files(issue: number) {
 	writeAddonFolder(target, meta, payload, images);
 	writeFileSync(join(target, 'submission.json'), JSON.stringify(s, null, 2) + '\n');
 	writeFileSync(join(target, 'wmkeyboard-repo.json'), manifestText(pendingManifest(meta, payload, issue)));
+	if (type === 'plugin') writePluginSource(target, payload, previousPayload(s));
 	console.log(`staged pending/${issue}: ${type} ${id} with ${images.map((i) => i.name).join(', ') || 'no preview'}`);
 }
 
@@ -77,17 +94,21 @@ async function comment(issue: number, stage: Stage) {
 	const gh = GitHub.fromEnv();
 	const s = readSummary(env('WORK_DIR'), issue);
 	// Off for the repository, or for this type: the quick verdict then stands.
-	const fullDisabled = process.env.FULL_RENDER === 'off' || !fullRenderTypes().has(s.type!);
+	// A plugin has no JVM pass; the wmpy job's report is its quick verdict.
+	const fullDisabled = process.env.FULL_RENDER === 'off' || !fullRenderTypes().has(s.type!) || s.type === 'plugin';
 	const quick = readQuickReport(process.env.QUICK_DIR, s.id!);
 	const full = stage === 'final' && !fullDisabled ? readFullReport(process.env.FULL_DIR, s.id!) : undefined;
-	const input = { stage, submission: s, quick, full, fullDisabled, repo: gh.repo, runId: env('GITHUB_RUN_ID') };
+	const plugin =
+		s.type === 'plugin' ? buildReview(readFileSync(join(env('WORK_DIR'), 'render', TYPES.plugin.file)), previousPayload(s), readWmpyReport(process.env.QUICK_DIR)) : null;
+	const input = { stage, submission: s, quick, full, fullDisabled, repo: gh.repo, runId: env('GITHUB_RUN_ID'), plugin };
 	await gh.upsertSticky(issue, renderSticky(input));
 
 	const state = verdict(input);
 	const current = labelNames(await gh.getIssue(issue));
 	const wanted = state === 'rendering' ? LABELS.rendering : state === 'ready' ? LABELS.ready : LABELS.needsFix;
-	await gh.addLabels(issue, [wanted, LABELS.type(s.type!)]);
-	await gh.removeLabels(issue, [LABELS.rendering, LABELS.ready, LABELS.needsFix].filter((l) => l !== wanted), current);
+	const risky = !!plugin && (plugin.facts.risky.length > 0 || plugin.facts.unknown.length > 0);
+	await gh.addLabels(issue, [wanted, LABELS.type(s.type!), ...(risky ? [LABELS.risky] : [])]);
+	await gh.removeLabels(issue, [LABELS.rendering, LABELS.ready, LABELS.needsFix, ...(risky ? [] : [LABELS.risky])].filter((l) => l !== wanted), current);
 }
 
 main(async () => {

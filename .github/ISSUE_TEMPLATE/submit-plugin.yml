@@ -1,0 +1,92 @@
+# Field ids are a contract with the app and with wmpy, which pre-fill this
+# form by query string (/issues/new?template=submit-plugin.yml&name=…&payload=…)
+# or file the same headings through the API, and with the bot, which maps the
+# headings back to these ids. Rename a label freely; never rename an id.
+name: Submit a plugin
+description: Share a Python plugin for WM Keyboard. A maintainer reads its code before it is published.
+title: "Plugin: "
+labels: [submission, "type:plugin"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The easiest way to fill this in is `wmpy publish` in the plugin's folder, **Share with everyone** on the plugin in WM Keyboard, or **Submit to community** in the web plugin editor. Each one fills the form for you.
+
+        A plugin is code, so it is reviewed before it goes out. The bot runs `wmpy check` and the plugin's tests, lists every permission and host it asks for, and posts its code and a link to try it. Nothing is published until a maintainer has read the code and approved it. See [CONTRIBUTING.md](https://github.com/wasi-master/wmkeyboard-community-addons/blob/main/CONTRIBUTING.md#plugins).
+
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      description: Shown on the plugin's card. Up to 60 characters; use the name in plugin.json.
+      placeholder: Cipher Tool
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What it does and what it needs. If it reaches the internet, say which service and why. Up to 500 characters.
+    validations:
+      required: true
+
+  - type: input
+    id: tags
+    attributes:
+      label: Tags
+      description: Comma-separated, up to 8. For example `text, translate, cipher`.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: license
+    attributes:
+      label: License
+      description: The licence the code is published under. MIT, Apache-2.0, the BSD licences and ISC let others reuse it freely; MPL-2.0, LGPL and GPL ask changed versions to stay open; CC0-1.0 and Unlicense give it away.
+      options:
+        - MIT
+        - Apache-2.0
+        - BSD-2-Clause
+        - BSD-3-Clause
+        - ISC
+        - MPL-2.0
+        - LGPL-3.0-or-later
+        - GPL-3.0-or-later
+        - AGPL-3.0-or-later
+        - Unlicense
+        - CC0-1.0
+    validations:
+      required: true
+
+  - type: input
+    id: updates
+    attributes:
+      label: Updates
+      description: To publish a new version of a plugin you shared before, its id (the folder name under addons/plugins). Raise pluginVersion in plugin.json first. Leave empty for a new plugin.
+    validations:
+      required: false
+
+  - type: input
+    id: based_on
+    attributes:
+      label: Based on
+      description: If this is a fork of someone else's plugin, that plugin as `repo-id/addon-id`, or its id here. Leave empty otherwise.
+    validations:
+      required: false
+
+  - type: textarea
+    id: payload
+    attributes:
+      label: Plugin
+      description: The `wmkb:1:…` text wmpy or the app gave you, or drag the .wmplugin into this box after renaming it to .zip (GitHub does not take the .wmplugin extension).
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: rights
+    attributes:
+      label: Rights
+      options:
+        - label: I wrote this code, or I have the right to publish it under the licence above. It holds no passwords, keys or personal data, and does only what its description says.
+          required: true

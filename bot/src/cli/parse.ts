@@ -13,7 +13,7 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { LABELS } from '../constants.ts';
 import { renderSticky } from '../comment.ts';
-import { labelMap, parseIssueForm } from '../form.ts';
+import { adoptedType, labelMap, parseIssueForm } from '../form.ts';
 import { GitHub, labelNames, type Issue } from '../github.ts';
 import { recordedRename } from '../comment.ts';
 import { readPublished } from '../repo.ts';
@@ -27,6 +27,16 @@ main(async () => {
 	const event = readEvent<{ issue?: Issue; inputs?: { issue?: string } }>();
 	const issue = event.issue ?? (await gh.getIssue(issueNumber(event.inputs?.issue ?? process.env.ISSUE_NUMBER)));
 	const labels = labelNames(issue);
+	const form = parseIssueForm(issue.body ?? '', labelMap(join(REPO_ROOT, '.github', 'ISSUE_TEMPLATE')));
+
+	// Filed through the API (wmpy publish), which drops the form's labels.
+	if (!labels.includes(LABELS.submission) && issue.state === 'open' && !issue.pull_request) {
+		const type = adoptedType(issue.body ?? '', form);
+		if (type) {
+			await gh.addLabels(issue.number, [LABELS.submission, LABELS.type(type)]);
+			labels.push(LABELS.submission, LABELS.type(type));
+		}
+	}
 
 	const skip =
 		!!issue.pull_request ||
@@ -41,7 +51,6 @@ main(async () => {
 	}
 
 	const comments = await gh.listComments(issue.number);
-	const form = parseIssueForm(issue.body ?? '', labelMap(join(REPO_ROOT, '.github', 'ISSUE_TEMPLATE')));
 	const result = await evaluateSubmission({
 		fields: form.fields,
 		formProblems: form.problems,

@@ -3,13 +3,14 @@
  * before anything is rendered. Pure apart from the zip download, which is
  * injected so tests can run it offline.
  */
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { ADDON_TYPES, BASED_ON_PATTERN, ID_PATTERN, LICENSES, LIMITS, REPO_ID, TYPES, type AddonType, type License } from './constants.ts';
+import { ADDON_TYPES, BASED_ON_PATTERN, ID_PATTERN, licensesFor, LIMITS, REPO_ID, TYPES, type AddonType, type License } from './constants.ts';
 import { isTicked, splitTags, type FieldId } from './form.ts';
 import { normaliseLayout } from './layout.ts';
 import { nearDuplicates } from './palette.ts';
 import { checkSize, classifyBytes, decodeEncoded, downloadZip, extractFromZip, findPayload, MAX_DECODED, PayloadError, type Classified } from './payload.ts';
+import { compareVersions, PLUGIN_ID, PLUGIN_VERSION, pluginFacts, readPluginArchive } from './plugin.ts';
 import type { Published } from './repo.ts';
 import { blockedWord, cleanLine, cleanText, md, slugify } from './text.ts';
 
@@ -50,6 +51,12 @@ export interface SubmissionResult {
 	basedOn: string | null;
 	submitter: { login: string; id: number };
 	issue: number;
+	/**
+	 * The version it publishes as, for a kind that carries its own: a
+	 * plugin's `pluginVersion`. Absent for the rest, which start at 1.0.0 and
+	 * go up a minor version with each update.
+	 */
+	version?: string;
 	/**
 	 * The payload as it will be published: pretty JSON for a theme, layout or
 	 * snippet pack (layouts normalised), the pack's own bytes for the rest.
@@ -105,10 +112,13 @@ export async function evaluateSubmission(input: SubmissionInput): Promise<Submis
 	if (tagProblem) fail('Tags', tagProblem);
 	else if (tags.length) pass('Tags');
 
+	// The form decides the licences offered: code licences for a plugin.
+	const formType = ADDON_TYPES.find((t) => issue.labels.includes(`type:${t}`)) ?? null;
+	const licenses = licensesFor(formType);
 	const licenseAnswer = cleanLine(fields.license);
-	const license = (LICENSES as readonly string[]).includes(licenseAnswer) ? (licenseAnswer as License) : null;
+	const license = (licenses as readonly string[]).includes(licenseAnswer) ? (licenseAnswer as License) : null;
 	if (license) pass('License', license);
-	else fail('License', `Pick one of ${LICENSES.join(', ')}.`);
+	else fail('License', `Pick one of ${licenses.join(', ')}.`);
 
 	const basedOnAnswer = cleanLine(fields.based_on);
 	let basedOn: string | null = null;
@@ -160,7 +170,6 @@ export async function evaluateSubmission(input: SubmissionInput): Promise<Submis
 		fail('Payload', e.message);
 	}
 
-	const formType = ADDON_TYPES.find((t) => issue.labels.includes(`type:${t}`)) ?? null;
 	if (type && formType && type !== formType) {
 		fail('Form type', `This is a ${TYPES[type].noun}, sent with the ${TYPES[formType].noun} form. Open a new issue with "Submit a ${TYPES[type].noun}".`);
 	}
@@ -214,6 +223,7 @@ export async function evaluateSubmission(input: SubmissionInput): Promise<Submis
 		}
 	}
 
+	let version: string | undefined;
 	if (classified && id) {
 		const text = (json: unknown) => Buffer.from(JSON.stringify(json, null, 2) + '\n', 'utf8');
 		switch (classified.type) {
@@ -240,6 +250,15 @@ export async function evaluateSubmission(input: SubmissionInput): Promise<Submis
 			case 'snippets':
 				payload = text(classified.json);
 				break;
+			case 'plugin': {
+				const checked = checkPlugin(classified.manifest, { id, name, isUpdate, published: input.published, root: input.root, submitter: issue.user });
+				checks.push(...checked.checks);
+				warnings.push(...checked.warnings);
+				version = checked.version;
+				// Byte for byte, like a pack: the sha256 in the manifest is of what was sent.
+				payload = classified.bytes;
+				break;
+			}
 			default:
 				// A pack goes out byte for byte: re-zipping it would only risk
 				// changing what the app's importer reads.
@@ -262,8 +281,96 @@ export async function evaluateSubmission(input: SubmissionInput): Promise<Submis
 		basedOn,
 		submitter: issue.user,
 		issue: issue.number,
+		...(version ? { version } : {}),
 		payload,
 	};
+}
+
+/** The plugin.json id of every published plugin, by addon id. Unreadable ones are left out. */
+export function publishedPluginIds(root: string, published: Published[]): Map<string, string> {
+	const out = new Map<string, string>();
+	for (const p of published) {
+		if (p.meta.type !== 'plugin') continue;
+		const file = join(root, p.dir, TYPES.plugin.file);
+		if (!existsSync(file)) continue;
+		try {
+			const id = pluginFacts(readPluginArchive(readFileSync(file)).manifest).id;
+			if (id) out.set(p.meta.id, id);
+		} catch {
+			// A published plugin the reader no longer takes says nothing about this one.
+		}
+	}
+	return out;
+}
+
+/**
+ * The plugin rules on top of the form's: the manifest's own id is the
+ * folder the plugin installs into on a phone, so it is unique across the
+ * repository and an update keeps it; the version is three numbers and an
+ * update raises it.
+ */
+function checkPlugin(
+	manifest: Record<string, unknown>,
+	ctx: { id: string; name: string; isUpdate: boolean; published: Published[]; root?: string; submitter: { id: number } },
+): { checks: Check[]; warnings: string[]; version?: string } {
+	const checks: Check[] = [];
+	const warnings: string[] = [];
+	const facts = pluginFacts(manifest);
+	const ids = ctx.root ? publishedPluginIds(ctx.root, ctx.published) : new Map<string, string>();
+
+	if (!PLUGIN_ID.test(facts.id)) {
+		checks.push({ title: 'Plugin id', ok: false, detail: 'plugin.json needs an "id" of 3 to 64 lowercase letters, digits, ".", "_" and "-", such as `com.example.cipher`.' });
+	} else {
+		const holder = [...ids.entries()].find(([addon, pluginId]) => pluginId === facts.id && addon !== ctx.id);
+		const previous = ctx.isUpdate ? ids.get(ctx.id) : undefined;
+		if (holder) {
+			const owner = ctx.published.find((p) => p.meta.id === holder[0]);
+			checks.push({
+				title: 'Plugin id',
+				ok: false,
+				detail:
+					owner?.meta.submitter.id === ctx.submitter.id
+						? `\`${facts.id}\` is the plugin id of \`${holder[0]}\`, which you published. To update it, put \`${holder[0]}\` in "Updates".`
+						: `\`${facts.id}\` is already the plugin id of \`${holder[0]}\`. Two plugins with one id overwrite each other on a phone: change "id" in plugin.json.`,
+			});
+		} else if (previous && previous !== facts.id) {
+			checks.push({
+				title: 'Plugin id',
+				ok: false,
+				detail: `The published version's id is \`${previous}\`. An update keeps it, or phones would install this beside the old one and lose its data: set "id" back to \`${previous}\`.`,
+			});
+		} else {
+			checks.push({ title: 'Plugin id', ok: true, detail: `\`${facts.id}\`` });
+		}
+	}
+
+	let version: string | undefined;
+	if (!PLUGIN_VERSION.test(facts.version)) {
+		checks.push({
+			title: 'Plugin version',
+			ok: false,
+			detail: facts.version
+				? `"pluginVersion" is ${md(facts.version.slice(0, 32))}. The community repository needs three numbers, such as \`1.0.0\`.`
+				: 'plugin.json needs a "pluginVersion", such as `1.0.0`.',
+		});
+	} else {
+		const owned = ctx.isUpdate ? ctx.published.find((p) => p.meta.id === ctx.id) : undefined;
+		if (owned && PLUGIN_VERSION.test(owned.meta.version) && compareVersions(facts.version, owned.meta.version) <= 0) {
+			checks.push({
+				title: 'Plugin version',
+				ok: false,
+				detail: `The published version is ${owned.meta.version}. Raise "pluginVersion" above it, or phones will not offer the update.`,
+			});
+		} else {
+			version = facts.version;
+			checks.push({ title: 'Plugin version', ok: true, detail: facts.version });
+		}
+	}
+
+	if (facts.name && ctx.name && facts.name.toLowerCase() !== ctx.name.toLowerCase()) {
+		warnings.push(`The form calls it "${md(ctx.name)}" and plugin.json "${md(facts.name)}". The repository lists the form's name; the keyboard shows plugin.json's.`);
+	}
+	return { checks, warnings, version };
 }
 
 /** The render input the quick and full passes read: `request.json` names the payload beside it. */

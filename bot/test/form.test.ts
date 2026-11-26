@@ -3,8 +3,8 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, it } from 'node:test';
 import { parse as parseYaml } from 'yaml';
-import { LICENSES } from '../src/constants.ts';
-import { FIELD_IDS, isTicked, parseIssueForm, splitTags, TEMPLATE_FILES, templateFields } from '../src/form.ts';
+import { ADDON_TYPES, licensesFor, SUBMIT_MARKER, TYPES } from '../src/constants.ts';
+import { adoptedType, FIELD_IDS, isTicked, parseIssueForm, splitTags, TEMPLATE_FILES, templateFields } from '../src/form.ts';
 import { fixture, LABELS, TEMPLATES } from './helpers.ts';
 
 describe('issue form templates', () => {
@@ -24,11 +24,13 @@ describe('issue form templates', () => {
 			for (const id of ['name', 'tags', 'updates', 'based_on']) assert.equal(byId[id]!.type, 'input', id);
 		});
 
-		it(`${file} offers the three licences and adds the submission label`, () => {
+		const type = ADDON_TYPES.find((t) => TYPES[t].template === file)!;
+		it(`${file} offers its kind's licences and adds the submission and type labels`, () => {
 			const doc = parseYaml(text) as { labels: string[]; body: { id?: string; attributes: { options?: unknown[] } }[] };
 			const license = doc.body.find((b) => b.id === 'license')!;
-			assert.deepEqual(license.attributes.options, [...LICENSES]);
+			assert.deepEqual(license.attributes.options, [...licensesFor(type)]);
 			assert.ok(doc.labels.includes('submission'));
+			assert.ok(doc.labels.includes(`type:${type}`));
 		});
 	}
 
@@ -85,5 +87,22 @@ describe('field helpers', () => {
 	it('splits, trims, lowercases and dedupes tags', () => {
 		assert.deepEqual(splitTags('Dark, #retro,dark,\nMono '), ['dark', 'retro', 'mono']);
 		assert.deepEqual(splitTags(''), []);
+	});
+});
+
+describe('a submission filed through the API', () => {
+	const form = (body: string) => parseIssueForm(body, LABELS);
+	const filed = `<!-- wmkb-submit:plugin -->\n${fixture('theme-encoded.md')}`;
+
+	it('names its type in a marker the bot adopts', () => {
+		assert.equal(adoptedType(filed, form(filed)), 'plugin');
+		assert.equal(SUBMIT_MARKER.exec('<!-- wmkb-submit:theme -->')?.[1], 'theme');
+	});
+
+	it('is adopted only with the marker first, a known type and a body that reads as a form', () => {
+		assert.equal(adoptedType(fixture('theme-encoded.md'), form(fixture('theme-encoded.md'))), null);
+		assert.equal(adoptedType('<!-- wmkb-submit:virus -->\n### Name\n\nx', form('### Name\n\nx')), null);
+		assert.equal(adoptedType('<!-- wmkb-submit:plugin -->\nplease add my plugin', form('please add my plugin')), null);
+		assert.equal(adoptedType(`hello\n${filed}`, form(filed)), null);
 	});
 });

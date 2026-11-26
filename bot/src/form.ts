@@ -10,7 +10,7 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { parse as parseYaml } from 'yaml';
-import { TYPES } from './constants.ts';
+import { ADDON_TYPES, SUBMIT_MARKER, TYPES, type AddonType } from './constants.ts';
 
 /** The ids the app pre-fills. A contract: the app writes them into URLs. */
 export const FIELD_IDS = ['name', 'description', 'tags', 'license', 'updates', 'based_on', 'payload', 'rights'] as const;
@@ -116,4 +116,15 @@ export function splitTags(answer: string | undefined): string[] {
 		if (tag && !out.includes(tag)) out.push(tag);
 	}
 	return out;
+}
+
+/**
+ * The type a tool-filed submission names in its first line (see
+ * [SUBMIT_MARKER]), when the rest of the body reads as a form. Null for
+ * anything else, which stays an ordinary issue the bot leaves alone.
+ */
+export function adoptedType(body: string, form: ParsedForm): AddonType | null {
+	const named = SUBMIT_MARKER.exec(body.trimStart())?.[1];
+	if (!named || !(ADDON_TYPES as readonly string[]).includes(named)) return null;
+	return form.problems.length ? null : (named as AddonType);
 }

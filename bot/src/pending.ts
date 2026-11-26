@@ -4,9 +4,11 @@
  * Both hold the same payload, previews and meta, so approving is a copy.
  */
 import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join, resolve, sep } from 'node:path';
 import { PENDING_REPO_ID, REPO_NAME, SCHEMA_URL, TYPES } from './constants.ts';
 import { entryFor, type RepoManifest } from './manifest.ts';
+import { pluginChanges, readPluginArchive } from './plugin.ts';
+import { DIFF_FILE, SOURCE_DIR } from './review.ts';
 import { bumpMinor, type Meta } from './repo.ts';
 import type { SubmissionResult } from './submission.ts';
 
@@ -74,7 +76,8 @@ export function metaFor(s: Summary, previews: string[], now: string, previous?: 
 		tags: s.tags,
 		license: s.license,
 		basedOn: s.basedOn ?? previous?.basedOn ?? null,
-		version: previous ? bumpMinor(previous.version) : '1.0.0',
+		// A plugin publishes under its own version; the rest count updates.
+		version: s.version ?? (previous ? bumpMinor(previous.version) : '1.0.0'),
 		submitter: { login: s.submitter.login, id: s.submitter.id },
 		issues: [...(previous?.issues ?? []).filter((n) => n !== s.issue), s.issue],
 		createdAt: previous?.createdAt ?? now,
@@ -112,4 +115,27 @@ export function writeAddonFolder(target: string, meta: Meta, payload: Uint8Array
 	writeFileSync(join(target, TYPES[meta.type].file), payload);
 	for (const image of images) copyFileSync(image.from, join(target, image.name));
 	writeFileSync(join(target, 'meta.json'), JSON.stringify(meta, null, 2) + '\n');
+}
+
+/**
+ * A plugin's files unpacked under `<target>/source/`, and for an update the
+ * diff against [previous] as `<target>/changes.diff`, so the review comment
+ * can link to what it has no room to show. Pending only: /approve copies the
+ * payload, previews and meta, not these.
+ */
+export function writePluginSource(target: string, payload: Uint8Array, previous?: Uint8Array | null): void {
+	const root = resolve(target, SOURCE_DIR);
+	rmSync(root, { recursive: true, force: true });
+	rmSync(join(target, DIFF_FILE), { force: true });
+	const archive = readPluginArchive(payload);
+	for (const f of archive.files) {
+		const path = resolve(root, f.name);
+		if (!path.startsWith(root + sep)) throw new Error(`refusing to write ${f.name} outside ${SOURCE_DIR}/`);
+		mkdirSync(dirname(path), { recursive: true });
+		writeFileSync(path, f.bytes);
+	}
+	if (previous) {
+		const diff = pluginChanges(readPluginArchive(previous), archive).diff;
+		if (diff) writeFileSync(join(target, DIFF_FILE), diff);
+	}
 }

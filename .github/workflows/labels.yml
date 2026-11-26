@@ -24,6 +24,8 @@ jobs:
           gh label create type:stickers   --force --color EC4899 --description "A sticker pack"
           gh label create type:sound_pack --force --color F97316 --description "A sound pack"
           gh label create type:snippets   --force --color F59E0B --description "A snippet pack"
+          gh label create type:plugin     --force --color 06B6D4 --description "A plugin: code, read by a maintainer before /approve"
+          gh label create risky-permissions --force --color B60205 --description "A plugin that asks for a permission the user has to grant"
           gh label create rendering   --force --color FBCA04 --description "The keyboard render is running"
           gh label create ready       --force --color 0E8A16 --description "Checks pass; waiting for /approve"
           gh label create needs-fix   --force --color D93F0B --description "The submitter has something to fix"

@@ -1,9 +1,10 @@
 # Checks an addon submitted through an issue form (a theme, layout, icon pack,
-# sticker pack, sound pack or snippet pack), previews it, and stages it on the
-# `pending` branch for a maintainer's /approve.
+# sticker pack, sound pack, snippet pack or plugin), previews it, and stages it
+# on the `pending` branch for a maintainer's /approve.
 #
 #   parse  (read)          read the form, decode the payload, check the rules
 #   quick  (read)          web store readers + KeyboardMock screenshot, ~1 min
+#   wmpy   (read)          a plugin instead: wmpy check and the plugin's tests
 #   stage  (write)         push pending/<issue>/, post the quick sticky comment
 #   full   (read)          WM Keyboard's own importer and keyboard on the JVM
 #   final  (write)         swap in the JVM preview, final comment and label
@@ -12,7 +13,13 @@
 # the event file; no `run:` line below interpolates anything from the issue.
 # The render jobs get only the parse job's render-input artifact (request.json
 # plus the payload) and hold no write permission; the jobs that write never
-# run submitted code.
+# run submitted code. The wmpy job is the one that runs submitted code (a
+# plugin's tests, in wm-python's sandbox), so it holds no token at all.
+#
+# An issue filed through the API (wmpy publish) carries no labels, because
+# the API drops labels a submitter without push access asks for. Its body
+# starts with `<!-- wmkb-submit:<type> -->`; parse.ts adds the labels when the
+# rest reads as a form.
 name: Submission
 
 on:
@@ -46,7 +53,9 @@ env:
 
 jobs:
   parse:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.issue.labels.*.name, 'submission')
+    if: >-
+      github.event_name == 'workflow_dispatch' || contains(github.event.issue.labels.*.name, 'submission') ||
+      startsWith(github.event.issue.body, '<!-- wmkb-submit:')
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
@@ -118,7 +127,7 @@ jobs:
 
   quick:
     needs: parse
-    if: needs.parse.outputs.ok == 'true'
+    if: needs.parse.outputs.ok == 'true' && needs.parse.outputs.type != 'plugin'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -170,10 +179,67 @@ jobs:
           path: ${{ runner.temp }}/quick/
           retention-days: 7
 
+  # A plugin's check: the same `wmpy check` and `wmpy test` its author runs.
+  # wmpy comes from the release named by the WMPY_VERSION repository
+  # variable (github.com/wasi-master/wmpy), or is built from WM Keyboard's
+  # source when that is unset or has no Linux build. Its report goes out as
+  # quick-output, the artifact the stage job reads for every type.
+  wmpy:
+    needs: parse
+    if: needs.parse.outputs.ok == 'true' && needs.parse.outputs.type == 'plugin'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: bot/package-lock.json
+
+      - name: Install the bot
+        working-directory: bot
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Install wmpy
+        env:
+          WMPY_VERSION: ${{ vars.WMPY_VERSION }}
+          WMKEYBOARD_REF: ${{ needs.parse.outputs.ref }}
+          WMPY_DIR: ${{ runner.temp }}/wmpy
+        run: bash bot/scripts/install-wmpy.sh
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: render-input
+          path: ${{ runner.temp }}/render
+
+      # The plugin's tests run here, after the last step that could see a
+      # token. Nothing this job writes is trusted beyond its report.
+      - name: Check and test with wmpy
+        working-directory: bot
+        env:
+          RENDER_DIR: ${{ runner.temp }}/render
+          OUT_DIR: ${{ runner.temp }}/quick
+          WMPY: ${{ runner.temp }}/wmpy/bin/wmpy
+        run: npx tsx src/cli/wmpy.ts
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: quick-output
+          path: ${{ runner.temp }}/quick/
+          if-no-files-found: ignore
+          retention-days: 7
+
   stage:
-    needs: [parse, quick]
-    # A crashed quick pass still stages the payload, so the try link works and
-    # the comment says the web preview is missing.
+    needs: [parse, quick, wmpy]
+    # A crashed quick or wmpy pass still stages the payload, so the try link
+    # works and the comment says the preview or the check is missing.
     if: ${{ !cancelled() && needs.parse.outputs.ok == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -233,7 +299,7 @@ jobs:
   full:
     needs: [parse, stage]
     if: >-
-      needs.parse.outputs.ok == 'true' && needs.stage.result == 'success' && vars.FULL_RENDER != 'off' &&
+      needs.parse.outputs.ok == 'true' && needs.stage.result == 'success' && vars.FULL_RENDER != 'off' && needs.parse.outputs.type != 'plugin' &&
       contains(format(',{0},', vars.FULL_RENDER_TYPES || 'theme,layout'), format(',{0},', needs.parse.outputs.type))
     runs-on: ubuntu-latest
     timeout-minutes: 90

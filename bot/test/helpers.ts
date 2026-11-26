@@ -2,6 +2,7 @@ import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { strToU8, zipSync } from 'fflate';
 import { TYPES, type AddonType } from '../src/constants.ts';
 import { labelMap, parseIssueForm } from '../src/form.ts';
 import { readPublished, type Meta } from '../src/repo.ts';
@@ -22,8 +23,25 @@ export interface Vector {
 	encoded: string;
 }
 
+/** A binary file's vector: `bytes` is the file as standard base64. */
+export interface ByteVector {
+	name: string;
+	bytes: string;
+	encoded: string;
+}
+
+function allVectors(): (Vector | ByteVector)[] {
+	return (JSON.parse(readFileSync(join(HERE, 'community-submission-vectors.json'), 'utf8')) as { vectors: (Vector | ByteVector)[] }).vectors;
+}
+
+/** The JSON vectors, in file order: two themes and a layout first. */
 export function vectors(): Vector[] {
-	return (JSON.parse(readFileSync(join(HERE, 'community-submission-vectors.json'), 'utf8')) as { vectors: Vector[] }).vectors;
+	return allVectors().filter((v): v is Vector => 'json' in v);
+}
+
+/** The binary vectors: a .wmplugin. */
+export function byteVectors(): ByteVector[] {
+	return allVectors().filter((v): v is ByteVector => 'bytes' in v);
 }
 
 export const ALICE = { login: 'alice', id: 1001 };
@@ -47,7 +65,7 @@ export function meta(over: Partial<Meta> & Pick<Meta, 'id' | 'type'>): Meta {
 }
 
 /** A throwaway repo root holding [addons], each with its payload and a 1x1 preview. */
-export function tree(addons: { meta: Meta; payload: string }[]): string {
+export function tree(addons: { meta: Meta; payload: string | Uint8Array }[]): string {
 	const root = mkdtempSync(join(tmpdir(), 'wmkb-community-'));
 	for (const { meta: m, payload } of addons) {
 		const dir = join(root, 'addons', TYPES[m.type].dir, m.id);
@@ -94,4 +112,31 @@ export function body(fields: Partial<Record<'name' | 'description' | 'tags' | 'l
 	]
 		.map(([h, x]) => `### ${h}\n\n${x}`)
 		.join('\n\n');
+}
+
+/** A plugin.json, with [over] on top of a small API 5 plugin. */
+export function pluginManifest(over: Record<string, unknown> = {}): Record<string, unknown> {
+	return {
+		format: 'wmkeyboard-plugin',
+		version: 1,
+		id: 'com.example.echo',
+		name: 'Echo',
+		pluginVersion: '1.0.0',
+		author: 'Example',
+		description: 'Types back what you write in its box.',
+		apiVersion: 5,
+		language: 'python',
+		entry: 'main.py',
+		permissions: ['storage', 'field.write'],
+		...over,
+	};
+}
+
+export const PLUGIN_MAIN = 'from wm import plugin, ui, field\n\n\n@plugin.render\ndef render():\n    return ui.column(ui.button("Type it", on_click=lambda e: field.type("hi")))\n';
+
+/** A .wmplugin: plugin.json from [manifest], main.py, and [files] beside them. */
+export function pluginZip(manifest: Record<string, unknown> = pluginManifest(), files: Record<string, string | Uint8Array> = {}): Uint8Array {
+	const entries: Record<string, Uint8Array> = { 'plugin.json': strToU8(JSON.stringify(manifest, null, 2)), 'main.py': strToU8(PLUGIN_MAIN) };
+	for (const [name, data] of Object.entries(files)) entries[name] = typeof data === 'string' ? strToU8(data) : data;
+	return zipSync(entries);
 }

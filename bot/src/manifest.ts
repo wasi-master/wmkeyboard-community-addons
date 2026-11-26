@@ -7,6 +7,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { ADDON_TYPES, DEFAULT_REPO_SLUG, LIMITS, REPO_DESCRIPTION, REPO_ID, REPO_NAME, SCHEMA_URL, STORE_SITE, OPEN_PAGE, ADD_REPO_BADGE, TYPES, type AddonType } from './constants.ts';
+import { pluginFileTypes, readPluginArchive } from './plugin.ts';
 import type { Meta, Published } from './repo.ts';
 import { md } from './text.ts';
 
@@ -24,6 +25,10 @@ export interface ManifestEntry {
 	previews: string[];
 	license: string;
 	basedOn?: string;
+	/** A plugin's: the file extensions it shows or colours in the Files tool, from its own plugin.json. */
+	fileTypes?: string[];
+	/** A plugin's: whole file names it shows or colours. */
+	fileNames?: string[];
 }
 
 export interface RepoManifest {
@@ -56,6 +61,13 @@ export function entryFor(meta: Meta, dir: string, payload: Uint8Array): Manifest
 		license: meta.license,
 	};
 	if (meta.basedOn) entry.basedOn = meta.basedOn;
+	if (meta.type === 'plugin') {
+		// As the official repository's build_index.py derives them, so the
+		// Files tool's offers never drift from what the plugin declares.
+		const { fileTypes, fileNames } = pluginFileTypes(readPluginArchive(payload).manifest);
+		if (fileTypes.length) entry.fileTypes = fileTypes;
+		if (fileNames.length) entry.fileNames = fileNames;
+	}
 	return entry;
 }
 
@@ -101,7 +113,7 @@ export function buildReadme(published: Published[], repoSlug = DEFAULT_REPO_SLUG
 		if (!items.length) return `## ${title}\n\nNone yet. Be the first: [submit one](${repoUrl}/issues/new?template=${template}).\n`;
 		const cells = items.map((p) => {
 			const preview = p.meta.previews[0];
-			// Sound and snippet packs have nothing to draw; their card says what they are instead.
+			// Sound packs, snippet packs and plugins have nothing to draw; their card says what they are instead.
 			const img = preview ? `<img src="${p.dir}/${preview}" width="240" alt="" />` : `<sub>${md(p.meta.description.slice(0, 140))}</sub>`;
 			const credit = p.meta.basedOn ? `<br><sub>remix of ${md(p.meta.basedOn)}</sub>` : '';
 			return `<td valign="top" width="33%"><a href="${p.dir}">${img}</a><br><b>${md(p.meta.name)}</b><br><sub>by ${md(p.meta.submitter.login)} · ${p.meta.license} · v${p.meta.version}</sub>${credit}</td>`;
@@ -123,14 +135,14 @@ export function buildReadme(published: Published[], repoSlug = DEFAULT_REPO_SLUG
 <div align="center">
   <img src="icon.png" width="96" height="96" alt="" />
   <h1>${REPO_NAME}</h1>
-  <p>Themes, layouts, icon packs, sticker packs, sound packs and snippets made by people who use WM Keyboard.</p>
+  <p>Themes, layouts, icon packs, sticker packs, sound packs, snippets and plugins made by people who use WM Keyboard.</p>
   <a href="${openLink()}"><img src="${ADD_REPO_BADGE}" alt="Add repository to WM Keyboard" height="72"></a>
   <p><sub>WM Keyboard lists this repository under <b>Settings → Addons</b> on its own. You only need the badge if you removed it.</sub></p>
 </div>
 
 Its address is \`${repoUrl}\`. You can also browse it in the [web store](${STORE_SITE}/addons/?repo=${encodeURIComponent(repoUrl)}).
 
-**Share yours:** use **Share with everyone** in the app (on a theme, a layout, an icon pack, a sticker pack or your snippets) or **Submit to community** in the web store's builders, or open one of the forms here: ${ADDON_TYPES.map((t) => `[${TYPES[t].noun}](${repoUrl}/issues/new?template=${TYPES[t].template})`).join(' · ')}. A bot checks it and posts a preview; a maintainer publishes it. Details in [CONTRIBUTING.md](CONTRIBUTING.md).
+**Share yours:** use **Share with everyone** in the app (on a theme, a layout, an icon pack, a sticker pack, a plugin or your snippets), **Submit to community** in the web store's builders and plugin editor, or \`wmpy publish\` for a plugin, or open one of the forms here: ${ADDON_TYPES.map((t) => `[${TYPES[t].noun}](${repoUrl}/issues/new?template=${TYPES[t].template})`).join(' · ')}. A bot checks it and posts a preview; a maintainer publishes it, and reads a plugin's code first. Details in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ${ADDON_TYPES.map(section).join('\n')}
 ${openTable ? `${openTable}\n` : ''}---

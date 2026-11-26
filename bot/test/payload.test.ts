@@ -6,7 +6,7 @@ import { PAYLOAD_PREFIX, TYPES } from '../src/constants.ts';
 import { classify, classifyBytes, decodeEncoded, downloadZip, encodePayload, extractFromZip, findPayload, MAX_DECODED, PayloadError } from '../src/payload.ts';
 
 const text = (bytes: Uint8Array) => Buffer.from(bytes).toString('utf8');
-import { vectors } from './helpers.ts';
+import { byteVectors, vectors } from './helpers.ts';
 
 describe('shared vectors', () => {
 	const all = vectors();
@@ -30,6 +30,20 @@ describe('shared vectors', () => {
 		it(`round-trips ${v.name} through the reference encoder`, () => {
 			// Compared as JSON: another encoder may pick other deflate bytes.
 			assert.deepEqual(JSON.parse(text(decodeEncoded(encodePayload(v.json), MAX_DECODED))), JSON.parse(v.json));
+		});
+	}
+
+	for (const v of byteVectors()) {
+		it(`decodes ${v.name} to its bytes`, () => {
+			assert.ok(v.encoded.startsWith(PAYLOAD_PREFIX));
+			assert.ok(!v.encoded.includes('='), 'no base64 padding');
+			assert.ok(Buffer.from(decodeEncoded(v.encoded, MAX_DECODED)).equals(Buffer.from(v.bytes, 'base64')));
+		});
+
+		it(`round-trips ${v.name} through the reference encoder and reads as a plugin`, () => {
+			const bytes = Buffer.from(v.bytes, 'base64');
+			assert.ok(Buffer.from(decodeEncoded(encodePayload(bytes), MAX_DECODED)).equals(bytes));
+			assert.equal(classifyBytes(bytes).type, 'plugin');
 		});
 	}
 

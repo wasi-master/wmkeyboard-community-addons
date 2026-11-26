@@ -2,14 +2,14 @@
 <div align="center">
   <img src="icon.png" width="96" height="96" alt="" />
   <h1>WM Keyboard Community</h1>
-  <p>Themes, layouts, icon packs, sticker packs, sound packs and snippets made by people who use WM Keyboard.</p>
+  <p>Themes, layouts, icon packs, sticker packs, sound packs, snippets and plugins made by people who use WM Keyboard.</p>
   <a href="https://wmkeyboard.app/open/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons"><img src="https://wmkeyboard.app/badges/add-repository.png" alt="Add repository to WM Keyboard" height="72"></a>
   <p><sub>WM Keyboard lists this repository under <b>Settings → Addons</b> on its own. You only need the badge if you removed it.</sub></p>
 </div>
 
 Its address is `https://github.com/wasi-master/wmkeyboard-community-addons`. You can also browse it in the [web store](https://wmkeyboard.pages.dev/addons/?repo=https%3A%2F%2Fgithub.com%2Fwasi-master%2Fwmkeyboard-community-addons).
 
-**Share yours:** use **Share with everyone** in the app (on a theme, a layout, an icon pack, a sticker pack or your snippets) or **Submit to community** in the web store's builders, or open one of the forms here: [theme](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-theme.yml) · [layout](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-layout.yml) · [icon pack](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-icon-pack.yml) · [sticker pack](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-stickers.yml) · [sound pack](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-sound-pack.yml) · [snippet pack](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-snippets.yml). A bot checks it and posts a preview; a maintainer publishes it. Details in [CONTRIBUTING.md](CONTRIBUTING.md).
+**Share yours:** use **Share with everyone** in the app (on a theme, a layout, an icon pack, a sticker pack, a plugin or your snippets), **Submit to community** in the web store's builders and plugin editor, or `wmpy publish` for a plugin, or open one of the forms here: [theme](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-theme.yml) · [layout](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-layout.yml) · [icon pack](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-icon-pack.yml) · [sticker pack](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-stickers.yml) · [sound pack](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-sound-pack.yml) · [snippet pack](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-snippets.yml) · [plugin](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-plugin.yml). A bot checks it and posts a preview; a maintainer publishes it, and reads a plugin's code first. Details in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Themes
 
@@ -85,6 +85,10 @@ None yet. Be the first: [submit one](https://github.com/wasi-master/wmkeyboard-c
 ## Snippets
 
 None yet. Be the first: [submit one](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-snippets.yml).
+
+## Plugins
+
+None yet. Be the first: [submit one](https://github.com/wasi-master/wmkeyboard-community-addons/issues/new?template=submit-plugin.yml).
 
 ## Open in WM Keyboard
 

@@ -6,6 +6,7 @@
 import { ID_PATTERN, PENDING_BRANCH, RENAME_MARKER, REPO_NAME, STICKY_MARKER, STORE_SITE, TYPES, type AddonType } from './constants.ts';
 import { BOT_LOGIN, type IssueComment } from './github.ts';
 import { MAIN_PREVIEWS } from './pending.ts';
+import { renderReview, wmpyChecks, type PluginReview } from './review.ts';
 import type { Check, SubmissionResult } from './submission.ts';
 import { md } from './text.ts';
 
@@ -43,7 +44,12 @@ export interface StickyInput {
 	repo: string;
 	/** Cache-buster for the raw preview URL; the run id. */
 	runId: string;
+	/** A plugin's manifest, files, code and diff, with wmpy's verdict; built by stage.ts. */
+	plugin?: PluginReview | null;
 }
+
+/** GitHub refuses a comment over 65,536 characters; the code inlined in a plugin's review stops well short of it. */
+export const COMMENT_LIMIT = 65_536;
 
 export function pendingUrls(repo: string, issue: number, file = '') {
 	const base = `https://raw.githubusercontent.com/${repo}/${PENDING_BRANCH}/pending/${issue}`;
@@ -86,7 +92,10 @@ export function renderSticky(input: StickyInput): string {
 	if (s.id) out.push(`**${md(s.name || s.id)}**, ${kind} \`${s.id}\`${s.isUpdate ? ' (update)' : ''} ${who}${s.license ? `, ${s.license}` : ''}`);
 
 	const checks: Check[] = [...s.checks];
-	if (input.quick) {
+	if (s.type === 'plugin' && input.stage !== 'form') {
+		// wmpy's verdict, from its own report rather than the summary line in report.json.
+		checks.push(...wmpyChecks(input.plugin?.wmpy ?? (input.quick ? { error: 'its report is missing', check: null, test: null } : null)));
+	} else if (input.quick) {
 		checks.push(
 			input.quick.ok
 				? { title: 'Web reader', ok: true }
@@ -106,6 +115,9 @@ export function renderSticky(input: StickyInput): string {
 
 	const warnings = [...s.warnings, ...(input.quick?.notes ?? []).map(md), ...(input.full?.warnings ?? []).map(md)];
 	if (warnings.length) out.push('### Notes', warnings.map((w) => `- ${w}`).join('\n'));
+
+	// Where a plugin's review goes; filled in last, with what the comment has room for.
+	const reviewAt = s.type === 'plugin' && s.ok && s.id && input.stage !== 'form' && input.plugin ? out.length : -1;
 
 	if (s.ok && s.id && input.stage !== 'form') {
 		// The JVM render wins when it drew something; a type it only checks
@@ -128,21 +140,39 @@ export function renderSticky(input: StickyInput): string {
 			].join('\n'),
 			'A trial install comes from a separate pending repository, so it does not turn into the published version by itself.',
 		);
+		if (s.type === 'plugin') {
+			out.push(
+				'> [!CAUTION]\n> Nobody has reviewed this code yet. A trial copy installs switched off, and its risky permissions stay off until you grant them on its page.',
+			);
+		}
 	}
 
 	if (state === 'needs-fix' && input.full !== null) {
 		out.push('Edit the issue to fix it (the pencil on your first post). The bot checks it again on every edit.');
 	}
+	const reviewNote =
+		s.type === 'plugin'
+			? '\n\nThis is code. Before `/approve`, read every file above: what it sends to each host, what it does with text it reads, that it does what its description says and nothing else. See "Reviewing a plugin" in CONTRIBUTING.md.'
+			: '';
 	out.push(
-		'<details><summary>For maintainers</summary>\n\n`/approve` publishes it once it is ready · `/reject <reason>` closes it · `/rename <new-id>` changes its id and checks it again.\n</details>',
+		`<details><summary>For maintainers</summary>\n\n\`/approve\` publishes it once it is ready · \`/reject <reason>\` closes it · \`/rename <new-id>\` changes its id and checks it again.${reviewNote}\n</details>`,
 	);
+	if (reviewAt >= 0) {
+		const room = COMMENT_LIMIT - 4_000 - out.join('\n\n').length;
+		const fixed = renderReview(input.plugin!, { repo: input.repo, issue: s.issue }, 0).join('\n\n').length;
+		out.splice(reviewAt, 0, ...renderReview(input.plugin!, { repo: input.repo, issue: s.issue }, Math.max(0, Math.min(40_000, room - fixed))));
+	}
 	return out.join('\n\n') + '\n';
 }
 
-/** The latest `/rename` the bot recorded on this issue, or null. Only the bot's own comments count. */
+/**
+ * The latest `/rename` the bot recorded on this issue, or null. Only the bot's
+ * own comments count, and only one that starts with the marker: the sticky
+ * comment quotes a plugin's code, which may hold the marker's text.
+ */
 export function recordedRename(comments: IssueComment[]): string | null {
 	let found: string | null = null;
-	const re = new RegExp(`<!-- ${RENAME_MARKER} ([a-z0-9-]+) -->`);
+	const re = new RegExp(`^<!-- ${RENAME_MARKER} ([a-z0-9-]+) -->`);
 	for (const c of comments) {
 		if (c.user?.login !== BOT_LOGIN) continue;
 		const id = re.exec(c.body)?.[1];
