@@ -46,8 +46,9 @@ export function unpackPlugin(archive: PluginArchive, dir: string): void {
 	}
 }
 
+/** Whether `wmpy test` finds tests in the plugin: test.py, or tests/…/test_*.py. */
 export function hasTests(archive: PluginArchive): boolean {
-	return archive.files.some((f) => f.kind === 'test');
+	return archive.files.some((f) => f.name === 'test.py' || (f.name.startsWith('tests/') && /(^|\/)test_[^/]*\.py$/.test(f.name)));
 }
 
 function json(text: string): Record<string, unknown> | null {
@@ -115,7 +116,15 @@ export function checkWithWmpy(dir: string, withTests: boolean, run: Runner): Wmp
 				problems: [{ severity: 'error', message: firstLine(test.stderr) || `wmpy test exited ${test.code} without a report` }],
 			};
 		} else {
-			const failures = [...problems(t.problems), ...problems(t.failures), ...problems(t.errors)];
+			// `tests`: one result per test, `{file, name, ok, error: Diag | null}`.
+			const failed = (Array.isArray(t.tests) ? t.tests : [])
+				.filter((x): x is Record<string, unknown> => !!x && typeof x === 'object' && (x as Record<string, unknown>).ok !== true)
+				.map((x) => {
+					const error = problem(x.error);
+					const where = `${typeof x.file === 'string' ? x.file : ''}${typeof x.name === 'string' && x.name !== '<module>' ? `::${x.name}` : ''}`;
+					return error ? { ...error, message: where ? `${where}: ${error.message}` : error.message } : { severity: 'error', message: `${where || 'a test'} failed` };
+				});
+			const failures = [...failed, ...problems(t.problems), ...problems(t.failures), ...problems(t.errors)].slice(0, 50);
 			report.test = { ok: t.ok === true && test.code === 0, passed: num(t.passed), failed: num(t.failed), problems: failures };
 		}
 	}

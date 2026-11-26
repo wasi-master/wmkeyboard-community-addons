@@ -13,7 +13,8 @@ import { compareVersions, pluginFacts, readPluginArchive, unifiedDiff, type Wmpy
 import { readPublished } from '../src/repo.ts';
 import { buildReview, fence, renderAsks } from '../src/review.ts';
 import { checkWithWmpy, hasTests, quickReport, unpackPlugin, type Runner } from '../src/wmpy.ts';
-import { ALICE, BOB, body, byteVectors, evaluate, meta, pluginManifest, pluginZip, tree } from './helpers.ts';
+import { adoptedType, parseIssueForm } from '../src/form.ts';
+import { ALICE, BOB, body, byteVectors, evaluate, fixture, LABELS, meta, pluginManifest, pluginZip, tree } from './helpers.ts';
 
 const failing = (r: { checks: { title: string; ok: boolean; detail?: string }[] }) => r.checks.filter((c) => !c.ok).map((c) => c.title);
 const detail = (r: { checks: { title: string; detail?: string }[] }, title: string) => r.checks.find((c) => c.title === title)?.detail ?? '';
@@ -403,6 +404,19 @@ describe('running wmpy', () => {
 		assert.equal(quickReport(r).ok, false);
 	});
 
+	it('reads the failures out of wmpy test --json', () => {
+		const tests = [
+			{ file: 'test.py', name: 'test_upper', ok: false, durationMs: 1, output: '', error: { severity: 'error', code: 'AssertionError', message: "'A' != 'a'", file: 'test.py', line: 7, col: null } },
+			{ file: 'tests/test_more.py', name: '<module>', ok: false, error: null },
+			{ file: 'test.py', name: 'test_lower', ok: true, error: null },
+		];
+		const r = checkWithWmpy('/p', true, fake({ '--version': version, check: { code: 0, stdout: { ok: true, errors: 0, warnings: 0, problems: [] } }, test: { code: 1, stdout: { ok: false, passed: 1, failed: 2, durationMs: 3, tests } } }));
+		assert.deepEqual(r.test!.problems, [
+			{ severity: 'error', code: 'AssertionError', message: "test.py::test_upper: 'A' != 'a'", file: 'test.py', line: 7 },
+			{ severity: 'error', message: 'tests/test_more.py failed' },
+		]);
+	});
+
 	it('treats a run that never answered as wmpy failing, not the plugin', () => {
 		assert.match(checkWithWmpy('/p', true, fake({ '--version': { code: null, stderr: 'spawn wmpy ENOENT' } })).error!, /ENOENT/);
 		const r = checkWithWmpy('/p', true, fake({ '--version': version, check: { code: 2, stderr: 'wmpy check: not built yet' } }));
@@ -422,6 +436,8 @@ describe('running wmpy', () => {
 		const forged = { ...archive, files: [{ ...archive.files[0]!, name: '../escape.txt' }] };
 		assert.throws(() => unpackPlugin(forged, dir), /outside the plugin folder/);
 		assert.equal(hasTests(readPluginArchive(pluginZip())), false);
+		assert.equal(hasTests(readPluginArchive(pluginZip(pluginManifest(), { 'tests/helpers.py': 'pass\n' }))), false);
+		assert.equal(hasTests(readPluginArchive(pluginZip(pluginManifest(), { 'tests/test_x.py': 'pass\n' }))), true);
 	});
 });
 
@@ -433,5 +449,27 @@ describe('the pending entry', () => {
 		assert.equal(e.type, 'plugin');
 		assert.match(e.sha256, /^[0-9a-f]{64}$/);
 		assert.equal(e.fileTypes, undefined);
+	});
+});
+
+describe('an issue wmpy publish filed', () => {
+	// The body `wmpy publish --dry-run --tags text` printed for a small API 5
+	// plugin, packed by the real `wmpy pack`. Keeps wmpy's form and this bot's
+	// reading of it from drifting apart.
+	const filed = fixture('plugin-wmpy.md');
+
+	it('is adopted as a plugin submission and passes', async () => {
+		assert.equal(adoptedType(filed, parseIssueForm(filed, LABELS)), 'plugin');
+		const r = await evaluate(filed, { type: 'plugin' });
+		assert.deepEqual(failing(r), []);
+		assert.equal(r.id, 'echo');
+		assert.equal(r.version, '1.0.0');
+		assert.equal(r.license, 'MIT');
+		assert.deepEqual(r.tags, ['text']);
+		const archive = readPluginArchive(r.payload!);
+		assert.equal(archive.manifest.id, 'com.example.echo');
+		// wmpy pack leaves the tests out of what is published.
+		assert.deepEqual(archive.files.map((f) => f.name), ['plugin.json', 'main.py']);
+		assert.equal(hasTests(archive), false);
 	});
 });
