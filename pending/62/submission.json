@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "title": "Submission form",
+      "ok": true
+    },
+    {
+      "title": "Rights confirmed",
+      "ok": true
+    },
+    {
+      "title": "Name",
+      "ok": true
+    },
+    {
+      "title": "Description",
+      "ok": true
+    },
+    {
+      "title": "Tags",
+      "ok": true
+    },
+    {
+      "title": "License",
+      "ok": true,
+      "detail": "CC-BY-4.0"
+    },
+    {
+      "title": "Payload",
+      "ok": true,
+      "detail": "Read from the attached zip."
+    },
+    {
+      "title": "Addon id",
+      "ok": true,
+      "detail": "`miku-nakano`"
+    }
+  ],
+  "warnings": [],
+  "type": "theme",
+  "id": "miku-nakano",
+  "isUpdate": false,
+  "name": "Miku Nakano",
+  "description": "Just a miku nakano theme",
+  "tags": [
+    "anime",
+    "girl",
+    "miku nakano"
+  ],
+  "license": "CC-BY-4.0",
+  "basedOn": null,
+  "submitter": {
+    "login": "MateusGamer4795",
+    "id": 66347493
+  },
+  "issue": 62
+}

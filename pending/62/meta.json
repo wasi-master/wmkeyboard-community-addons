@@ -1,0 +1,26 @@
+{
+  "id": "miku-nakano",
+  "type": "theme",
+  "name": "Miku Nakano",
+  "description": "Just a miku nakano theme",
+  "tags": [
+    "anime",
+    "girl",
+    "miku nakano"
+  ],
+  "license": "CC-BY-4.0",
+  "basedOn": null,
+  "version": "1.0.0",
+  "submitter": {
+    "login": "MateusGamer4795",
+    "id": 66347493
+  },
+  "issues": [
+    62
+  ],
+  "createdAt": "2026-11-27T20:48:01.291Z",
+  "updatedAt": "2026-11-27T20:48:01.291Z",
+  "previews": [
+    "preview.png"
+  ]
+}
